@@ -10,18 +10,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;
     private String imageUrl;
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<>();
 

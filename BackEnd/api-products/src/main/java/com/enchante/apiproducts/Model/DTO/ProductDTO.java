@@ -1,9 +1,12 @@
 package com.enchante.apiproducts.Model.DTO;
 
-import com.enchante.apiproducts.Model.Category;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDTO {
 
     private Integer id;
@@ -11,6 +14,6 @@ public class ProductDTO {
     private String description;
     private String imageUrl;
     private Double price;
-    private CategoryDTO category;
+    private Integer categoryId;
 
 }

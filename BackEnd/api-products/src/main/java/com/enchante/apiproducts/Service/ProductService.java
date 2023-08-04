@@ -1,20 +1,20 @@
 package com.enchante.apiproducts.Service;
 
-import com.enchante.apiproducts.Model.Product;
+import com.enchante.apiproducts.Model.DTO.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
 
-    Product getProductById(Integer id);
+    ProductDTO getProductById(Integer id);
 
-    List<Product> getAllProducts();
+    List<ProductDTO> getAllProducts();
 
-    List<Product> getProductsByCategory(String category);
+    List<ProductDTO> getProductsByCategory(String category);
 
-    Product createProduct(Product product);
+    ProductDTO createProduct(ProductDTO product);
 
-    void updateProduct(Product product);
+    ProductDTO updateProduct(Integer id, ProductDTO product);
 
     void deleteProduct(Integer id);
 
