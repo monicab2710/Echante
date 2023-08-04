@@ -9,7 +9,7 @@ const SigninPage = () => {
             <div className="w-full px-4">
               <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                  Sign in to your account
+                  Iniciar Sesión to your account
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
                   Login to your account for a faster checkout.
@@ -48,12 +48,12 @@ const SigninPage = () => {
                       </defs>
                     </svg>
                   </span>
-                  Sign in with Google
+                  Iniciar Sesión with Google
                 </button>
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color sm:block"></span>
                   <p className="w-full px-5 text-center text-base font-medium text-body-color">
-                    Or, sign in with your email
+                    Or, Iniciar Sesión with your email
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color sm:block"></span>
                 </div>
@@ -131,14 +131,14 @@ const SigninPage = () => {
                   </div>
                   <div className="mb-6">
                     <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Sign in
+                      Iniciar Sesión
                     </button>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Don’t you have an account?
                   <Link href="/signup" className="text-primary hover:underline">
-                    Sign up
+                    Registrarse
                   </Link>
                 </p>
               </div>
