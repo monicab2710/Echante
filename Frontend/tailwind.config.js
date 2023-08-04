@@ -14,12 +14,12 @@ module.exports = {
     colors: {
       current: "currentColor",
       transparent: "transparent",
-      white: "#FFFFFF",
-      black: "#090E34",
-      dark: "#1D2144",
-      primary: "#4A6CF7",
+      white: "#F2E8C9",
+      black: "#200C0C",
+      dark: "#370E0E",
+      primary: "#8C2727",
       yellow: "#FBB040",
-      "body-color": "#959CB1",
+      "body-color": "#A67051",
     },
     screens: {
       xs: "450px",
