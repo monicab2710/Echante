@@ -48,7 +48,7 @@ const SignupPage = () => {
                       </defs>
                     </svg>
                   </span>
-                  Sign up with Google
+                  Registrarse with Google
                 </button>
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
@@ -149,14 +149,14 @@ const SignupPage = () => {
                   </div>
                   <div className="mb-6">
                     <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Sign up
+                      Registrarse
                     </button>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Already using Startup?
                   <Link href="/signin" className="text-primary hover:underline">
-                    Sign in
+                    Iniciar Sesión
                   </Link>
                 </p>
               </div>
