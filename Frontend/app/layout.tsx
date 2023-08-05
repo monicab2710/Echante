@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 
+
 export default function RootLayout({
   children,
 }: {
@@ -31,4 +32,5 @@ export default function RootLayout({
   );
 }
 
-import { Providers } from "./providers";
+import { Providers } from "./providers";import React from "react";
+
