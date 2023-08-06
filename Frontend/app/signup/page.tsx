@@ -1,4 +1,27 @@
+
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  name: Yup.string().required(" necesito  tu nombre para continuar"),
+  lastname: Yup.string().required("apellido porfavor"),
+  email: Yup.string()
+    .email("Ingresa un email válido")
+    .required("Campo requerido"),
+  password: Yup.string()
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .required("Campo requerido"),
+    confirmpassword: Yup.string()
+    .min(6, "La contraseña debe tener los mismos caracteres")
+    .required("Campo requerido"),
+});
+const handleSubmit = (values, { setSubmitting }) => {
+  setSubmitting(false);
+};
 
 const SignupPage = () => {
   return (
@@ -9,10 +32,10 @@ const SignupPage = () => {
             <div className="w-full px-4">
               <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                  Create your account
+                🎉Crea tu cuenta 😄 🎉
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  It’s totally free and super easy
+                🚀✅ "¡Hazlo en segundos!"
                 </p>
                 <button className="mb-6 flex w-full items-center justify-center rounded-md bg-white p-3 text-base font-medium text-body-color shadow-one hover:text-primary dark:bg-[#242B51] dark:text-body-color dark:shadow-signUp dark:hover:text-white">
                   <span className="mr-3">
@@ -48,15 +71,27 @@ const SignupPage = () => {
                       </defs>
                     </svg>
                   </span>
-                  Registrarse with Google
+                  Registrate con Google
                 </button>
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
                   <p className="w-full px-5 text-center text-base font-medium text-body-color">
-                    Or, register with your email
+                    O, usa tu email 📧
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
                 </div>
+                <Formik
+                  initialValues={{
+                    name: "",
+                    lastname: "",
+                    email: "",
+                    password: "",
+                    confirmpassword: "",
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {({ isSubmitting }) => (
                 <form>
                   <div className="mb-8">
                     <label
@@ -64,14 +99,40 @@ const SignupPage = () => {
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
-                      Full Name{" "}
+                      Nombre{" "}
                     </label>
-                    <input
+                    <Field
                       type="text"
                       name="name"
-                      placeholder="Enter your full name"
+                      placeholder="escribe tu nombre / type your name"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
+                    <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+                  </div>
+                  <div className="mb-8">
+                    <label
+                      htmlFor="name"
+                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    >
+                      {" "}
+                      Apellido{" "}
+                    </label>
+                    <Field
+                      type="text"
+                      name="lastname"
+                      placeholder="escribe tu Apellido/ type your lastname"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                    />
+                    <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+                  
                   </div>
                   <div className="mb-8">
                     <label
@@ -79,14 +140,20 @@ const SignupPage = () => {
                       className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       {" "}
-                      Work Email{" "}
+                      Email{" "}
                     </label>
-                    <input
+                    <Field
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
+                    <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+
                   </div>
                   <div className="mb-8">
                     <label
@@ -96,13 +163,42 @@ const SignupPage = () => {
                       {" "}
                       Your Password{" "}
                     </label>
-                    <input
+                    <Field
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
+                         <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+
                   </div>
+
+                  <div className="mb-8">
+                    <label
+                      htmlFor="password"
+                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    >
+                      {" "}
+                      lets check is the same{" "}
+                    </label>
+                    <Field
+                      type="password"
+                      name="confirmpassword"
+                      placeholder="confirm your password"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                    />
+                         <ErrorMessage
+                    name="confirmpassword"
+                    component="div"
+                    className="text-red-500 text-sm"
+                  />
+
+                  </div>
+                  
                   <div className="mb-8 flex">
                     <label
                       htmlFor="checkboxLabel"
@@ -153,8 +249,10 @@ const SignupPage = () => {
                     </button>
                   </div>
                 </form>
+                   )}
+                   </Formik>
                 <p className="text-center text-base font-medium text-body-color">
-                  Already using Startup?
+                  Ya te registraste?
                   <Link href="/signin" className="text-primary hover:underline">
                     Iniciar Sesión
                   </Link>
