@@ -14,12 +14,13 @@ module.exports = {
     colors: {
       current: "currentColor",
       transparent: "transparent",
-      white: "#F2E8C9",
-      black: "#200C0C",
-      dark: "#370E0E",
-      primary: "#8C2727",
-      yellow: "#FBB040",
-      "body-color": "#A67051",
+      white: "#EA7363",
+      black: "#2D0024", //fondo
+      dark: "#875457",
+      primary: "#802121",
+      yellow: "#FFC47F",
+      "body-color": "#9e5401",
+      preflight: false,
     },
     screens: {
       xs: "450px",
@@ -39,12 +40,14 @@ module.exports = {
 
       "2xl": "1400px",
       // => @media (min-width: 1400px) { ... }
+      preflight: false,
     },
     extend: {
       boxShadow: {
         signUp: "0px 5px 10px rgba(4, 10, 34, 0.2)",
         one: "0px 2px 3px rgba(7, 7, 77, 0.05)",
         sticky: "inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)",
+        preflight: false,
       },
     },
   },
