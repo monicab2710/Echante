@@ -7,15 +7,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReservationRepository extends JpaRepository <Reservation,Integer> {
+public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
 
-    List<Reservation>findByDate (String date);
-    List<Reservation>findByTime (String time);
-    List<Reservation>findByDateAndTime (String date, String time);
+    List<Reservation> findByDate(String date);
+
+    List<Reservation> findByTime(String time);
+
+    List<Reservation> findByDateAndTime(String date, String time);
 
     //Por si la reserva no es encontrada
-    Optional<Reservation> findById (int id);
+    Optional<Reservation> findById(Integer id);
 
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,27 +23,44 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody ReservationDTO reservationDTO) {
+    public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservationDTO) {
         Reservation reservation = reservationService.createReservation(reservationDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
+        ReservationDTO createdReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners());
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdReservationDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Reservation> getReservationById(@PathVariable Integer id) {
+    public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Integer id) {
         Optional<Reservation> reservation = reservationService.getReservationById(id);
-        return reservation.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (reservation.isPresent()) {
+            ReservationDTO reservationDTO = new ReservationDTO(reservation.get().getId(), reservation.get().getTime(), reservation.get().getDate(), reservation.get().getAmountDiners());
+            return ResponseEntity.ok(reservationDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Reservation>> getAllReservations() {
+    public ResponseEntity<List<ReservationDTO>> getAllReservations() {
         List<Reservation> reservations = reservationService.getAllReservations();
-        return ResponseEntity.ok(reservations);
+        List<ReservationDTO> reservationDTOS = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            reservationDTOS.add(new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners()));
+        }
+        return ResponseEntity.ok(reservationDTOS);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservationDTO> updateReservation(@PathVariable Integer id, @RequestBody ReservationDTO reservationDTO) {
+        Reservation reservation = reservationService.updateReservation(id, reservationDTO);
+        ReservationDTO updatedReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners());
+        return ResponseEntity.ok(updatedReservationDTO);
     }
 }
 

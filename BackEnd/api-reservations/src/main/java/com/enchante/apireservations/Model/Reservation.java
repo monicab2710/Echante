@@ -1,16 +1,19 @@
 package com.enchante.apireservations.Model;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name ="reservation")
+@Table(name = "reservation")
 public class Reservation {
 
     @Id
@@ -19,7 +22,7 @@ public class Reservation {
 
     private String time;
     private String date;
-    private int amountDiners;
+    private Integer amountDiners;
 
 
 }

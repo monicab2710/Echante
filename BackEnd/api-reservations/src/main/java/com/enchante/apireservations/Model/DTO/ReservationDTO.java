@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReservationDTO {
 
+    private Integer id;
     private String time;
     private String date;
-    private int amountDiners;
+    private Integer amountDiners;
 
 }
