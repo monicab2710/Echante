@@ -55,7 +55,7 @@ CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `description` text NOT NULL,
-  `url_image` text NOT NULL,
+  `image_url` text NOT NULL,
   `price` double NOT NULL,
   `category_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -83,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-07 22:18:07
+-- Dump completed on 2023-08-08 20:38:01
