@@ -26,7 +26,7 @@ const Reserve = () => {
                       <input
                         type="text"
                         placeholder="Cuéntanos el motivo de tu reserva"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                       />
                     </div>
                   </div>
@@ -40,7 +40,7 @@ const Reserve = () => {
                       </label>
                       <input
                         type="date"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                       />
                     </div>
                   </div>
@@ -54,7 +54,7 @@ const Reserve = () => {
                       </label>
                       <input
                         type="time"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                       />
                     </div>
                   </div>
@@ -69,7 +69,7 @@ const Reserve = () => {
                       <input
                         type="number"
                         placeholder="2"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                       />
                     </div>
                   </div>
@@ -85,7 +85,7 @@ const Reserve = () => {
                         name="message"
                         rows={5}
                         placeholder="Envíanos un mensaje"
-                        className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                       ></textarea>
                     </div>
                   </div>
