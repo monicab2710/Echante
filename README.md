@@ -69,10 +69,10 @@ En el apartado de frontend desarrollamos la presetnación para el usuario de la 
 SPRINT 1:
 En el desarrollo de este sprint el grupo encargado de desarrollar se centro en el diseño responsive en celular, tablet y pc, para ello se crea la siguiente secuencia:  
 
-Se crea la pagina de inicio
-Se crea la pagina de reserva
-Se crea el formulario de registro
-Se crea el inicio de sesión 
+Se crea la pagina de inicio <br>
+Se crea la pagina de reserva <br>
+Se crea el formulario de registro<br>
+Se crea el inicio de sesión <br>
 
 Como funcionalidad extra se le agrega la posibildiad al usuario de visualizar la pagina en modo oscuro o en modo normal, con un boton de luna en la parte superior derecha de la pantalla. 
 
