@@ -8,6 +8,7 @@ import { Console } from "console";
 const validationSchema = Yup.object({
   name: Yup.string().required("Campo requerido"),
   lastname: Yup.string().required("apellido por favor"),
+  username: Yup.string().required("Campo reuqerido"),
   email: Yup.string()
     .email("Ingresa un email válido")
     .required("Campo requerido"),
@@ -51,6 +52,7 @@ const SignupPage = () => {
                   initialValues={{
                     name: "",
                     lastname: "",
+                    username: "",
                     email: "",
                     password: "",
                     confirmpassword: "",
@@ -83,6 +85,30 @@ const SignupPage = () => {
                           className="text-red-500 "
                         />
                       </div>
+                      <div className="mb-8">
+                        <label
+                          htmlFor="username"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Usuario{" "}
+                        </label>
+                        <Field
+                          type="text"
+                          id="username"
+                          name="username"
+                          placeholder=" tu usuario"
+
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                        />
+                        <ErrorMessage
+                          name="username"
+                          id="username"
+                          component="small"
+                          className="text-red-500 "
+                        />
+                      </div>
+
                       <div className="mb-8">
                         <label
                           htmlFor="name"
