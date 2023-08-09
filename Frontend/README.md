@@ -1,43 +1,78 @@
-# Startup - Free Next.js Startup Website Template
+Primeros pasos con la aplicación Create React
+Este proyecto se inició con Create React App .
 
-Startup free, open-source, and premium-quality startup website template for Next.js comes with everything you need to launch a startup, business, or SaaS website, including all essential sections, components, and pages.
+Guiones disponibles
+En el directorio del proyecto, puede ejecutar:
+npm run dev
 
-If you're looking for a high-quality and visually appealing, feature-rich Next.js Template for your next startup, SaaS, or business website, this is the perfect choice and starting point for you!
+Ejecuta la aplicación en el modo de desarrollo. 
+Abra http://localhost:3000 para verlo en su navegador.
+La página se volverá a cargar cuando realice cambios.
 
-### ✨ Key Features
-- Crafted for Startup and SaaS Business
-- Next.js 13 and Tailwind CSS
-- All Essential Business Sections and Pages
-- High-quality and Clean Design
-- Dark and Light Version
-- TypeScript Support
-and Much More ...
+Documentación:
+https://es.legacy.reactjs.org/docs/getting-started.html
 
-### [🔥 Get Startup Pro](https://nextjstemplates.com/templates/saas-starter-startup)
+Se agregaron dependecias como: 
 
-[![Startup Pro](https://cdn.nextjstemplates.com/Startup-Pro---Next.js-Starter-Template-for-SaaS-Startups-282e26f7-f543-4ae4-a777-ac306c08cce8.png)](https://nextjstemplates.com/templates/saas-starter-startup)
+Next.js
+Instalación manual
+Para crear manualmente una nueva aplicación Next.js, instale los paquetes necesarios:
+npm install next@latest react@latest react-dom@latest
+Paquete.json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
 
-### [🚀 View Free Demo](https://startup.nextjstemplates.com/)
+Documentación:
+https://nextjs.org/docs/getting-started/installation
 
-### [🚀 View Pro Demo](https://startup-pro.nextjstemplates.com/)
+TailwindCss
+Instalación manual
+Para crear manualmente una nueva aplicación TailwindCss, instale los paquetes necesarios:
+npm install -D tailwindcss
+npx tailwindcss init
 
-### [📦 Download](https://nextjstemplates.com/templates/startup)
+Configura tus rutas de plantilla
+Agregue las rutas a todos sus archivos de plantilla en su tailwind.config.jsarchivo.
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 
-### [🔥 Get Pro](https://nextjstemplates.com/templates/saas-starter-startup)
+Documentación :
+https://tailwindcss.com/docs/installation
 
-### [🔌 Documentation](https://nextjstemplates.com/docs)
-
-### ⚡ Deploy Now
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FNextJSTemplates%2Fstartup-nextjs)
-
-[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/NextJSTemplates/startup-nextjs)
+Node.js
+Instalación Automatica
+Documentación:
+https://nodejs.org/es/docs
 
 
-### 📄 License
-Startup is 100% free and open-source, feel free to use with your personal and commercial projects.
+Enchanté
 
-### 💜 Support
-If you like the template, please star this repository to inspire the team to create more stuff like this and reach more users like you!
+Desarrollo Frontend: 
+En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera: 
 
-### ✨ Explore and Download - Free [Next.js Templates](https://nextjstemplates.com)
+SPRINT 1:
+En el desarrollo de este sprint el grupo encargado de desarrollar se centro en el diseño responsive en celular, tablet y pc, para ello se crea la siguiente secuencia:  
+
+Se crea la pagina de inicio
+![Alt text](image.png)
+Se crea la pagina de reserva
+![Alt text](image-1.png)
+Se crea el formulario de registro
+![Alt text](image-2.png)
+Se crea el inicio de sesión 
+![Alt text](image-3.png)
+
+Como funcionalidad extra se le agrega la posibildiad al usuario de visualizar la pagina en modo oscuro o en modo normal, con un boton de luna en la parte superior derecha de la pantalla: 
+![Alt text](image-4.png)
