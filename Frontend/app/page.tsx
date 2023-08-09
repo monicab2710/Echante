@@ -1,9 +1,9 @@
 
 import ScrollUp from "@/components/Common/ScrollUp";
 import Hero from "@/components/Hero/HeroSectionOne";
-import { Inter } from "@next/font/google";
+import { Quicksand } from "@next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function Home() {
   return (

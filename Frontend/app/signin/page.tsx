@@ -7,7 +7,7 @@ const SigninPage = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-primary/[20%] sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 py-10 px-6 dark:bg-primary/[20%] sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-yellow sm:text-3xl">
                   Iniciar sesión
                 </h3>
@@ -28,7 +28,7 @@ const SigninPage = () => {
                       type="email"
                       name="email"
                       placeholder="Ingresa tu Email"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-yellow/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8">
@@ -42,7 +42,7 @@ const SigninPage = () => {
                       type="password"
                       name="password"
                       placeholder="Ingresa tu contraseña"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-yellow/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-yellow placeholder-body-color/[50%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">

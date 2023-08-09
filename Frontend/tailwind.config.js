@@ -19,7 +19,7 @@ module.exports = {
       dark: "#875457",
       primary: "#802121",
       yellow: "#FFC47F",
-      "body-color": "#9e5401",
+      "body-color": "#DE7802",
       preflight: false,
     },
     screens: {
