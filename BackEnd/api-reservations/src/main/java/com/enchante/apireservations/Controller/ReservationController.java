@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/v1/reservations")
 public class ReservationController {
     private final ReservationService reservationService;
 
-    @Autowired
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
@@ -40,7 +39,7 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<ReservationDTO>> getAllReservations() {
         List<Reservation> reservations = reservationService.getAllReservations();
         List<ReservationDTO> reservationDTOS = new ArrayList<>();
@@ -51,9 +50,9 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body("El producto se eliminó exitosamente.");
     }
 
     @PutMapping("/{id}")

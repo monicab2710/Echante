@@ -19,7 +19,7 @@ public class ReservationService {
     private static final Integer MAX_TABLES = 20;
 
 
-    @Autowired
+
     public ReservationService(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
     }
@@ -37,7 +37,7 @@ public class ReservationService {
     }
 
     public Reservation createReservation(ReservationDTO reservationDTO) {
-        // Check if there are available tables
+        // Check para saber si hay mesas disponibles.
         if (!isTimeAvailable(reservationDTO.getDate(), reservationDTO.getTime())) {
             throw new RuntimeException("No hay mesas disponibles para este día y hora.");
         }
@@ -77,6 +77,7 @@ public class ReservationService {
         }
 
         Reservation reservation = reservationOptional.get();
+        reservation.setId(id);
         reservation.setTime(reservationDTO.getTime());
         reservation.setDate(reservationDTO.getDate());
         reservation.setAmountDiners(reservationDTO.getAmountDiners());
