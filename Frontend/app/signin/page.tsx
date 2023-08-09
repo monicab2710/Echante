@@ -76,7 +76,7 @@ const SigninPage = () => {
                             </span>
                           </div>
                         </div>
-                        Keep me signed in
+                        Mantener mi sesión 
                       </label>
                     </div>
                     <div>
@@ -84,7 +84,7 @@ const SigninPage = () => {
                         href="#0"
                         className="text-sm font-medium text-primary hover:underline"
                       >
-                        Forgot Password?
+                        ¿Olvidaste la contraseña?
                       </a>
                     </div>
                   </div>
@@ -95,7 +95,7 @@ const SigninPage = () => {
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Don’t you have an account? &nbsp;
+                  ¿No tienes una cuenta? &nbsp;
                   <Link href="/signup" className="text-primary hover:underline">
                     Registrarse
                   </Link>
