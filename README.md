@@ -70,13 +70,9 @@ SPRINT 1:
 En el desarrollo de este sprint el grupo encargado de desarrollar se centro en el diseño responsive en celular, tablet y pc, para ello se crea la siguiente secuencia:  
 
 Se crea la pagina de inicio
-![Alt text](image.png)
 Se crea la pagina de reserva
-![Alt text](image-1.png)
 Se crea el formulario de registro
-![Alt text](image-2.png)
 Se crea el inicio de sesión 
-![Alt text](image-3.png)
 
-Como funcionalidad extra se le agrega la posibildiad al usuario de visualizar la pagina en modo oscuro o en modo normal, con un boton de luna en la parte superior derecha de la pantalla: 
-![Alt text](image-4.png)
+Como funcionalidad extra se le agrega la posibildiad al usuario de visualizar la pagina en modo oscuro o en modo normal, con un boton de luna en la parte superior derecha de la pantalla. 
+
