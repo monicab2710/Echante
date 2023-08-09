@@ -71,10 +71,14 @@ En el desarrollo de este sprint el grupo encargado de desarrollar se centró en 
 tablet y pc, para ello se crea la siguiente secuencia: <br> <br>
 
 Se crea la página de inicio <br>
+![Alt text](image.png)
 Se crea la página de reserva <br>
+![Alt text](image-1.png)
 Se crea el formulario de registro<br>
+![Alt text](image-2.png)
 Se crea el inicio de sesión <br>
+![Alt text](image-3.png)
 <br>
 Como funcionalidad extra se le agrega la posibilidad al usuario de visualizar la página en modo oscuro o en modo normal,<br>
-con un botón de luna en la parte superior derecha de la pantalla. 
-
+con un botón de luna en la parte superior derecha de la pantalla. <br>
+![Alt text](image-4.png)
