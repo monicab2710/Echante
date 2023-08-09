@@ -2,77 +2,79 @@
 
 
 
-Primeros pasos con la aplicación Create React
+Primeros pasos con la aplicación Create React <br>
 Este proyecto se inició con Create React App .
 
-Guiones disponibles
-En el directorio del proyecto, puede ejecutar:
+Guiones disponibles <br>
+En el directorio del proyecto, puede ejecutar:<br>
 npm run dev
 
-Ejecuta la aplicación en el modo de desarrollo. 
-Abra http://localhost:3000 para verlo en su navegador.
-La página se volverá a cargar cuando realice cambios.
+Ejecuta la aplicación en el modo de desarrollo. <br>
+Abra http://localhost:3000 para verlo en su navegador.<br>
+La página se volverá a cargar cuando realice cambios.<br>
 
-Documentación:
-https://es.legacy.reactjs.org/docs/getting-started.html
+Documentación:<br>
+https://es.legacy.reactjs.org/docs/getting-started.html<br><br>
 
-Se agregaron dependecias como: 
+Se agregaron dependencias como: <br>
 
-Next.js
-Instalación manual
-Para crear manualmente una nueva aplicación Next.js, instale los paquetes necesarios:
-npm install next@latest react@latest react-dom@latest
-Paquete.json
-{
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  }
-}
+Next.js<br>
+Instalación manual<br>
+Para crear manualmente una nueva aplicación Next.js, instale los paquetes necesarios:<br>
+npm install next@latest react@latest react-dom@latest<br>
+Paquete.json<br>
+{<br>
+  "scripts": {<br>
+    "dev": "next dev",<br>
+    "build": "next build",<br>
+    "start": "next start",<br>
+    "lint": "next lint"<br>
+  }<br>
+}<br>
+<br>
+Documentación:<br>
+https://nextjs.org/docs/getting-started/installation<br><br>
 
-Documentación:
-https://nextjs.org/docs/getting-started/installation
+TailwindCss<br>
+Instalación manual<br>
+Para crear manualmente una nueva aplicación TailwindCss, instale los paquetes necesarios:<br>
+npm install -D tailwindcss<br>
+npx tailwindcss init<br>
+<br><br>
+Configura tus rutas de plantilla <br>
+Agregue las rutas a todos sus archivos de plantilla en su tailwind.config.jsarchivo.<br>
+/** @type {import('tailwindcss').Config} */<br>
+module.exports = {<br>
+  content: ["./src/**/*.{html,js}"],<br>
+  theme: {<br>
+    extend: {},<br>
+  },<br>
+  plugins: [],<br>
+}<br>
+<br>
+Documentación :<br>
+https://tailwindcss.com/docs/installation<br>
+<br><br>
+Node.js<br>
+Instalación Automática<br><br>
+Documentación:<br>
+https://nodejs.org/es/docs<br>
+<br><br><br>
 
-TailwindCss
-Instalación manual
-Para crear manualmente una nueva aplicación TailwindCss, instale los paquetes necesarios:
-npm install -D tailwindcss
-npx tailwindcss init
+Enchanté<br><br>
 
-Configura tus rutas de plantilla
-Agregue las rutas a todos sus archivos de plantilla en su tailwind.config.jsarchivo.
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{html,js}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+Desarrollo Frontend:<br> 
+En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera:<br><br> 
 
-Documentación :
-https://tailwindcss.com/docs/installation
+SPRINT 1:<br>
+En el desarrollo de este sprint el grupo encargado de desarrollar se centró en el diseño responsive en celular,<br>
+tablet y pc, para ello se crea la siguiente secuencia: <br> <br>
 
-Node.js
-Instalación Automatica
-Documentación:
-https://nodejs.org/es/docs
-
-
-Enchanté
-
-Desarrollo Frontend: 
-En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera: 
-
-SPRINT 1:
-En el desarrollo de este sprint el grupo encargado de desarrollar se centro en el diseño responsive en celular, tablet y pc, para ello se crea la siguiente secuencia:  
-
-Se crea la pagina de inicio <br>
-Se crea la pagina de reserva <br>
+Se crea la página de inicio <br>
+Se crea la página de reserva <br>
 Se crea el formulario de registro<br>
 Se crea el inicio de sesión <br>
-
-Como funcionalidad extra se le agrega la posibildiad al usuario de visualizar la pagina en modo oscuro o en modo normal, con un boton de luna en la parte superior derecha de la pantalla. 
+<br>
+Como funcionalidad extra se le agrega la posibilidad al usuario de visualizar la página en modo oscuro o en modo normal,<br>
+con un botón de luna en la parte superior derecha de la pantalla. 
 
