@@ -27,9 +27,9 @@ DROP TABLE IF EXISTS `reservation`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `time` varchar(100) NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `amount_diners` varchar(100) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `date` varchar(100) NOT NULL,
+  `amount_diners` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-07 22:19:09
+-- Dump completed on 2023-08-09 10:29:23
