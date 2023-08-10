@@ -222,7 +222,7 @@ const SignupPage = () => {
                             </div>
                           </div>
                           <span>
-                          Al crear una cuenta, significa que acepta los
+                          Al crear una cuenta significa que aceptas los
                             <a
                               href="#0"
                               className="text-primary hover:underline"
@@ -230,7 +230,7 @@ const SignupPage = () => {
                               {" "}
                               Términos y condiciones{" "}
                             </a>
-                            , y nuestra
+                            , con nuestra
                             <a
                               href="#0"
                               className="text-primary hover:underline"
