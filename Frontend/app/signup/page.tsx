@@ -97,7 +97,7 @@ const SignupPage = () => {
                           type="text"
                           id="username"
                           name="username"
-                          placeholder=" tu usuario"
+                          placeholder=" Tu usuario"
 
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
