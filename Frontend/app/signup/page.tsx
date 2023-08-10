@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Console } from "console";
+
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Campo requerido"),
@@ -20,7 +19,7 @@ const validationSchema = Yup.object({
     .required("Campo requerido")
     .oneOf([Yup.ref("password"), null], "la contraseña no coincide"),
 
-});
+})
 
 const SignupPage = () => {
   const handleSubmit = async (values, actions) => {
@@ -76,7 +75,7 @@ const SignupPage = () => {
                           name="name"
                           placeholder="Tu nombre"
 
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="name"
@@ -88,7 +87,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="username"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
                         >
                           {" "}
                           Usuario{" "}
@@ -97,9 +96,9 @@ const SignupPage = () => {
                           type="text"
                           id="username"
                           name="username"
-                          placeholder=" tu usuario"
+                          placeholder=" Tu usuario"
 
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="username"
@@ -122,7 +121,7 @@ const SignupPage = () => {
                           id="lastname"
                           name="lastname"
                           placeholder="Escribe tu apellido"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="name"
@@ -143,7 +142,7 @@ const SignupPage = () => {
                           type="email"
                           name="email"
                           placeholder="Tu Email"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="email"
@@ -216,10 +215,8 @@ const SignupPage = () => {
                                 >
                                   <path
                                     d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
-                                    fill="#3056D3"
-                                    stroke="#3056D3"
-                                    strokeWidth="0.4"
-                                  />
+                                    className="stroke-width-[0.4] fill-[#0D263B] stroke-[#0D263B] dark:fill-[#EA7363] dark:stroke-[#EA7363]"
+                                />
                                 </svg>
                               </span>
                             </div>

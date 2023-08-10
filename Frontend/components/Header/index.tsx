@@ -38,9 +38,9 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent ${
+        className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent  ${
           sticky
-            ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-40"
+            ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
             : "absolute"
         }`}
       >
@@ -95,7 +95,7 @@ const Header = () => {
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 bg-white py-4 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                  className={`navbar absolute right-0 z-30 w-[250px] text-yellow rounded border-[.5px] border-yellow bg-dark py-4 px-7 duration-300  dark:bg-primary/90 lg:visible lg:static lg:w-auto border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                     navbarOpen
                       ? "visibility top-full opacity-100"
                       : "invisible top-[120%] opacity-0"
@@ -107,7 +107,7 @@ const Header = () => {
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`flex py-2 text-base text-dark group-hover:opacity-70 dark:text-yellow lg:mr-0 lg:inline-flex lg:py-6 lg:px-0`}
+                            className={`flex py-2 text-base text-black group-hover:font-semibold group-hover:text-body-color dark:text-yellow lg:mr-0 lg:inline-flex lg:py-6 lg:px-0`}
                           >
                             {menuItem.title}
                           </Link>
@@ -152,13 +152,13 @@ const Header = () => {
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 <Link
                   href="/signin"
-                  className=" py-3 px-7 text-base font-bold text-dark hover:opacity-60 dark:text-yellow md:block"
+                  className=" py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color  md:block"
                 >
                   Ingresar
                 </Link>
                 <Link
                   href="/signup"
-                  className="ease-in-up hidden rounded-md bg-primary py-3 px-8 text-base font-bold text-yellow transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
+                  className="ease-in-up hidden rounded-md bg-white py-3 px-8 text-base font-bold text-primary transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
                 >
                   Registrarse
                 </Link>
