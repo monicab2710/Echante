@@ -8,7 +8,7 @@ const SigninPage = () => {
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
-                <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-yellow sm:text-3xl">
+                <h3 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
                   Iniciar sesión
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">

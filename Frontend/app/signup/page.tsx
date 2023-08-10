@@ -162,7 +162,7 @@ const SignupPage = () => {
                           type="password"
                           name="password"
                           placeholder="Tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="password"
@@ -184,7 +184,7 @@ const SignupPage = () => {
                           name="confirmpassword"
                           id="confirmpassword"
                           placeholder="Confirma tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color/[60%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="confirmpassword"
@@ -225,7 +225,7 @@ const SignupPage = () => {
                           Al crear una cuenta significa que aceptas los
                             <a
                               href="#0"
-                              className="text-primary hover:underline"
+                              className="text-primary dark:text-white hover:underline"
                             >
                               {" "}
                               Términos y condiciones{" "}
@@ -233,7 +233,7 @@ const SignupPage = () => {
                             , con nuestra
                             <a
                               href="#0"
-                              className="text-primary hover:underline"
+                              className="text-primary dark:text-white hover:underline"
                             >
                               {" "}
                               Política de Privacidad{" "}
@@ -252,7 +252,7 @@ const SignupPage = () => {
                 </Formik>
                 <p className="text-center text-base font-medium text-body-color">
                   ¿Ya te registraste? &nbsp;
-                  <Link href="/signin" className="text-primary hover:underline">
+                  <Link href="/signin" className="text-primary dark:text-white hover:underline">
                     Iniciar sesión
                   </Link>
                 </p>
