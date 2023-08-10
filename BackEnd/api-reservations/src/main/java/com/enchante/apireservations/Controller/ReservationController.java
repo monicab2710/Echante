@@ -52,7 +52,7 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable Integer id) {
         reservationService.deleteReservation(id);
-        return ResponseEntity.ok().body("El producto se eliminó exitosamente.");
+        return ResponseEntity.ok().body("La reserva se eliminó exitosamente.");
     }
 
     @PutMapping("/{id}")
