@@ -64,7 +64,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="name"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Nombre{" "}
@@ -75,7 +75,7 @@ const SignupPage = () => {
                           name="name"
                           placeholder="Tu nombre"
 
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="name"
@@ -87,7 +87,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="username"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Usuario{" "}
@@ -98,7 +98,7 @@ const SignupPage = () => {
                           name="username"
                           placeholder=" Tu usuario"
 
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="username"
@@ -111,7 +111,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="name"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Apellido{" "}
@@ -121,7 +121,7 @@ const SignupPage = () => {
                           id="lastname"
                           name="lastname"
                           placeholder="Escribe tu apellido"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="name"
@@ -133,7 +133,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="email"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Email{" "}
@@ -142,7 +142,7 @@ const SignupPage = () => {
                           type="email"
                           name="email"
                           placeholder="Tu Email"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="email"
@@ -153,7 +153,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="password"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Contraseña{" "}
@@ -162,7 +162,7 @@ const SignupPage = () => {
                           type="password"
                           name="password"
                           placeholder="Tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="password"
@@ -174,7 +174,7 @@ const SignupPage = () => {
                       <div className="mb-8">
                         <label
                           htmlFor="password"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
                           Confirma tu contraseña{" "}
@@ -184,7 +184,7 @@ const SignupPage = () => {
                           name="confirmpassword"
                           id="confirmpassword"
                           placeholder="Confirma tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="confirmpassword"
@@ -243,7 +243,7 @@ const SignupPage = () => {
                       </div>
                       <div className="mb-6">
                         <button disabled={isSubmitting} type="submit"
-                          className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-yellow transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                          className="flex w-full items-center justify-center rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                           Registrarse
                         </button>
                       </div>

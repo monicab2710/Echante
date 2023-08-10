@@ -19,7 +19,7 @@ const SigninPage = () => {
                   <div className="mb-8">
                     <label
                       htmlFor="email"
-                      className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       Tu Email
                     </label>
@@ -27,13 +27,13 @@ const SigninPage = () => {
                       type="email"
                       name="email"
                       placeholder="Ingresa tu Email"
-                      className="w-full rounded-md border border-transparent px-6 py-3 text-base text-body-color placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8">
                     <label
                       htmlFor="password"
-                      className="mb-3 block text-sm font-medium text-dark dark:text-yellow"
+                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
                     >
                       Tu contraseña
                     </label>
@@ -41,7 +41,7 @@ const SigninPage = () => {
                       type="password"
                       name="password"
                       placeholder="Ingresa tu contraseña"
-                      className="w-full rounded-md border border-transparent px-6 py-3 text-base text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
@@ -86,7 +86,7 @@ const SigninPage = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary px-9 py-4 text-base font-medium text-yellow transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Iniciar sesión
                     </button>
                   </div>

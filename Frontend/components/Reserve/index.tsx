@@ -10,7 +10,7 @@ const Reserve = () => {
               className="wow fadeInUp mb-12 rounded-md bg-primary/[20%] py-11 px-8 dark:bg-primary/[20%] sm:p-[55px] lg:mb-5 lg:px-8 lg:pb-8 xl:p-[55px] xl:mt-0 lg:mt-0 sm:mt-5 md:mt-8 sm:mt-8 xs:mt-8"
               data-wow-delay=".15s"
             >
-              <h2 className="mb-3 text-2xl font-bold text-primary dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
+              <h2 className="mb-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl">
                 Reserva en Enchanté
               </h2>
               <form>
