@@ -1,21 +1,20 @@
-package com.enchante.enchantetesting.backend.tests;
+package com.enchante.enchantetesting.backend.apireservations.tests;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GetAllProducts {
+public class DeleteReservationById {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("target/getAllProducts.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apireservations/reports/deleteReservationById.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -26,23 +25,21 @@ public class GetAllProducts {
     }
 
 
-    String productsURL = "http://localhost:8081/api/v1/products";
-    Response response = get(productsURL);
+    String reservationURL = "http://localhost:8087/api/v1/reservations/";
 
     @Test
-    public void getProducts() {
-        test = extent.createTest("Get de productos Positivo");
+    public void deleteReservationStatusPositive() {
+        test = extent.createTest("Delete de reservas Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        int statusCode = response.getStatusCode();
-        System.out.println("Response status is: " + statusCode);
+        String reservationId = "8";
 
-        response
-                .then()
-                .assertThat().statusCode(200)
-                .and().log().all();
+        when().
+                delete(reservationURL +reservationId).
+                then().
+                statusCode(200).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200");
+        test.log(Status.PASS, "Validación del código de estado 200 al eliminar una reserva por Id");
         test.log(Status.INFO, "Finaliza el test");
     }
 

@@ -1,4 +1,4 @@
-package com.enchante.enchantetesting.backend.tests;
+package com.enchante.enchantetesting.backend.apiproducts.tests;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetProductById {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("target/getProductById.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getProductById.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -51,36 +51,36 @@ public class GetProductById {
     }
 
     @Test
-    public void GetProductContainsPositive() {
+    public void getProductContainsPositive() {
         test = extent.createTest("Get de Producto por Id Positivo - Contiene");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "2";
+        String productId = "5";
         Response response = get(productURL+productId);
 
         String body = response.getBody().asString();
         System.out.println("Body: " + body);
-        assertTrue(body.contains("Croissant"));
+        assertTrue(body.contains("Crêpes salé"));
 
-        test.log(Status.PASS, "Validación del contenido del Body por Id de producto");
+        test.log(Status.PASS, "Validación del contenido del Body por Id de un producto");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
-    public void GetProductEqualToPositive() {
+    public void getProductEqualToPositive() {
         test = extent.createTest("Get de Producto por Id Positivo - Equals");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "3";
+        String productId = "9";
         Response response = get(productURL+productId);
 
         response
                 .then()
                 .assertThat()
-                .body("description", equalTo("Delgadas y suaves, con chocolate y mix de frutas, además de una pisca de miel para deleitarlos."))
+                .body("description", equalTo("Un plato alpino que combina papas, cebolla, tocino y queso reblochon, horneado hasta que el queso se derrita."))
                 .log().all();
 
-        test.log(Status.PASS, "Validación del campo 'description' por Id de producto");
+        test.log(Status.PASS, "Validación del campo 'description' por Id de un producto");
         test.log(Status.INFO, "Finaliza el test");
     }
 
@@ -101,7 +101,7 @@ public class GetProductById {
                 .assertThat().statusLine("HTTP/1.1 404 ")
                 .and().log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200");
+        test.log(Status.PASS, "Validación del código de estado 404");
         test.log(Status.INFO, "Finaliza el test");
     }
 

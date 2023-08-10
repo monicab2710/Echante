@@ -1,4 +1,4 @@
-package com.enchante.enchantetesting.backend.tests;
+package com.enchante.enchantetesting.backend.apiproducts.tests;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.get;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetProductByCategory {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("target/getProductByCategory.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getProductByCategory.html");
     static ExtentReports extent;
     ExtentTest test;
 

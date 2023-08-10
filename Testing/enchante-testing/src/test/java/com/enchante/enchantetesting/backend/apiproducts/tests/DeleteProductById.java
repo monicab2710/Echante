@@ -1,4 +1,4 @@
-package com.enchante.enchantetesting.backend.tests;
+package com.enchante.enchantetesting.backend.apiproducts.tests;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeleteProductById {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("target/deleteProductById.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/deleteProductById.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -39,7 +39,7 @@ public class DeleteProductById {
                 then().
                 statusCode(200).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200 al eliminar producto por Id");
+        test.log(Status.PASS, "Validación del código de estado 200 al eliminar un producto por Id");
         test.log(Status.INFO, "Finaliza el test");
     }
 
