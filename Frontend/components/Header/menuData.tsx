@@ -13,6 +13,8 @@ const menuData: Menu[] = [
     title: "Reservar",
     path: "/reservar",
     newTab: false,
-  }
+  },
+
+  
 ];
 export default menuData;
