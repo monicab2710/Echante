@@ -1,6 +1,6 @@
 
 import ScrollUp from "@/components/Common/ScrollUp";
-import Hero from "@/components/Hero/HeroSectionOne";
+import Hero from "@/components/Hero/Categories";
 import { Quicksand } from "@next/font/google";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
