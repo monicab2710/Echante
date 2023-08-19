@@ -23,6 +23,9 @@ public class Reservation {
     private String time;
     private String date;
     private Integer amountDiners;
+    private String status;
+    private String message;
+    private String emailUser;
 
 
 }

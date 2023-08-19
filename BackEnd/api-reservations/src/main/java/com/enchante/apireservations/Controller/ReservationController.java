@@ -23,16 +23,23 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservationDTO) {
-        Reservation reservation = reservationService.createReservation(reservationDTO);
-        ReservationDTO createdReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners());
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdReservationDTO);
+        try {
+            Reservation reservation = reservationService.createReservation(reservationDTO);
+            ReservationDTO createdReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners(), reservation.getStatus(), reservation.getMessage(), reservation.getEmailUser());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdReservationDTO);
+        } catch (RuntimeException e){
+            ReservationDTO errorResponse = new ReservationDTO();
+            errorResponse.setMessage("Error:" + e.getMessage());
+            return  ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReservationDTO> getReservationById(@PathVariable Integer id) {
         Optional<Reservation> reservation = reservationService.getReservationById(id);
         if (reservation.isPresent()) {
-            ReservationDTO reservationDTO = new ReservationDTO(reservation.get().getId(), reservation.get().getTime(), reservation.get().getDate(), reservation.get().getAmountDiners());
+            ReservationDTO reservationDTO = new ReservationDTO(reservation.get().getId(), reservation.get().getTime(), reservation.get().getDate(), reservation.get().getAmountDiners(), reservation.get().getStatus(), reservation.get().getMessage(),reservation.get().getEmailUser());
             return ResponseEntity.ok(reservationDTO);
         } else {
             return ResponseEntity.notFound().build();
@@ -44,7 +51,7 @@ public class ReservationController {
         List<Reservation> reservations = reservationService.getAllReservations();
         List<ReservationDTO> reservationDTOS = new ArrayList<>();
         for (Reservation reservation : reservations) {
-            reservationDTOS.add(new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners()));
+            reservationDTOS.add(new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners(), reservation.getStatus(), reservation.getMessage(), reservation.getEmailUser()));
         }
         return ResponseEntity.ok(reservationDTOS);
     }
@@ -58,7 +65,7 @@ public class ReservationController {
     @PutMapping("/{id}")
     public ResponseEntity<ReservationDTO> updateReservation(@PathVariable Integer id, @RequestBody ReservationDTO reservationDTO) {
         Reservation reservation = reservationService.updateReservation(id, reservationDTO);
-        ReservationDTO updatedReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners());
+        ReservationDTO updatedReservationDTO = new ReservationDTO(reservation.getId(), reservation.getTime(), reservation.getDate(), reservation.getAmountDiners(), reservation.getStatus(), reservation.getMessage(), reservation.getEmailUser());
         return ResponseEntity.ok(updatedReservationDTO);
     }
 }
