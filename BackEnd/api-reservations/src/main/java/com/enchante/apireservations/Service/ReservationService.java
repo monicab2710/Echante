@@ -1,88 +1,20 @@
 package com.enchante.apireservations.Service;
 
+import com.enchante.apireservations.Controller.Payload.ReservationRequest;
 import com.enchante.apireservations.Model.DTO.ReservationDTO;
-import com.enchante.apireservations.Model.Reservation;
-import com.enchante.apireservations.Repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class ReservationService {
+public interface ReservationService {
 
-    private final ReservationRepository reservationRepository;
-    private static final Integer MAX_TABLES = 20;
+    ReservationDTO getReservationById(Integer id);
 
+    List<ReservationDTO> getAllReservations();
 
+    ReservationDTO createReservation(ReservationRequest reservation, String email);
 
-    public ReservationService(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
-    }
+    ReservationDTO updateReservation(Integer id, ReservationRequest reservation, String email);
 
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
-    }
-
-    public Optional<Reservation> getReservationById(Integer id) {
-        return reservationRepository.findById(id);
-    }
-
-    public void deleteReservation(Integer id) {
-        reservationRepository.deleteById(id);
-    }
-
-    public Reservation createReservation(ReservationDTO reservationDTO) {
-        // Check para saber si hay mesas disponibles.
-        if (!isTimeAvailable(reservationDTO.getDate(), reservationDTO.getTime())) {
-            throw new RuntimeException("No hay mesas disponibles para este día y hora.");
-        }
-
-        Reservation reservation = new Reservation();
-        reservation.setTime(reservationDTO.getTime());
-        reservation.setDate(reservationDTO.getDate());
-        reservation.setAmountDiners(reservationDTO.getAmountDiners());
-
-        return reservationRepository.save(reservation);
-    }
-
-    private boolean isTimeAvailable(String date, String time) {
-        List<Reservation> reservations = reservationRepository.findByDateAndTime(date, time);
-
-        if (reservations.size() >= MAX_TABLES) {
-            return false;
-        }
-
-        try {
-            //Verificar con front como van a manejar este formato.
-            //LocalDate esta en (año, mes y día)
-            LocalDate.parse(date);
-            //LocalTime esta en (hora, minuto, segundo)
-            LocalTime.parse(time);
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public Reservation updateReservation(Integer id, ReservationDTO reservationDTO) {
-        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
-        if (reservationOptional.isEmpty()) {
-            throw new RuntimeException("No se encontró la reserva");
-        }
-
-        Reservation reservation = reservationOptional.get();
-        reservation.setId(id);
-        reservation.setTime(reservationDTO.getTime());
-        reservation.setDate(reservationDTO.getDate());
-        reservation.setAmountDiners(reservationDTO.getAmountDiners());
-
-        return reservationRepository.save(reservation);
-    }
+    void deleteReservation(Integer id);
 
 }
