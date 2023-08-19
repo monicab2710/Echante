@@ -30,6 +30,9 @@ CREATE TABLE `reservation` (
   `time` varchar(50) NOT NULL,
   `date` varchar(100) NOT NULL,
   `amount_diners` int NOT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `status` varchar(20) NOT NULL,
+  `email_user` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-09 10:29:23
+-- Dump completed on 2023-08-18 21:38:04
