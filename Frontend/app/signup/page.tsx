@@ -7,8 +7,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
-import  { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -34,46 +33,60 @@ const validationSchema = Yup.object({
 const MySwal = withReactContent(Swal)
 
 const SignupPage = () => {
-// const router= useRouter(); 
-const [isRegistered, setIsRegistered] = useState(false);
- 
- const handleSubmit = async (values, actions) => {
-  try {
-    const response = await axiosHelper.post('/api/v1/users', {
-      name: values.name,
-      lastname: values.lastname,
-      username: values.username,
-      email: values.email,
-      password: values.password,
-    });
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmpassword: ''
+  });
 
-    if (response.status === 201) {
-     
-      setIsRegistered(true);
-      MySwal.fire({
-        html: <strong>El registro se ha realizado de manera exitosa.</strong>,
-        icon: 'success',
-        showConfirmButton: false,
-        timerProgressBar: true,
-        timer: 3000,
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await axiosHelper.post('/api/v1/users/auth/signin', {
+        name: values.name,
+        username: values.username,
+        lastname: values.lastname,
+        email: values.email,
+        password: values.password,
       });
-    } else {
-      console.log('Error:', response.data);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    MySwal.fire({
-      html: (
-        <strong>
-          Lamentablemente no ha podido registrarse. Por favor intente más tarde.
-        </strong>
-      ),
-      icon: 'warning',
-    });
-  }
 
-  actions.setSubmitting(false);
-};
+      if (response.status === 201) {
+        setIsRegistered(true);
+        MySwal.fire({
+          html: <strong>El registro se ha realizado de manera exitosa.</strong>,
+          icon: 'success',
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 3000,
+        });
+      } else {
+        console.log('Error:', response.data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      MySwal.fire({
+        html: (
+          <strong>
+            Lamentablemente no ha podido registrarse. Por favor intente más tarde.
+          </strong>
+        ),
+        icon: 'warning',
+      });
+    }
+
+    actions.setSubmitting(false);
+  };
 
   return (
     <>
@@ -105,7 +118,7 @@ const [isRegistered, setIsRegistered] = useState(false);
                   onSubmit={handleSubmit}
                 >
                   {({ isSubmitting }) => (
-                    <Form>
+                    <Form >
                       <div className="mb-8">
                         <label
                           htmlFor="name"
@@ -118,6 +131,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                           type="text"
                           id="name"
                           name="name"
+                          value={formData.name}
+                          onChange={handleChange}
                           placeholder="Tu nombre"
 
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
@@ -141,6 +156,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                           type="text"
                           id="username"
                           name="username"
+                          value={formData.username}
+                          onChange={handleChange}
                           placeholder=" Tu usuario"
 
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
@@ -165,6 +182,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                           type="text"
                           id="lastname"
                           name="lastname"
+                          value={formData.lastname}
+                          onChange={handleChange}
                           placeholder="Escribe tu apellido"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
@@ -186,6 +205,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                         <Field
                           type="email"
                           name="email"
+                          value={formData.email}
+                          onChange={handleChange}
                           placeholder="Tu Email"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
@@ -206,6 +227,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                         <Field
                           type="password"
                           name="password"
+                          value={formData.password}
+                          onChange={handleChange}
                           placeholder="Tu contraseña"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
@@ -228,6 +251,8 @@ const [isRegistered, setIsRegistered] = useState(false);
                           type="password"
                           name="confirmpassword"
                           id="confirmpassword"
+                          value={formData.confirmpassword}
+                          onChange={handleChange}
                           placeholder="Confirma tu contraseña"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
