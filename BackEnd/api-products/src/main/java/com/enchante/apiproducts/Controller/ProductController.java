@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
@@ -36,10 +37,10 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/category/{category}")
-    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String category) {
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable Integer id) {
 
-        List<ProductDTO> response = productService.getProductsByCategory(category);
+        List<ProductDTO> response = productService.getProductsByCategory(id);
 
         if (response != null) {
             return ResponseEntity.ok().body(response);
