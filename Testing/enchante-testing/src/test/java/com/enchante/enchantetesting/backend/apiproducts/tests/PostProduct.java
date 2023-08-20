@@ -31,7 +31,7 @@ public class PostProduct {
 
     @Test
     public void postProductPositive() {
-        test = extent.createTest("Post de productos Positivo");
+        test = extent.createTest("Post de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -58,7 +58,7 @@ public class PostProduct {
 
     @Test
     public void postProductNegative() {
-        test = extent.createTest("Post de productos Negativo");
+        test = extent.createTest("Post de producto Negativo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -79,7 +79,7 @@ public class PostProduct {
                 .then()
                 .statusCode(400).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 400 intentar al crear un producto con una request mal solicitada");
+        test.log(Status.PASS, "Validación del código de estado 400 al intentar crear un producto con una request mal solicitada");
         test.log(Status.INFO, "Finaliza el test");
     }
 

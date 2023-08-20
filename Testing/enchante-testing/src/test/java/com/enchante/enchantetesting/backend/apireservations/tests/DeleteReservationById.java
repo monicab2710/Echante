@@ -29,7 +29,7 @@ public class DeleteReservationById {
 
     @Test
     public void deleteReservationStatusPositive() {
-        test = extent.createTest("Delete de reservas Positivo");
+        test = extent.createTest("Delete de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationId = "8";

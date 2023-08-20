@@ -29,7 +29,7 @@ public class DeleteProductById {
 
     @Test
     public void deleteProductStatusPositive() {
-        test = extent.createTest("Delete de productos Positivo");
+        test = extent.createTest("Delete de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         String productId = "9";

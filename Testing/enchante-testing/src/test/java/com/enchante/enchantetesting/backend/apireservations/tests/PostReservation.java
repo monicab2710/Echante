@@ -31,7 +31,7 @@ public class PostReservation {
 
     @Test
     public void postReservationPositive() {
-        test = extent.createTest("Post de reservas Positivo");
+        test = extent.createTest("Post de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();

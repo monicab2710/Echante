@@ -31,7 +31,7 @@ public class PutProductById {
 
     @Test
     public void putProductPositive() {
-        test = extent.createTest("Put de productos Positivo");
+        test = extent.createTest("Put de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -59,7 +59,7 @@ public class PutProductById {
 
     @Test
     public void putProductNegative() {
-        test = extent.createTest("Put de productos Negativo");
+        test = extent.createTest("Put de producto Negativo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();

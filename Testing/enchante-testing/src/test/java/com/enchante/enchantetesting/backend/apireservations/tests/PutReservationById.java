@@ -31,7 +31,7 @@ public class PutReservationById {
 
     @Test
     public void putReservationPositive() {
-        test = extent.createTest("Put de reservas Positivo");
+        test = extent.createTest("Put de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
