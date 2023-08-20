@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
             }
 
             User u = modelMapper.map(user, User.class);
-            u.setId(id); // Asegurar que el ID sea el correcto
+            u.setId(id);
             u = userRepository.save(u);
             return modelMapper.map(u, UserDTO.class);
 
