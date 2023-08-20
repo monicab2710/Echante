@@ -54,12 +54,12 @@
 					"response": []
 				},
 				{
-					"name": "GetProductsByCategory",
+					"name": "GetProductsByCategoryId",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/products/category/desayuno",
+							"raw": "http://localhost:8081/api/v1/products/category/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -70,7 +70,50 @@
 								"v1",
 								"products",
 								"category",
-								"desayuno"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCategoriesById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/categories/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"2"
 							]
 						}
 					},
@@ -167,6 +210,16 @@
 				{
 					"name": "GetAllReservations",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -188,6 +241,16 @@
 				{
 					"name": "GetReservationById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -210,11 +273,21 @@
 				{
 					"name": "CreateReservation",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"18:00\",\r\n    \"date\": \"2023-08-10\",\r\n    \"amountDiners\": 4\r\n}\r\n",
+							"raw": "{\r\n    \"time\": \"20:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\",\r\n    \"emailUser\": \"fkelley@mail.com\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -240,11 +313,21 @@
 				{
 					"name": "UpdateReservationById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"19:00\",\r\n    \"date\": \"2023-08-09\",\r\n    \"amountDiners\": 11\r\n}",
+							"raw": "{\r\n    \"time\": \"21:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 6,\r\n    \"message\": \"message\",\r\n    \"emailUser\": \"fkelley@mail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,10 +354,20 @@
 				{
 					"name": "DeleteReservationById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8087/api/v1/reservations/5",
+							"raw": "http://localhost:8087/api/v1/reservations/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -284,7 +377,7 @@
 								"api",
 								"v1",
 								"reservations",
-								"5"
+								"1"
 							]
 						}
 					},
@@ -298,6 +391,16 @@
 				{
 					"name": "GetAllUsers",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -319,10 +422,20 @@
 				{
 					"name": "GetUserById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users/1",
+							"raw": "http://localhost:8082/api/v1/users/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -332,20 +445,20 @@
 								"api",
 								"v1",
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "CreateUser",
+					"name": "RegisterUser",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"John\",\r\n    \"lastName\": \"Smith\",\r\n    \"userName\": \"johns\",\r\n    \"email\": \"johnsmith@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Florence\",\r\n    \"lastName\": \"Kelley\",\r\n    \"userName\": \"fkelley\",\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -353,7 +466,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users",
+							"raw": "http://localhost:8082/api/v1/users/auth/signup",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -362,7 +475,52 @@
 							"path": [
 								"api",
 								"v1",
-								"users"
+								"users",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/users/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"signin"
 							]
 						}
 					},
@@ -371,11 +529,21 @@
 				{
 					"name": "UpdateUserById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pepito\",\r\n    \"lastName\": \"Perez\",\r\n    \"userName\": \"pperez\",\r\n    \"email\": \"pperez@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Pepito\",\r\n    \"lastName\": \"Perez\",\r\n    \"userName\": \"pperez\",\r\n    \"email\": \"pperez@mail.com\",\r\n    \"password\": \"pperez_989\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -383,7 +551,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users/1",
+							"raw": "http://localhost:8082/api/v1/users/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -393,7 +561,7 @@
 								"api",
 								"v1",
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -402,10 +570,20 @@
 				{
 					"name": "DeleteUserById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users/1",
+							"raw": "http://localhost:8082/api/v1/users/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -415,7 +593,7 @@
 								"api",
 								"v1",
 								"users",
-								"1"
+								"2"
 							]
 						}
 					},
