@@ -43,7 +43,7 @@ public class PutProductById {
 
         System.out.println(request.toJSONString());
 
-        String productId = "8";
+        String productId = "1";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)

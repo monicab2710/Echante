@@ -35,7 +35,7 @@ public class GetProductById {
         test = extent.createTest("Get de Producto por Id Positivo - Básico");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "2";
+        String productId = "1";
         Response response = get(productURL+productId);
 
         int statusCode = response.getStatusCode();
@@ -55,12 +55,12 @@ public class GetProductById {
         test = extent.createTest("Get de Producto por Id Positivo - Contiene");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "5";
+        String productId = "1";
         Response response = get(productURL+productId);
 
         String body = response.getBody().asString();
         System.out.println("Body: " + body);
-        assertTrue(body.contains("Crêpes salé"));
+        assertTrue(body.contains("monsieur"));
 
         test.log(Status.PASS, "Validación del contenido del Body por Id de un producto");
         test.log(Status.INFO, "Finaliza el test");
@@ -71,13 +71,13 @@ public class GetProductById {
         test = extent.createTest("Get de Producto por Id Positivo - Equals");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "9";
+        String productId = "1";
         Response response = get(productURL+productId);
 
         response
                 .then()
                 .assertThat()
-                .body("description", equalTo("Un plato alpino que combina papas, cebolla, tocino y queso reblochon, horneado hasta que el queso se derrita."))
+                .body("description", equalTo("Especialidad de la gastronomía francesa."))
                 .log().all();
 
         test.log(Status.PASS, "Validación del campo 'description' por Id de un producto");

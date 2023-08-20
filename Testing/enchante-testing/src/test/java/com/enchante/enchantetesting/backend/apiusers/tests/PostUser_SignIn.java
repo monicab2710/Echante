@@ -6,6 +6,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
+import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -77,6 +78,30 @@ public class PostUser_SignIn {
                 .log().all();
 
         test.log(Status.PASS, "Validación de mensaje exitoso al loguearse con un usuario registrado");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
+    @Test
+    public void signInHeaderContainsPositive() {
+        test = extent.createTest("Login de usuario Positivo - Bearer Token");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("email", "cfoster@mail.com");
+        request.put("password", "cfoster_789");
+
+        System.out.println(request.toJSONString());
+
+        given()
+                .header("Content-type","application/json")
+                .contentType(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post(usersURL)
+                .then()
+                .header("Authorization", Matchers.containsString("Bearer "));
+
+        test.log(Status.PASS, "Validación del tipo de token al loguearse con un usuario registrado");
         test.log(Status.INFO, "Finaliza el test");
     }
 
