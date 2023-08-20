@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/reservations")
 public class ReservationController {
 
