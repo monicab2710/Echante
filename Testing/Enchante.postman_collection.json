@@ -287,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"20:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\",\r\n    \"emailUser\": \"fkelley@mail.com\"\r\n}\r\n",
+							"raw": "{\r\n    \"time\": \"20:30\",\r\n    \"date\": \"25/09/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -327,7 +327,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"21:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 6,\r\n    \"message\": \"message\",\r\n    \"emailUser\": \"fkelley@mail.com\"\r\n}",
+							"raw": "{\r\n    \"time\": \"21:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 6,\r\n    \"message\": \"message\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
