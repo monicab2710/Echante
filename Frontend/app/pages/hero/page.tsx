@@ -6,7 +6,7 @@ const HeroPage = () => {
     <>
       <Breadcrumb
         pageName="Hero Page"
-        description="Aquí encontrarás la información de nuestras últimas novedades."
+        description="Aquí encontrarás la información de nuestros platos."
       />
       <Categories />
     </>

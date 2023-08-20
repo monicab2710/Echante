@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getProductByCategoryId } from "dh-marvel/services/marvel/marvel.service";
+import { getProductsByCategoryId } from "services/products/products.service";
 
 type Data = any | { error: string; message: string };
 
@@ -12,11 +12,11 @@ export default async function handler(
   const {
     query: { id, limit },
   } = req;
-  const characterId = parseInt(id as string);
+  const categoryId = parseInt(id as string);
   const limitNumber = parseInt(limit as string);
 
   try {
-    const result = await getComicsByCharacterId(characterId, limitNumber);
+    const result = await getProductsByCategoryId (categoryId, limitNumber);
 
     if (result.code === 200) {
       res.status(200).json(result);
