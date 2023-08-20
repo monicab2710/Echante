@@ -3,20 +3,15 @@ import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axiosHelper from "../helper/axiosHelper";
-import ErrorIcon from "@mui/icons-material/Error";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useRouter } from "next/router";
 import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+
+
 import { useState } from "react";
-
-
 const validationSchema = Yup.object({
   name: Yup.string().required("Campo requerido"),
-  lastname: Yup.string().required("apellido por favor"),
-  username: Yup.string().required("Campo reuqerido"),
+  lastName: Yup.string().required("apellido por favor"),
+  userName: Yup.string().required("Campo reuqerido"),
   email: Yup.string()
     .email("Ingresa un email válido")
     .required("Campo requerido"),
@@ -27,36 +22,32 @@ const validationSchema = Yup.object({
     .min(6, "La contraseña debe tener los mismos caracteres")
     .required("Campo requerido")
     .oneOf([Yup.ref("password"), null], "la contraseña no coincide"),
-
 })
 
 const MySwal = withReactContent(Swal)
-
 const SignupPage = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    username: '',
-    lastname: '',
+    userName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmpassword: ''
   });
 
-  const handleChange = (e) => {
+  const handleFieldChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
+    setFormData({ ...formData, [name]: value });
   };
+
 
   const handleSubmit = async (values, actions) => {
     try {
-      const response = await axiosHelper.post('/api/v1/users/auth/signin', {
+      const response = await axiosHelper.post('/api/v1/users/auth/signup', {
         name: values.name,
-        username: values.username,
-        lastname: values.lastname,
+        userName: values.userName,
+        lastName: values.lastName,
         email: values.email,
         password: values.password,
       });
@@ -106,14 +97,7 @@ const SignupPage = () => {
 
                 </div>
                 <Formik
-                  initialValues={{
-                    name: "",
-                    lastname: "",
-                    username: "",
-                    email: "",
-                    password: "",
-                    confirmpassword: "",
-                  }}
+                  initialValues={formData}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
@@ -131,8 +115,7 @@ const SignupPage = () => {
                           type="text"
                           id="name"
                           name="name"
-                          value={formData.name}
-                          onChange={handleChange}
+
                           placeholder="Tu nombre"
 
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
@@ -146,7 +129,7 @@ const SignupPage = () => {
                       </div>
                       <div className="mb-8">
                         <label
-                          htmlFor="username"
+                          htmlFor="userName"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
@@ -154,17 +137,16 @@ const SignupPage = () => {
                         </label>
                         <Field
                           type="text"
-                          id="username"
-                          name="username"
-                          value={formData.username}
-                          onChange={handleChange}
+                          id="userName"
+                          name="userName"
+
                           placeholder=" Tu usuario"
 
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
-                          name="username"
-                          id="username"
+                          name="userName"
+                          id="userName"
                           component="small"
                           className="text-red-500 "
                         />
@@ -180,16 +162,15 @@ const SignupPage = () => {
                         </label>
                         <Field
                           type="text"
-                          id="lastname"
-                          name="lastname"
-                          value={formData.lastname}
-                          onChange={handleChange}
+                          id="lastName"
+                          name="lastName"
+
                           placeholder="Escribe tu apellido"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
                         <ErrorMessage
                           name="name"
-                          id="lastname"
+                          id="lastName"
                           component="div"
                           className="text-red-500 text-sm"
                         />
@@ -205,8 +186,7 @@ const SignupPage = () => {
                         <Field
                           type="email"
                           name="email"
-                          value={formData.email}
-                          onChange={handleChange}
+
                           placeholder="Tu Email"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
@@ -227,8 +207,7 @@ const SignupPage = () => {
                         <Field
                           type="password"
                           name="password"
-                          value={formData.password}
-                          onChange={handleChange}
+
                           placeholder="Tu contraseña"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
@@ -251,8 +230,7 @@ const SignupPage = () => {
                           type="password"
                           name="confirmpassword"
                           id="confirmpassword"
-                          value={formData.confirmpassword}
-                          onChange={handleChange}
+
                           placeholder="Confirma tu contraseña"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                         />
