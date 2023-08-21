@@ -10,7 +10,7 @@ public interface ProductService {
 
     List<ProductDTO> getAllProducts();
 
-    List<ProductDTO> getProductsByCategory(String category);
+    List<ProductDTO> getProductsByCategory(Integer id);
 
     ProductDTO createProduct(ProductDTO product);
 
