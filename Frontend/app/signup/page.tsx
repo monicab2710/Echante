@@ -9,14 +9,23 @@ import Swal from 'sweetalert2';
 
 import { useState } from "react";
 const validationSchema = Yup.object({
-  name: Yup.string().required("Campo requerido"),
-  lastName: Yup.string().required("apellido por favor"),
-  userName: Yup.string().required("Campo reuqerido"),
+  name: Yup.string().required("Campo requerido")
+  .max(20, "tu nombre no deberia tener mas de 20 caracteres")
+  .matches(/^[a-zA-Z]+$/, "tu nombre no puede contener números"),
+  lastName: Yup.string().required("apellido por favor")
+  .max(20, "tu apellido no deberia tener mas de 20 caracteres")
+  .matches(/^[a-zA-Z]+$/, "tu apellido no puede contener números"),
+  userName: Yup.string().required("Campo requerido")
+  .max(20, "tu usuario no deberia tener mas de 20 caracteres"),
   email: Yup.string()
     .email("Ingresa un email válido")
     .required("Campo requerido"),
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .max(10, "tu contraseña no debe tener mas de 10 caracteres")
+    .matches(/\d/, "La contraseña debe contener al menos un dígito")
+    .matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
+    .matches(/[@#$%^&*()_+!¡¿?~-]/, "La contraseña debe contener al menos un carácter especial")
     .required("Campo requerido"),
   confirmpassword: Yup.string()
     .min(6, "La contraseña debe tener los mismos caracteres")
@@ -57,6 +66,8 @@ const SignupPage = () => {
         MySwal.fire({
           html: <strong>El registro se ha realizado de manera exitosa.</strong>,
           icon: 'success',
+          background: "#008F95",
+          color: "#EA7363",
           showConfirmButton: false,
           timerProgressBar: true,
           timer: 3000,
