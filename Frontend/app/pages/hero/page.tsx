@@ -1,5 +1,7 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import Layout from "@/components/Hero/Layout";
 import Categories from "@/components/Hero/Categories";
+
 
 const HeroPage = () => {
   return (
