@@ -6,17 +6,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const query = req.query;
-  const { offset, limit } = query;
+  
 
   try {
-    const products: IProductRes = await getProducts(
-      Number(offset),
-      Number(limit)
-    );
+    const products: IProductRes = await getProducts();
 
     if (products.code === "InvalidCredentials") {
-      res.status(401).json("Invalid credentials");
+      res.status(401).json("Credenciales inválidas");
       return;
     }
     if (products.code === 200) {
@@ -24,8 +20,8 @@ export default async function handler(
       return;
     }
 
-    res.status(400).json("Bad request");
+    res.status(400).json("Solicitud incorrecta");
   } catch (error) {
-    res.status(500).json("Internal server error");
+    res.status(500).json("Error Interno del Servidor");
   }
 }
