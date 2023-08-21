@@ -66,9 +66,6 @@ const ProductsLayout: NextPage<ProductsLayoutProps> = ({ products }) => {
                   </Button>
                 </NextLink>
                 <NextLink href={`/products/${product.id}`} passHref>
-                  <Button variant="contained" color="secondary" sx={{ textTransform: "capitalize" }}>
-                    Comprar
-                  </Button>
                 </NextLink>
               </Box>
              

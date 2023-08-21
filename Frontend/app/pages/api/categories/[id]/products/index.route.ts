@@ -10,21 +10,21 @@ export default async function handler(
   res.setHeader("Content-Type", "application/json");
 
   const {
-    query: { id, limit },
+    query: { id },
   } = req;
   const categoryId = parseInt(id as string);
-  const limitNumber = parseInt(limit as string);
+ 
 
   try {
-    const result = await getProductsByCategoryId (categoryId, limitNumber);
+    const result = await getProductsByCategoryId (categoryId);
 
     if (result.code === 200) {
       res.status(200).json(result);
       return;
     }
-    res.status(404).json({ error: "Not Found", message: result });
+    res.status(404).json({ error: "No encontrado", message: result });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Internal Server Error", message: err });
+    res.status(500).json({ error: "Error interno del servidor", message: err });
   }
 }
