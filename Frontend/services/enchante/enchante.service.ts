@@ -6,7 +6,7 @@ const fetchApi = async (endpoint: string) => {
   return await response.json();
 };
 
-export const getProducts = async () => {
+export const getAllProducts = async () => {
   try {
     const response = await fetchApi("products");
 
@@ -23,7 +23,7 @@ export const getProducts = async () => {
   }
 };
 
-export const getProduct = async (productId: number) => {
+export const getProductById = async (productId: number) => {
   try {
     const response = await fetchApi(`products/${productId}`);
 
@@ -47,7 +47,7 @@ export const getProduct = async (productId: number) => {
   }
 };
 
-export const getCategory = async (categoryId: number) => {
+export const getCategoryById = async (categoryId: number) => {
   try {
     const response = await fetchApi(`categories/${categoryId}`);
 
@@ -71,7 +71,7 @@ export const getCategory = async (categoryId: number) => {
   }
 };
 
-export const getCategories = async () => {
+export const getAllCategories = async () => {
   try {
     const response = await fetchApi("categories");
 
@@ -88,7 +88,7 @@ export const getCategories = async () => {
   }
 };
 
-export const getProductsByCategoryId = async (categoryID: number) => {
+export const getProductsByCategory = async (categoryID: number) => {
   try {
     const response = await fetchApi(`categories/${categoryID}/products`);
 

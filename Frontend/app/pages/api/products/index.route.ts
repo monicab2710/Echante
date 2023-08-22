@@ -1,4 +1,4 @@
-import { getProducts } from "services/enchante/enchante.service";
+import { getAllProducts } from "services/enchante/enchante.service";
 import { NextApiRequest, NextApiResponse } from "next";
 import { IProductRes } from "types/IProduct.type";
 
@@ -9,7 +9,7 @@ export default async function handler(
   
 
   try {
-    const products: IProductRes = await getProducts();
+    const products: IProductRes = await getAllProducts();
 
     if (products.code === "InvalidCredentials") {
       res.status(401).json("Credenciales inválidas");

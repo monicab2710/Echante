@@ -10,7 +10,7 @@ const HeroPage = () => {
         pageName="Hero Page"
         description="Aquí encontrarás la información de nuestros platos."
       />
-      <Categories />
+      <Layout />
     </>
   );
 };

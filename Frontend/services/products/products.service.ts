@@ -8,7 +8,7 @@ export const getProductById = async (id: number) => {
   return await response.json();
 };
 
-export const getProductsByCategoryId = async (id: number): Promise<any> => {
+export const getProductsByCategory = async (id: number): Promise<any> => {
   const response = await fetch(`/api/categories/${id}/products`);
   return await response.json();
 };

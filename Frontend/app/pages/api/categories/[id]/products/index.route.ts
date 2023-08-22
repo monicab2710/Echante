@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getProductsByCategoryId } from "services/products/products.service";
+import { getProductsByCategory } from "services/products/products.service";
 
 type Data = any | { error: string; message: string };
 
@@ -16,7 +16,7 @@ export default async function handler(
  
 
   try {
-    const result = await getProductsByCategoryId (categoryId);
+    const result = await getProductsByCategory (categoryId);
 
     if (result.code === 200) {
       res.status(200).json(result);
