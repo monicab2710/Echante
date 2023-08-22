@@ -1,9 +1,13 @@
 package com.enchante.apiusers.service;
 
 import com.enchante.apiusers.dto.UserDTO;
+import com.enchante.apiusers.model.Role;
 import com.enchante.apiusers.model.User;
+import com.enchante.apiusers.repository.RoleRepository;
 import com.enchante.apiusers.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,11 +17,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ModelMapper modelMapper, PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.modelMapper = modelMapper;
+        this.encoder = new Pbkdf2PasswordEncoder();
     }
 
     @Override
@@ -53,9 +61,16 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        User u = modelMapper.map(user, User.class);
-        userRepository.save(u);
-        return modelMapper.map(u, UserDTO.class);
+        if (roleRepository.existsById(user.getRoleId())) {
+            Role role = roleRepository.findById(user.getRoleId()).get();
+            User u = modelMapper.map(user, User.class);
+            u.setPassword(encoder.encode(user.getPassword()));
+            u.setRole(role);
+            userRepository.save(u);
+            return modelMapper.map(u, UserDTO.class);
+        }
+
+        return null;
 
     }
 
@@ -70,8 +85,11 @@ public class UserServiceImpl implements UserService {
                 return null;
             }
 
+            Role role = roleRepository.findById(user.getRoleId()).get();
             User u = modelMapper.map(user, User.class);
             u.setId(id);
+            u.setPassword(encoder.encode(user.getPassword()));
+            u.setRole(role);
             u = userRepository.save(u);
             return modelMapper.map(u, UserDTO.class);
 

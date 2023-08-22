@@ -1,6 +1,7 @@
 package com.enchante.apiusers.controller;
 
 import com.enchante.apiusers.controller.payload.LoginRequest;
+import com.enchante.apiusers.controller.payload.LoginResponse;
 import com.enchante.apiusers.controller.payload.SignUpRequest;
 import com.enchante.apiusers.model.Role;
 import com.enchante.apiusers.model.RoleName;
@@ -67,10 +68,14 @@ public class   AuthController {
 
             String jwt = jwtUtils.generateToken(userDetails);
 
-            HttpHeaders header = new HttpHeaders();
-            header.add("Authorization", "Bearer " + jwt);
+            /*HttpHeaders header = new HttpHeaders();
+            header.add("Authorization", "Bearer " + jwt);*/
 
-            return ResponseEntity.ok().headers(header).body("User signed-in successfully!");
+            //return ResponseEntity.ok().headers(header).body("User signed-in successfully!");
+
+            LoginResponse response = new LoginResponse("User signed-in successfully!", "Bearer " + jwt);
+
+            return ResponseEntity.ok().body(response);
 
         } catch (BadCredentialsException e) {
 
