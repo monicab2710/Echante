@@ -1,4 +1,4 @@
-const ENCHANTE_API_URL = "http://localhost:8081/";
+const ENCHANTE_API_URL = "http://localhost:8081/api/v1";
 
 const fetchApi = async (endpoint: string) => {
   const url = `${ENCHANTE_API_URL}/${endpoint}`;

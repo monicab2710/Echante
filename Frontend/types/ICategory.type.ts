@@ -1,5 +1,6 @@
 export interface ICategoryResponse {
-  code: number;
+  code: number | string;
+  message: string;
   status: string;
 }
 

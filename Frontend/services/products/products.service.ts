@@ -1,14 +1,14 @@
 export const getAllProducts = async () => {
-  const response = await fetch("/api/v1/products");
+  const response = await fetch(`${process.env.ENCHANTE_API_URL}/products`);
   return await response.json();
 };
 
 export const getProductById = async (id: number) => {
-  const response = await fetch(`/api/v1/products/${id}`);
+  const response = await fetch(`${process.env.ENCHANTE_API_URL}/products/${id}`);
   return await response.json();
 };
 
 export const getProductsByCategory = async (id: number): Promise<any> => {
-  const response = await fetch(`/api/categories/${id}/products`);
+  const response = await fetch(`${process.env.ENCHANTE_API_URL}/categories/${id}/products`);
   return await response.json();
 };

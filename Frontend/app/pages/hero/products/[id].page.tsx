@@ -19,7 +19,7 @@ const ProductDetailPage: NextPage<Props> = ({ product }) => {
   }
   return (
     <Layout>
-      <Head>
+      <Head children={""}>
         <title>{product.name}</title>
         <meta
           name="description"

@@ -1,11 +1,8 @@
-export const category = 
-  {
-    id: 1,
-    name: "Baguette avec confiture",
-    description:
-      "Deliciosas rebanadas de baguette fresca untada con mantequilla y mermelada.",
-    imageUrl:
-      "https://img.freepik.com/foto-gratis/delicioso-desayuno-frances-vista-superior-mermelada_23-2150408526.jpg?w=1380&t=st=1691280747~exp=1691281347~hmac=5e8f98202d6bdc4cb6d2d280430501318977dba8557e3bbe4d710c3d8971984c",
-    price: 3.99,
-    categoryId: 1,
-  }
+export const category = {
+  id: 1,
+  title: "Entrada",
+  description:
+    "Explora nuestras irresistibles entradas que dan inicio a una experiencia culinaria francesa inolvidable. Desde un delicio Soufflé de queso hasta unos frescos Calamares. Cada bocado te acerca a la esencia de la cocina francesa.",
+  imageUrl:
+    "https://www.freepik.es/foto-gratis/rollo-berenjenas-nueces-ajo-verdes-cebolla-queso-crema-vista-lateral_7785663.htm#query=food%20french&position=1&from_view=search&track=ais",
+};
