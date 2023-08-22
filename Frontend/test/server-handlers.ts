@@ -6,15 +6,15 @@ import { category } from "./mocks/category";
 
 
 const handlers = [
-  rest.get("/api/v1/products", async (req, res, ctx) => {
+  rest.get("/products", async (req, res, ctx) => {
     return res(ctx.json(products));
   }),
-  rest.get("/api/v1/products/:id", async (req, res, ctx) => {
+  rest.get("/products/:id", async (req, res, ctx) => {
     const id = req.params.id;
     if (id === "1") return res(ctx.json(product));
     return res(ctx.json({ data: { results: [] } }));
   }),
-  rest.get("/api/v1/categories/:id", async (req, res, ctx) => {
+  rest.get("/categories/:id", async (req, res, ctx) => {
     const id = req.params.id;
     if (id === "1") return res(ctx.json({ data: { results: [category] } }));
     return res(ctx.json({ data: { results: [] } }));

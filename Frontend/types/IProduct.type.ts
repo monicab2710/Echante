@@ -1,5 +1,5 @@
 export interface IProductRes {
-  data: any;
+  results: any;
   code: number | string;
   message: string;
   status: string;

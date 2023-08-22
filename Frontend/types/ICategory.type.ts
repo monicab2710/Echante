@@ -1,4 +1,5 @@
-export interface ICategoryResponse {
+export interface ICategoryRes {
+  results: any;
   code: number | string;
   message: string;
   status: string;

@@ -4,6 +4,18 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
 import "../styles/src/input.css";
+import ScrollUp from "@/components/Common/ScrollUp";
+import Hero from "@/components/Hero/Layout";
+
+
+
+
+
+  
+
+ 
+
+    
 
 export default function RootLayout({
   children,
@@ -19,15 +31,16 @@ export default function RootLayout({
       <head />
 
       <body className="dark:bg-black">
-        <Providers>
+      
+          <ScrollUp />
           <Header />
           {children}
+          <Hero />
           <Footer />
           <ScrollToTop />
-        </Providers>
+       
       </body>
     </html>
   );
 }
 
-import { Providers } from "./providers";
