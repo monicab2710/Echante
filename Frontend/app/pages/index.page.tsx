@@ -7,8 +7,9 @@ import { IProductRes } from "types/IProduct.type";
 import Loader from "components/loader/loader-component";
 import Layout from "components/Hero/Layout";
 import { products } from "@/test/mocks/products";
+import axios from 'axios';
 
-
+const ENCHANTE_API_URL = "http://localhost:8081/api/v1";
 
 const Index: NextPage = () => {
   const [Products, setProducts] = useState<IProductRes>();
@@ -26,7 +27,7 @@ const Index: NextPage = () => {
   return (
     
     <Layout>
-  <Head children={""}>
+  <Head>
     <title>Enchanté</title>
     <meta name="description" content="Restaurante Francés enchanté" />
     <link rel="icon" href="/favicon.ico" />
@@ -47,7 +48,8 @@ const Index: NextPage = () => {
 };
 
 export async function getStaticProps() {
-  const products = await getAllProducts();
+  const response = await axios.get(`${ENCHANTE_API_URL}/products`);
+  const products = response.data;
 
   return {
     props: {

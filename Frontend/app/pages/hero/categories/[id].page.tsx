@@ -34,7 +34,7 @@ const CategoryPage: NextPage<Props> = ({ category }) => {
 
   return (
     <Layout>
-      <Head children={""}>
+      <Head>
         <title>{category.title}</title>
         <meta name="description" content={`Categoría ${category.title}`} />
       </Head>

@@ -7,16 +7,6 @@ import "../styles/src/input.css";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Hero from "@/components/Hero/Layout";
 
-
-
-
-
-  
-
- 
-
-    
-
 export default function RootLayout({
   children,
 }: {
