@@ -3,11 +3,19 @@ import Link from "next/link";
 import axiosHelper from "../helper/axiosHelper";
 import withReactContent from "sweetalert2-react-content";
 import Swal from 'sweetalert2';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useRouter } from 'next/navigation'
 import jwt_decode from "jwt-decode";
+import { UserContext } from "../providers";
+
+interface DecodedData {
+  name: string;
+  lastName: string;
+  email: string;
+  // rol: string; // No proporcionaste suficiente información sobre el tipo de 'rol'
+}
 
 
 const SigninPage = () => {
@@ -49,6 +57,10 @@ const SigninPage = () => {
     password: '',
     confirmpassword: ''
   };
+
+  let { setUser } = useContext(UserContext)
+
+
   const [responseMessage, setResponseMessage] = useState('');
 
   const saveUser = async (values) => {
@@ -80,6 +92,7 @@ const SigninPage = () => {
           //rol: res.data.authorities[0].authority
         })
         sessionStorage.setItem('user', userStorage);
+        setUser(userStorage);
         Toast.fire({
           icon: 'success',
           title: 'Inicio de sesión exitoso.'
@@ -224,7 +237,7 @@ const SigninPage = () => {
                           Iniciar sesión
                         </button>
                       </div>
-                    </Form>                 
+                    </Form>
                   )}
                 </Formik>
                 <p className="text-center text-base font-medium text-body-color">

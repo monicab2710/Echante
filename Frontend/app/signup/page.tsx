@@ -50,7 +50,6 @@ const SignupPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  
   const handleSubmit = async (values, actions) => {
    const router = useRouter()
     try {
@@ -89,7 +88,6 @@ const SignupPage = () => {
         icon: 'warning',
       });
     }
-
     actions.setSubmitting(false);
   };
 

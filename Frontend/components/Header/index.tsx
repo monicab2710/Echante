@@ -6,9 +6,12 @@ import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 import SignIn from "./signIn";
 import SignOut from "./signOut";
+import { UserContext } from '@/app/providers';
+import { useContext } from 'react';
 
 const Header = () => {
   // Navbar toggle
+  let { user, setUser } = useContext(UserContext)
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
     setNavbarOpen(!navbarOpen);
@@ -23,22 +26,9 @@ const Header = () => {
       setSticky(false);
     }
   };
-  const [user, setUser] = useState(null);
-  const test = () => {
-    console.log('mounted test')
-
-      const userStorage = sessionStorage.getItem('user')
-      setUser(JSON.parse(userStorage))
-      if (!user) {
-        setUser(JSON.parse(userStorage))
-      }
-    }
 
   useEffect(() => {
-    console.log('mounted')
     window.addEventListener("scroll", handleStickyNavbar);
-    test()
-    window.addEventListener("storage", test);
   }, []);
 
   // submenu handler
@@ -159,7 +149,7 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-                {!user ? <SignIn /> : <SignOut user={user} />}
+                {!user ? <SignIn /> : <SignOut currentUser={user} />}
                 <div>
                   <ThemeToggler />
                 </div>
