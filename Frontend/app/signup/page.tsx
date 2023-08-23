@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import axiosHelper from "../helper/axiosHelper";
 import withReactContent from "sweetalert2-react-content";
 import Swal from 'sweetalert2';
-
+import { useRouter } from "next/router";
 
 import { useState } from "react";
 const validationSchema = Yup.object({
@@ -50,8 +50,9 @@ const SignupPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
+  
   const handleSubmit = async (values, actions) => {
+   const router = useRouter()
     try {
       const response = await axiosHelper.post('/api/v1/users/auth/signup', {
         name: values.name,
@@ -62,6 +63,7 @@ const SignupPage = () => {
       });
 
       if (response.status === 201) {
+        router.push("/signin");
         setIsRegistered(true);
         MySwal.fire({
           html: <strong>El registro se ha realizado de manera exitosa.</strong>,
@@ -72,6 +74,7 @@ const SignupPage = () => {
           timerProgressBar: true,
           timer: 3000,
         });
+        //
       } else {
         console.log('Error:', response.data);
       }
