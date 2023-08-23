@@ -1,3 +1,18 @@
+# Front End - Proyecto Integrador 2 
+<h1 style="text-align:center;">Front End - Proyecto Integrador 2</h1>
+
+Enchanté<br><br>
+
+## Sprint 1
+
+En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera:<br><br>
+
+
+
+### **Issue #1: Implementar template general responsive**
+
+En el desarrollo de este sprint el grupo encargado de desarrollar se centró en el diseño responsive en celular,tablet y pc, para ello se crea la siguiente secuencia: <br> <br>1
+
 Primeros pasos con la aplicación Create React <br>
 Este proyecto se inició con Create React App .
 
@@ -56,25 +71,40 @@ Instalación Automática<br><br>
 Documentación:<br>
 https://nodejs.org/es/docs<br>
 <br><br><br>
-
-Enchanté<br><br>
-
-Desarrollo Frontend:<br> 
-En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera:<br><br> 
-
-SPRINT 1:<br>
-En el desarrollo de este sprint el grupo encargado de desarrollar se centró en el diseño responsive en celular,<br>
-tablet y pc, para ello se crea la siguiente secuencia: <br> <br>
+ 
 
 Se crea la página de inicio <br>
 ![Alt text](image.png)<br><br>
-Se crea la página de reserva <br>
-![Alt text](image-1.png)<br>
+
+### **Issue #5: Implementar el template de Registro**
+
 Se crea el formulario de registro<br>
 ![Alt text](image-2.png)<br>
-Se crea el inicio de sesión <br>
-![Alt text](image-3.png)<br>
-<br>
+
+### **Issue #10: Implementar el template de Reserva**
+
+Se crea la página de reserva <br>
+![Alt text](image-1.png)<br>
+
+### **Issue #15: **Modo oscuro**
+
 Como funcionalidad extra se le agrega la posibilidad al usuario de visualizar la página en modo oscuro o en modo normal,<br>
 con un botón de luna en la parte superior derecha de la pantalla. <br>
 ![Alt text](image-4.png)<br>
+
+### **Issue #16: **Implementar el template de Login**
+
+Se crea el inicio de sesión <br>
+![Alt text](image-3.png)<br>
+<br>
+### **Issue #17: **Añadir nuevos elementos al Footer**
+
+
+
+
+
+
+
+
+
+
