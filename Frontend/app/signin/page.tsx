@@ -7,7 +7,8 @@ import { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useRouter } from 'next/navigation'
- 
+import jwt_decode from "jwt-decode";
+
 
 const SigninPage = () => {
 
@@ -51,7 +52,7 @@ const SigninPage = () => {
   const [responseMessage, setResponseMessage] = useState('');
 
   const saveUser = async (values) => {
-   
+
     try {
       const res = await axiosHelper.post(
         "/api/v1/users/auth/signin",
@@ -66,14 +67,16 @@ const SigninPage = () => {
         }
       )
       if (res.status === 200) {
-       router.push('/')
+        router.push('/')
         const bearerToken = res.data.token
-        const token = bearerToken.split(" ")[1] 
+        const token = bearerToken.split(" ")[1]
         sessionStorage.setItem('token', token);
+        const decoded = jwt_decode(token);
+        console.log(decoded)
         const userStorage = JSON.stringify({
-          name: res.data.name,
-          lastName: res.data.name,
-          email: res.data.email,
+          name: decoded.name,
+          lastName: decoded.lastName,
+          email: decoded.sub,
           //rol: res.data.authorities[0].authority
         })
         sessionStorage.setItem('user', userStorage);
@@ -81,23 +84,26 @@ const SigninPage = () => {
           icon: 'success',
           title: 'Inicio de sesión exitoso.'
         });
-       
+
       } else if (res.status === 400) {
         console.log("respuesta1 ", res.data.data);
       }
     }
     catch (error) {
       MySwal.fire({
-        html: <strong>Lamentablemente no ha podido iniciar sesión. Por favor intente más tarde.</strong>,
+        html: <strong>Lamentablemente no ha podido iniciar sesión. ingrese una contrseña valida</strong>,
         icon: 'warning',
       });
 
-      console.error("Error en la llamada API: ", error);
+      console.error("CONTRASEñA INCORRECTA: ", error);
     }
   };
+
+
   useEffect(() => {
     document.title = `Iniciar Sesion`;
   }, []);
+
 
   return (
     <>
@@ -218,7 +224,7 @@ const SigninPage = () => {
                           Iniciar sesión
                         </button>
                       </div>
-                    </Form>
+                    </Form>                 
                   )}
                 </Formik>
                 <p className="text-center text-base font-medium text-body-color">
