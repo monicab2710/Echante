@@ -5,7 +5,7 @@ Enchanté<br><br>
 
 ## Sprint 1
 
-En el apartado de frontend desarrollamos la presetnación para el usuario de la siguiente manera:<br><br>
+En el apartado de frontend desarrollamos la presentación para el usuario de la siguiente manera:<br><br>
 
 
 
@@ -97,9 +97,19 @@ con un botón de luna en la parte superior derecha de la pantalla. <br>
 Se crea el inicio de sesión <br>
 ![Alt text](image-3.png)<br>
 <br>
+
+
+## Sprint 2
+
 ### **Issue #17: **Añadir nuevos elementos al Footer**
 
+### **Issue #25: **Implementar la integración con la API de Reservas**
 
+### **Issue #26: **Implementar la integración con la API de Productos**
+
+### **Issue #28: **Implementar la integración con la API de Usuarios**
+
+### **Issue #29: **Implementar el template de "Mi Perfil"**
 
 
 
