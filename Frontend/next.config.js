@@ -1,8 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  reactStrictMode: true,
+  images: {
+    domains: ['enchante-images.s3.amazonaws.com'],
   },
+  module: {
+    serverRuntimeConfig: {
+      HOST: '0.0.0.0',
+      PORT: 3001,
+    },
+  },
+
+  
 };
+
 
 module.exports = nextConfig;

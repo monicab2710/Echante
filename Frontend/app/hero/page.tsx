@@ -1,4 +1,4 @@
-import Home from "@/components/Hero/index";
+import HeroSectionOne from "@/components/Hero/HeroSectionOne";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 
 const HeroPage = () => {
@@ -8,7 +8,7 @@ const HeroPage = () => {
         pageName="Hero Page"
         description="Aquí encontrarás la información de nuestras últimas novedades."
       />
-      <Home products={[]} />
+      <HeroSectionOne />
     </>
   );
 };
