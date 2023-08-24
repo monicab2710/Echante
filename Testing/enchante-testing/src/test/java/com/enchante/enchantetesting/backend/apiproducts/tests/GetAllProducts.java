@@ -6,10 +6,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import static io.restassured.RestAssured.get;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -30,6 +27,7 @@ public class GetAllProducts {
     Response response = get(productsURL);
 
     @Test
+    @Tag("Smoke")
     public void getProducts() {
         test = extent.createTest("Get de productos Positivo");
         test.log(Status.INFO, "Inicia el test");
