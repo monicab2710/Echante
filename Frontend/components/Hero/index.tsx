@@ -1,8 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Product, ProductsAPIResponse } from "../types";
-import { useRouter } from "next/router";
+import styles from "../../styles/Hero.module.css";
+import { Product, ProductsAPIResponse } from "types";
 
 
 export interface IProductProps {
@@ -10,7 +9,6 @@ export interface IProductProps {
 }
 
 const Home: NextPage<IProductProps> = ({products}) => {
-  
 
  
   if (!products) return null;
@@ -53,17 +51,7 @@ const Home: NextPage<IProductProps> = ({products}) => {
         <h1>Productos destacados</h1>
         <div className={styles.grid}>{products.map(renderProductCard)}</div>
       </main>
-      <footer className={styles.footer}>
-        <span>Powered by</span>
-        <span className={styles.logo}>
-          <Image
-            src="/dh.png"
-            alt="Digital House Logo"
-            width={30}
-            height={30}
-          />
-        </span>
-      </footer>
+      
     </div>
   );
 };

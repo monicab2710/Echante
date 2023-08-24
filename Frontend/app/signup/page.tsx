@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import axiosHelper from "../helper/axiosHelper";
 import withReactContent from "sweetalert2-react-content";
 import Swal from 'sweetalert2';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 const validationSchema = Yup.object({
@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
   .matches(/^[a-zA-Z]+$/, "tu nombre no puede contener números"),
   lastName: Yup.string().required("apellido por favor")
   .max(20, "tu apellido no deberia tener mas de 20 caracteres")
-  .matches(/^[a-zA-Z]+$/, "tu apellido no puede contener números"),
+  .matches(/^[a-zA-Z]+$/, "tu apellido no puede contener números o caracteres especiales"),
   userName: Yup.string().required("Campo requerido")
   .max(20, "tu usuario no deberia tener mas de 20 caracteres"),
   email: Yup.string()
@@ -50,17 +50,19 @@ const SignupPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const router = useRouter()
+
   const handleSubmit = async (values, actions) => {
-   const router = useRouter()
     try {
-      const response = await axiosHelper.post('/api/v1/users/auth/signup', {
+      const response = await axiosHelper.post('/api/v1/users/auth/signup',
+      {
         name: values.name,
         userName: values.userName,
         lastName: values.lastName,
         email: values.email,
         password: values.password,
       });
-
+      console.log(response)
       if (response.status === 201) {
         router.push("/signin");
         setIsRegistered(true);
@@ -73,7 +75,7 @@ const SignupPage = () => {
           timerProgressBar: true,
           timer: 3000,
         });
-        //
+        
       } else {
         console.log('Error:', response.data);
       }

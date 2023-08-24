@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import MenuPage from "../Menu/menu";
 import SignIn from "./signIn";
 import SignOut from "./signOut";
 import { UserContext } from '@/app/providers';
@@ -29,6 +30,10 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
+    const userSessionStorage = sessionStorage.getItem('user');
+    if(userSessionStorage) {
+      setUser(userSessionStorage);
+    }
   }, []);
 
   // submenu handler
@@ -45,8 +50,8 @@ const Header = () => {
     <>
       <header
         className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent  ${sticky
-          ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
-          : "absolute"
+            ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
+            : "absolute"
           }`}
       >
         <div className="container">
@@ -149,6 +154,18 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
+
+                <Link
+
+                  href="/profile"
+                  className=" py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color  md:block"
+
+                >
+                 Mi Perfil
+
+                </Link>
+                
+
                 {!user ? <SignIn /> : <SignOut currentUser={user} />}
                 <div>
                   <ThemeToggler />
