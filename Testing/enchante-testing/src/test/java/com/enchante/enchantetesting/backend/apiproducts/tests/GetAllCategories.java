@@ -10,9 +10,9 @@ import org.junit.jupiter.api.*;
 import static io.restassured.RestAssured.get;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GetAllProducts {
+public class GetAllCategories {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getAllProducts.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getAllCategories.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -23,13 +23,13 @@ public class GetAllProducts {
     }
 
 
-    String productsURL = "http://localhost:8081/api/v1/products";
-    Response response = get(productsURL);
+    String categoriesURL = "http://localhost:8081/api/v1/categories";
+    Response response = get(categoriesURL);
 
     @Test
     @Tag("Smoke")
-    public void getProducts() {
-        test = extent.createTest("Get de productos Positivo");
+    public void getCategories() {
+        test = extent.createTest("Get de categorías Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         int statusCode = response.getStatusCode();

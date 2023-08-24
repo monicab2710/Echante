@@ -7,10 +7,8 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.given;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -30,8 +28,9 @@ public class PutProductById {
     String productsURL = "http://localhost:8081/api/v1/products/";
 
     @Test
+    @Tag("Smoke")
     public void putProductPositive() {
-        test = extent.createTest("Put de productos Positivo");
+        test = extent.createTest("Put de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -43,7 +42,7 @@ public class PutProductById {
 
         System.out.println(request.toJSONString());
 
-        String productId = "8";
+        String productId = "1";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -58,8 +57,9 @@ public class PutProductById {
     }
 
     @Test
+    @Tag("Smoke")
     public void putProductNegative() {
-        test = extent.createTest("Put de productos Negativo");
+        test = extent.createTest("Put de producto Negativo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();

@@ -7,10 +7,8 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.given;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -30,8 +28,9 @@ public class PutReservationById {
     String reservationsURL = "http://localhost:8087/api/v1/reservations/";
 
     @Test
+    @Tag("Regression")
     public void putReservationPositive() {
-        test = extent.createTest("Put de reservas Positivo");
+        test = extent.createTest("Put de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -41,7 +40,7 @@ public class PutReservationById {
 
         System.out.println(request.toJSONString());
 
-        String reservationId = "3";
+        String reservationId = "20";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -51,7 +50,7 @@ public class PutReservationById {
                 .then()
                 .statusCode(200).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200 al modificar una reserva");
+        test.log(Status.PASS, "Validación del código de estado 200 al modificar una reserva con Id existente");
         test.log(Status.INFO, "Finaliza el test");
     }
 
