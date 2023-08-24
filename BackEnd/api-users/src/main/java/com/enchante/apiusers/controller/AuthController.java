@@ -31,7 +31,7 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/users/auth")
-public class AuthController {
+public class   AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
