@@ -1,7 +1,9 @@
 # Pruebas de Funcionalidad - Documentación de Testing
 
+## Link de Excel con los test exploratorios:
+https://docs.google.com/document/d/1L7wDYTbI4SuPd0Mmwd7a9B7YudHI7qIHrlmOGDpRy4s/edit#heading=h.2gazcsgmxkub
 ## Link de Excel con los casos de prueba y defectos: 
-https://docs.google.com/spreadsheets/d/1nMCCMuhhSkptU6MrGDKGADOB9ZY8Rlg2Er2aRDx8yR8/edit#gid=0
+https://docs.google.com/spreadsheets/d/1wICo4mPRunY7GVtYGIaV9ipEPatd4iCcKyb-Rh0KUeE/edit#gid=0
 
 En este documento se describen las pruebas de funcionalidad realizadas durante el Sprint 1 del proyecto. El enfoque principal de este sprint fue verificar las funcionalidades del front-end de la aplicación web.
 
