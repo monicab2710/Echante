@@ -36,14 +36,15 @@ const ProfilePage = () => {
              <br />
                 <div
                
-                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
+                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0 "
                 data-wow-delay=".2s"
               >
                 <Image
-                  src="/usuario/pruebaUsuario.png"
+                  src="/usuario/PerfilFinal.png"
                   alt="Usuario"
                   fill
-                  className="mx-auto max-w-full lg:mr-0"
+                  
+                  className="mx-auto max-w-full lg:mr-0 rounded-full  w-full h-full object-cover shadow-md"
                 />
                 
               </div>
