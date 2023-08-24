@@ -1,6 +1,6 @@
 
 import ScrollUp from "@/components/Common/ScrollUp";
-import { Quicksand } from "@next/font/google";
+import { Quicksand } from "next/font/google";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
