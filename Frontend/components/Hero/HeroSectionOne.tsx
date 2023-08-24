@@ -1,13 +1,5 @@
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
-import { Product, ProductsAPIResponse } from "types"
-import type { GetServerSideProps, NextPage } from "next";
-import styles from "styles/Home.module.css";
-import SVGImage from "public/images/3685834.svg";
-
-export interface IProductProps {
-  products: ProductsAPIResponse;
-}
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -15,7 +7,7 @@ const checkIcon = (
   </svg>
 );
 
-const HeroSectionOne: NextPage<IProductProps> = ({ products }) => {
+const HeroSectionOne = () => {
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
       <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
@@ -23,31 +15,6 @@ const HeroSectionOne: NextPage<IProductProps> = ({ products }) => {
       </span>
       {text}
     </p>
-  );
-  if (!products) return null;
-
-  const formatPrice: (price: number) => string = (price) =>
-    price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-  const renderProductCard: (product: Product) => JSX.Element = ({
-    id,
-    name,
-    description,
-    imageUrl,
-    price,
-  }) => (
-    <div className={styles.productCard} key={id}>
-      <div className={styles.productImage}>
-        <Image src={imageUrl} layout="fill" objectFit="cover" alt={name} />
-        <div className={styles.productOverlay}>
-          <div className={styles.productInfo}>
-            <h2>{name}</h2>
-            <p className={styles.price}>${formatPrice(price)}</p>
-            <p className={styles.description}>{description}</p>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 
   return (
@@ -98,29 +65,8 @@ const HeroSectionOne: NextPage<IProductProps> = ({ products }) => {
           </div>
         </div>
       </div>
-      <div className={styles.container}>
-      <div className={styles.centeredImage}>
-  <Image src={SVGImage}
-    alt="svg-image"
-    width={700} // Ajusta el ancho deseado en píxeles
-    height={700} />
-</div>
-    </div>
     </section>
-
-    
   );
-
-  
-};
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`http://localhost:8081/api/v1/products`);
-  const products = await res.json();
-  return {
-    props: {
-      products,
-    },
-  };
 };
 
 export default HeroSectionOne;
