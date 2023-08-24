@@ -29,6 +29,10 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
+    const userSessionStorage = sessionStorage.getItem('user');
+    if(userSessionStorage) {
+      setUser(userSessionStorage);
+    }
   }, []);
 
   // submenu handler
