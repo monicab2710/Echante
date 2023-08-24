@@ -549,8 +549,14 @@ body {
 }
 
 @media (min-width: 450px){
+  
+  :is(.dark .dark\:text-yellow){
+    font-size: 5px;
+  }
   .container{
     max-width: 450px;
+    font-size: 10px;
+    
   }
 }
 
@@ -563,6 +569,7 @@ body {
 @media (min-width: 768px){
   .container{
     max-width: 768px;
+    font-size: 0.5rem; 
   }
 }
 
