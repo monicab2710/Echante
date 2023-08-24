@@ -55,13 +55,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getProductsByCategory(String category) {
+    public List<ProductDTO> getProductsByCategory(Integer id) {
 
-        Optional<Category> c = categoryRepository.findCategoryByTitle(category);
+        Optional<Category> c = categoryRepository.findById(id);
 
         if (c.isPresent()) {
 
-            List<Product> products = productRepository.findProductsByCategoryTitle(category);
+            List<Product> products = productRepository.findProductsByCategoryId(id);
             List<ProductDTO> productsDTO = new ArrayList<>();
 
             for (Product product : products) {

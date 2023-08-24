@@ -22,7 +22,7 @@ public class Category {
     private String title;
     private String description;
     private String imageUrl;
-    //@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<>();
 
