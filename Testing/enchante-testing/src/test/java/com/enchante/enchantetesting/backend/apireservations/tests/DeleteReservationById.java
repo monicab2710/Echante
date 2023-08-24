@@ -5,10 +5,8 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -28,6 +26,7 @@ public class DeleteReservationById {
     String reservationURL = "http://localhost:8087/api/v1/reservations/";
 
     @Test
+    @Tag("Smoke")
     public void deleteReservationStatusPositive() {
         test = extent.createTest("Delete de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -39,7 +38,7 @@ public class DeleteReservationById {
                 then().
                 statusCode(200).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200 al eliminar una reserva por Id");
+        test.log(Status.PASS, "Validación del código de estado 200 al eliminar una reserva por Id existente");
         test.log(Status.INFO, "Finaliza el test");
     }
 

@@ -5,10 +5,8 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -28,11 +26,12 @@ public class DeleteProductById {
     String productURL = "http://localhost:8081/api/v1/products/";
 
     @Test
+    @Tag("Smoke")
     public void deleteProductStatusPositive() {
         test = extent.createTest("Delete de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "9";
+        String productId = "1";
 
         when().
                 delete(productURL+productId).

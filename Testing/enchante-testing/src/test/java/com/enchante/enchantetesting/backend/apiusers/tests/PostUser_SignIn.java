@@ -8,10 +8,8 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -32,6 +30,7 @@ public class PostUser_SignIn {
     String usersURL = "http://localhost:8082/api/v1/users/auth/signin";
 
     @Test
+    @Tag("Regression")
     public void signInPositive() {
         test = extent.createTest("Login de usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -56,6 +55,7 @@ public class PostUser_SignIn {
     }
 
     @Test
+    @Tag("Regression")
     public void signInEqualToPositive() {
         test = extent.createTest("Login de usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -74,7 +74,8 @@ public class PostUser_SignIn {
                 .post(usersURL)
                 .then()
                 .assertThat()
-                .body(equalTo("User signed-in successfully!"))
+                //.body(equalTo("User signed-in successfully!"))
+                .body("message", Matchers.containsString("User signed-in successfully!"))
                 .log().all();
 
         test.log(Status.PASS, "Validación de mensaje exitoso al loguearse con un usuario registrado");
@@ -82,6 +83,7 @@ public class PostUser_SignIn {
     }
 
     @Test
+    @Tag("Regression")
     public void signInHeaderContainsPositive() {
         test = extent.createTest("Login de usuario Positivo - Bearer Token");
         test.log(Status.INFO, "Inicia el test");
@@ -99,13 +101,16 @@ public class PostUser_SignIn {
                 .when()
                 .post(usersURL)
                 .then()
-                .header("Authorization", Matchers.containsString("Bearer "));
+                .body("token", Matchers.containsString("Bearer "));
+                //.then()
+                //.header("Authorization", Matchers.containsString("Bearer "));
 
-        test.log(Status.PASS, "Validación del tipo de token al loguearse con un usuario registrado");
+        test.log(Status.PASS, "Validación del tipo de token (Bearer) al loguearse con un usuario registrado");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
+    @Tag("Regression")
     public void signInNegative_BadCredentials() {
         test = extent.createTest("Login de usuario Negativo - Credenciales inválidas");
         test.log(Status.INFO, "Inicia el test");
@@ -130,6 +135,7 @@ public class PostUser_SignIn {
     }
 
     @Test
+    @Tag("Regression")
     public void signInEqualToNegative() {
         test = extent.createTest("Login de usuario Negativo - Email no registrado");
         test.log(Status.INFO, "Inicia el test");

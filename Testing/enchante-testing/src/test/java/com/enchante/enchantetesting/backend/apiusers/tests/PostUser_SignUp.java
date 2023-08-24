@@ -7,10 +7,8 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -31,6 +29,7 @@ public class PostUser_SignUp {
     String usersURL = "http://localhost:8082/api/v1/users/auth/signup";
 
     @Test
+    @Tag("Regression")
     public void signUpPositive() {
         test = extent.createTest("Registro de usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -53,11 +52,12 @@ public class PostUser_SignUp {
                 .then()
                 .statusCode(201).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 201 al registrar un usuario");
+        test.log(Status.PASS, "Validación del código de estado 201 al registrar un usuario con los campos y tipos de datos adecuados");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
+    @Tag("Regression")
     public void signUpEqualToPositive() {
         test = extent.createTest("Registro de usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -87,6 +87,7 @@ public class PostUser_SignUp {
     }
 
     @Test
+    @Tag("Regression")
     public void signUpNegative() {
         test = extent.createTest("Registro de usuario Negativo - Email ya registrado");
         test.log(Status.INFO, "Inicia el test");
@@ -114,6 +115,7 @@ public class PostUser_SignUp {
     }
 
     @Test
+    @Tag("Regression")
     public void signUpEqualToNegative() {
         test = extent.createTest("Registro de usuario Negativo - Email ya registrado");
         test.log(Status.INFO, "Inicia el test");

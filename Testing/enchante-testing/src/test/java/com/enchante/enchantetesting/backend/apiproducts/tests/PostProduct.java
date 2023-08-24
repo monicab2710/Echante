@@ -7,10 +7,8 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
+
 import static io.restassured.RestAssured.given;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -30,6 +28,7 @@ public class PostProduct {
     String productsURL = "http://localhost:8081/api/v1/products";
 
     @Test
+    @Tag("Smoke")
     public void postProductPositive() {
         test = extent.createTest("Post de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
@@ -57,6 +56,7 @@ public class PostProduct {
     }
 
     @Test
+    @Tag("Smoke")
     public void postProductNegative() {
         test = extent.createTest("Post de producto Negativo");
         test.log(Status.INFO, "Inicia el test");
@@ -79,7 +79,7 @@ public class PostProduct {
                 .then()
                 .statusCode(400).log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 400 al intentar crear un producto con una request mal solicitada");
+        test.log(Status.PASS, "Validación del código de estado 400 al intentar crear un producto con una categoría inexistente");
         test.log(Status.INFO, "Finaliza el test");
     }
 

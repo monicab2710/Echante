@@ -4,7 +4,7 @@
 		"name": "Enchante",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18052401",
-		"_collection_link": "https://winter-comet-596470.postman.co/workspace/My-Workspace~50809288-239d-4de1-8e89-17e6a00ec917/collection/18052401-3869c5d2-2020-4ac2-b06b-5fd2989ad980?action=share&creator=18052401&source=collection_link"
+		"_collection_link": "https://winter-comet-596470.postman.co/workspace/My-Workspace~50809288-239d-4de1-8e89-17e6a00ec917/collection/18052401-3869c5d2-2020-4ac2-b06b-5fd2989ad980?action=share&source=collection_link&creator=18052401"
 	},
 	"item": [
 		{
@@ -287,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"20:30\",\r\n    \"date\": \"25/09/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\"\r\n}\r\n",
+							"raw": "{\r\n    \"time\": \"22:00\",\r\n    \"date\": \"28/09/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -327,7 +327,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"time\": \"21:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 6,\r\n    \"message\": \"message\"\r\n}",
+							"raw": "{\r\n    \"time\": \"21:30\",\r\n    \"date\": \"30/08/2023\",\r\n    \"amountDiners\": 4,\r\n    \"message\": \"message\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -543,7 +543,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pepito\",\r\n    \"lastName\": \"Perez\",\r\n    \"userName\": \"pperez\",\r\n    \"email\": \"pperez@mail.com\",\r\n    \"password\": \"pperez_989\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Pepito\",\r\n    \"lastName\": \"Perez\",\r\n    \"userName\": \"pperez\",\r\n    \"email\": \"pperez5@mail.com\",\r\n    \"password\": \"password\",\r\n    \"roleId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -551,7 +551,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users/2",
+							"raw": "http://localhost:8082/api/v1/users/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -561,7 +561,7 @@
 								"api",
 								"v1",
 								"users",
-								"2"
+								"4"
 							]
 						}
 					},
