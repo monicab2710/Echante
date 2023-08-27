@@ -1,64 +1,193 @@
-# Pruebas de Funcionalidad - Documentación de Testing
+<br>
 
-## Link de Excel con los test exploratorios:
-https://docs.google.com/document/d/1L7wDYTbI4SuPd0Mmwd7a9B7YudHI7qIHrlmOGDpRy4s/edit#heading=h.2gazcsgmxkub
-## Link de Excel con los casos de prueba y defectos: 
-https://docs.google.com/spreadsheets/d/1wICo4mPRunY7GVtYGIaV9ipEPatd4iCcKyb-Rh0KUeE/edit#gid=0
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=32&duration=5500&pause=975&color=78B6FD&width=435&lines=Enchant%C3%A9%F0%9F%8D%BD%EF%B8%8F%E2%80%8A;Testing%E2%9C%85%E2%80%8A)](https://git.io/typing-svg)  
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=5500&pause=975&color=78B6FD&repeat=false&width=435&lines=Sistema+de+Reserva+de+Restaurante)](https://git.io/typing-svg)
 
-En este documento se describen las pruebas de funcionalidad realizadas durante el Sprint 1 del proyecto. El enfoque principal de este sprint fue verificar las funcionalidades del front-end de la aplicación web.
+![Static Badge](https://img.shields.io/badge/Postman-Integration%20Test-brightgreen)
+![Static Badge](https://img.shields.io/badge/REST_assured-BackEnd-orange)
+![Static Badge](https://img.shields.io/badge/Extent_Reports-BackEnd-orange)
+![Static Badge](https://img.shields.io/badge/Selenium_IDE-FrontEnd-blue)
+![Static Badge](https://img.shields.io/badge/Selenium_Web_Driver-FrontEnd-blue)
 
-## Objetivo
 
-El objetivo de estas pruebas es garantizar que las diversas funcionalidades del front-end estén implementadas correctamente y cumplan con los requisitos establecidos.
+- [**Entregables**](#entregables-de-testing)
+  - [Plan maestro de testing](#plan-maestro-de-testing)
+  - [Casos de Prueba](#casos-de-prueba)
+  - [Reporte de defectos](#reporte-de-defectos)
+  - [Testing Exploratorio](#testing-exploratorio)
+  - [Planilla de registro de testeo](#planilla-de-registro-de-testeo)
+- [**Sprint 1**](#sprint-1)
+  - [BackEnd](#backend)
+  - [FrontEnd](#frontend)
+- [**Sprint 2**](#sprint-2)
+  - [BackEnd](#backend-1)
+  - [FrontEnd](#frontend-1)
+- [**Equipo Enchanté**](#equipo-enchanté)
 
-## Casos de Prueba
+## ![Card folder](https://imagizer.imageshack.com/img923/3061/Akubu4.png) **Entregables de Testing**
 
-A continuación, se resumen los casos de prueba abordados en este sprint:
+### Plan Maestro de Testing
+Un plan de prueba es un documento detallado que describe la estrategia de prueba, los objetivos, los recursos necesarios, el cronograma y los criterios de éxito para probar una nueva característica o pieza de software especíﬁca.
+En nuestro plan maestro de testing se detalla:
+  - Objetivos
+  - Estrategia de prueba
+  - Alcance
+  - Artefactos de prueba
+  - Características a ser probadas
+  - Características que no serán probadas
+  - Prioridad de casos de prueba
+  - Criterios de aceptación y/o rechazo
+  - Criterios de suspensión y reanudación
+  - Entregables de la prueba  
 
-1. **Header con Logo y Lema**: Verificar la presencia del header con el logo y lema en la aplicación. Al hacer clic en el logo o lema, el usuario debe ser redirigido al inicio (home) de la aplicación.
+<a href="https://bit.ly/44hM7S0"><img alt="Plan maestro de Testing" src="https://img.shields.io/badge/Plan_maestro_de_testing-%233973B9?style=for-the-badge"></a>
 
-2. **Header con Botones de Inicio de Sesión y Registro**: Comprobar que los botones de inicio de sesión y registro estén presentes en el header. En caso de no estar logueado, el botón de registro debe estar disponible. Después del registro, el header debe mostrar el nombre de usuario y un enlace para cerrar sesión.
 
-3. **Footer con Iconos de Redes Sociales**: Verificar que el footer contenga íconos de redes sociales en la parte derecha.
+### Casos de prueba
+Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-4. **Footer con Isologotipo, Año y Copyright Centrados**: Asegurarse de que el footer tenga el isologotipo, el año y el copyright alineados en el centro.
+<a href="https://bit.ly/3YPHzB8"><img alt="Casos de prueba" src="https://img.shields.io/badge/Casos_de_prueba-%233973B9?style=for-the-badge"></a>
 
-5. **Tabla de Categoría**: Verificar la existencia y estructura de la tabla de categorías en la base de datos.
 
-6. **Listar Productos**: Comprobar que los productos puedan ser listados y desplegados en el buscador.
+### Reporte de defectos
+Los reportes de defectos proporcionan información sobre 
 
-7. **Calendario**: Asegurarse de que el calendario permita ingresar fechas de reserva en el bloque de búsqueda.
+<a href="https://bit.ly/3YPHzB8"><img alt="Reporte de defectos" src="https://img.shields.io/badge/Reporte_de_defectos-%233973B9?style=for-the-badge"></a>
 
-8. **Botón de Búsqueda**: Verificar que el botón de búsqueda funcione correctamente y traiga resultados filtrados según los filtros seleccionados.
 
-9. **Formulario de Inicio de Sesión**: Comprobar que el formulario de inicio de sesión esté implementado correctamente.
+### Testing Exploratorio
+Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-10. **Formulario de Registro**: Asegurarse de que el formulario de registro cumpla con los requisitos, incluyendo campos de nombre, apellido, correo electrónico y contraseña.
+<a href="https://bit.ly/44sXqHd"><img alt="Testing Exploratorio" src="https://img.shields.io/badge/Testing_Exploratorio-%233973B9?style=for-the-badge"></a>
 
-11. **Verificación de Ingreso Inválido con Email**: Comprobar que el sistema rechace el ingreso o la creación de una cuenta con un correo electrónico inválido en el formulario de inicio de sesión.
 
-12. **Verificación de Contraseña Inválida**: Asegurarse de que el sistema rechace contraseñas inválidas en el formulario de registro.
+### Planilla de Registro de Testeo
+Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-13. **Confirmación de Contraseña Inválida**: Verificar que no se permita la creación de una cuenta si la confirmación de contraseña difiere de la contraseña ingresada.
+<a href="https://bit.ly/3EdZhF2"><img alt="Planilla de Registro de Testeo" src="https://img.shields.io/badge/Planilla_de_registro_de_tests-%233973B9?style=for-the-badge"></a>
 
-14. **Crear Cuenta**: Comprobar que se pueda crear una cuenta de usuario al llenar el formulario y hacer clic en el botón de registro.
 
-15. **Verificación de Mensaje de Error con Credenciales Inválidas**: Verificar que el sistema muestre un mensaje de error adecuado al intentar ingresar con credenciales inválidas en el formulario de inicio de sesión.
+## ![Sprint 1](https://imagizer.imageshack.com/img922/8982/JJWAiR.png) **Sprint 1**
+Durante el primer sprint se trabajó sobre los primeros avances del desarrollo del software. Se realizaron casos de prueba, reporte de defectos, pruebas estáticas y testing automatizado de APIs del backend.
 
-16. **Verificación de Acceso Exitoso con Credenciales Válidas**: Comprobar que el sistema muestre un mensaje de acceso exitoso al ingresar credenciales válidas y redirija al usuario a la página de inicio.
+- Issues asignados a testing: 3
+  1. Planificación y Ejecución de los Tests
+     - Planear casos de prueba basados en las historias de usuarios que existen en el Sprint, y luego ejecutarlos.
+     - Crear Plantilla de Casos de Prueba.
+     - Crear Plantilla de Defectos.
+     - Realizar testing exploratorio.
+  2. Testear las API
+     - Validar el funcionamiento de las API Rest creadas por el BackEnd durante el Sprint.
+     - Utilizar Postman para las pruebas.
+     - Crear los scripts de prueba necesarios.
+  3. Pruebas Automatizadas
+     - Crear pruebas automatizadas para FrontEnd y BackEnd.
+     - Elegir Framework para cada caso, y crear sus respectivos scripts de prueba.
 
-17. **Botón de Inicio de Sesión**: Asegurarse de que el botón de inicio de sesión esté presente en áreas específicas de la aplicación y redireccione al formulario de inicio de sesión.
+### BackEnd
+  - Issues de BackEnd testeados: 3  
+    1. Crear API de Productos
+    2. Crear API de Reservas
+    3. Crear API de Usuarios
 
-18. **Botón de Crear Cuenta**: Verificar que el botón de registro esté presente en áreas específicas de la aplicación y redireccione al formulario de registro.
+### FrontEnd
+  - Issues de FrontEnd testeados: 5
+    1. Implementar template general responsive
+    2. Implementar el template de registro
+    3. Implementar el tramplate de reserva
+    4. Implementar template de login
+    5. Modo oscuro  
 
-19. **Botón de Cerrar Sesión**: Asegurarse de que el botón de cierre de sesión cierre el bloque de sesión y redireccione al usuario al inicio.
+> :page_facing_up: **Documento:** **[Reporte de Sprint 1](./sprint-1.md)**
 
-20. **Modo Oscuro**: Verificar el funcionamiento correcto del modo oscuro en la aplicación web.
+> :memo: **Nota:** **Las tareas realizadas durante este sprint se evidencian en los documentos detallados en [**entregables de testing**](#entregables-de-testing).**
 
-## Resultados
 
-Las pruebas realizadas han sido diseñadas para evaluar exhaustivamente las funcionalidades del front-end, back-end y bases de datos. Los resultados incluyen casos de pruebas pasados, en proceso y por hacer. Algunas funcionalidades se encuentran aún en desarrollo y se espera que estén listas para el próximo sprint.
+## ![Sprint 2](https://imagizer.imageshack.com/img923/2181/LZzNr5.png) **Sprint 2**
+El trabajo del equipo de testing durante este sprint fue: 
+- Issues asignados a testing: 6
+  1. Realizar un plan de pruebas
+  2. Testing exploratorio
+  3. Planificación y ejecución de tests
+  4. Testeo de API's
+  5. Pruebas automatizadas de BackEnd
+  6. Pruebas automatizadas de FrontEnd
 
-## Conclusiones
+### BackEnd
+  - Issues de BackEnd testeados: 5
+    1. Realizar mejoras a la API Productos
+    2. Realizar mejoras a la API de Reservas
+    3. Agregar Seguridad a la API de Reservas
+    4. Realizar mejoras a la API de Usuarios
+    5. Confirmación al usuario de creación de cuenta mediante correo electrónico
 
-Durante este sprint, se logró verificar y validar una variedad de funcionalidades. Las pruebas realizadas ayudaron a identificar áreas de mejora y garantizarán una experiencia de usuario fluida y satisfactoria. Se espera continuar mejorando y optimizando estas funcionalidades en sprints futuros.
+### FrontEnd
+  - Issues de FrontEnd testeados: 4
+    1. Añadir nuevos elementos al footer
+    2. Implementar la integración con la API de Usuarios 
+    3. Implementar el tramplate de "Mi perfil"
+    4. Confirmación al usuario de creación de cuenta mediante correo electrónico
+
+> :memo: **Nota:** **Las tareas realizadas durante este sprint se evidencian en los documentos detallados en [**entregables de testing**](#entregables-de-testing).**
+  
+## ![Team](https://imagizer.imageshack.com/img922/8231/1YPdxO.png) **Equipo Enchanté**
+
+El equipo de **Enchanté** esta formado por:
+
+<table>
+  <tbody align="center">
+    <tr>
+      <td> <img src="https://imagizer.imageshack.com/img923/3192/s3WRQg.png"> </td>
+      <td> <b>Alejandra <br> Marin</b> </td>
+      <td>Product Owner <br> BackEnd <br> Infraestructura</td>
+      <td> <img src="https://imagizer.imageshack.com/img924/871/tqXLwR.png"> </td>
+      <td> <b>Andrés <br> Parra</b> </td>
+      <td>FrontEnd</td>
+    </tr>
+    <tr>
+      <td> <img src="https://imagizer.imageshack.com/img923/295/AGLm8v.png"> </td>
+      <td> <b>Carina <br> Groisman</b> </td>
+      <td>Testing</td>
+      <td> <img src="https://imagizer.imageshack.com/img924/3599/KS462x.png"> </td>
+      <td> <b>Daiana Belen <br> Miño</b> </td>
+      <td>Base de <br>datos</td>
+    </tr>
+    <tr>
+      <td> <img src="https://imagizer.imageshack.com/img922/319/Hv0GvE.png"> </td>
+      <td> <b>Deysi <br> Garzón</b> </td>
+      <td>FrontEnd <br> UX/UI</td>
+      <td> <img src="https://imagizer.imageshack.com/img922/3742/QSpcQq.png"> </td>
+      <td> <b>Laura <br> Peralta</b> </td>
+      <td>FrontEnd <br> UX/UI</td>
+    </tr>
+    <tr>
+      <td> <img src="https://imagizer.imageshack.com/img922/2340/9c4qNW.png"> </td>
+      <td> <b>Marcela <br> Ramirez</b> </td>
+      <td>Product Owner <br> BackEnd</td>
+      <td> <img src="https://imagizer.imageshack.com/img923/3853/huOUvu.png"> </td>
+      <td> <b>Mónica <br> Bernal</b> </td>
+      <td>FrontEnd</td>
+    </tr>
+    <tr>
+      <td> <img src="https://imagizer.imageshack.com/img923/4528/Cp20bX.png"> </td>
+      <td> <b>Vanesa <br> Vilte</b> </td>
+      <td>Testing</td>
+      <td> <img src="https://imagizer.imageshack.com/img922/796/8I15pV.png"> </td>
+      <td> <b>Victoria <br> Stancic</b> </td>
+      <td>Testing</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--
+[![Ale](./profiles/Ale.png)](#equipo "Alejandra Marin") 
+[![Pipe](./profiles/Pipe.png)](#equipo "Andrés Parra")   
+[![Cari](./profiles/Cari.png)](#equipo "Carina Groisman") 
+[![Dai](./profiles/Dai.png)](#equipo "Daiana Belen Miño")   
+[![Dey](./profiles/Dey.png)](#equipo "Deysi Garzón")
+[![Lau](./profiles/Lau.png)](#equipo "Laura Peralta")   
+[![Marce](./profiles/Marce.png)](#equipo "Marcela Ramirez")
+[![Moni](./profiles/Moni.png)](#equipo "Mónica Bernal")  
+[![Vane](./profiles/Vane.png)](#equipo "Vanesa Vilte")
+[![Vicky](./profiles/Vicky.png)](#equipo "Victoria Stancic") 
+-->
