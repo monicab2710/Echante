@@ -50,19 +50,24 @@ Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una 
 
 
 ### Reporte de defectos
-Los reportes de defectos proporcionan información sobre 
+Los reportes de defectos proporcionan información sobre los defectos relacionados con el plan de pruebas, el estado de dichos defectos y las tendencias de los defectos durante el proyecto.
+La finalidad de un reporte de defectos responde a las siguientes preguntas:
+- ¿Qué defectos están asociados con este caso de prueba y cuál es el estado de dichos defectos?
+- ¿Cómo lo estamos haciendo respecto a buscar y arreglar defectos?
 
 <a href="https://bit.ly/3YPHzB8"><img alt="Reporte de defectos" src="https://img.shields.io/badge/Reporte_de_defectos-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Testing Exploratorio
-Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
+Las pruebas exploratorias son una estrategia de pruebas de software que por lo general se describe como un proceso de aprendizaje simultáneo, diseño de prueba y ejecución que se centra en la detección y dependen de que el tester descubra defectos que no son fáciles de cubrir con otras pruebas.
+Las pruebas exploratorias son adecuadas para casos de prueba específicos, como cuando alguien necesita recopilar información rápidamente acerca de un producto o una aplicación y proporcionar feedback rápido. Sirven para revisar la calidad de un producto desde la perspectiva del usuario.
+Resultan particularmente útiles para encontrar nuevos casos de prueba con los que mejorar la cobertura de las pruebas. 
 
 <a href="https://bit.ly/44sXqHd"><img alt="Testing Exploratorio" src="https://img.shields.io/badge/Testing_Exploratorio-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Planilla de Registro de Testeo
-Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
+Este documento tiene la finalidad se ser una guía de consulta rápida de funcionalidades testeadas, defectos encontrados y tipos de pruebas realizadas.   
 
 <a href="https://bit.ly/3EdZhF2"><img alt="Planilla de Registro de Testeo" src="https://img.shields.io/badge/Planilla_de_registro_de_tests-%233973B9?style=for-the-badge" target="_blank"></a>
 
