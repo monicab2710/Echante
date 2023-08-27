@@ -40,31 +40,31 @@ En nuestro plan maestro de testing se detalla:
   - Criterios de suspensión y reanudación
   - Entregables de la prueba  
 
-<a href="https://bit.ly/44hM7S0"><img alt="Plan maestro de Testing" src="https://img.shields.io/badge/Plan_maestro_de_testing-%233973B9?style=for-the-badge"></a>
+<a href="https://bit.ly/44hM7S0"><img alt="Plan maestro de Testing" src="https://img.shields.io/badge/Plan_maestro_de_testing-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Casos de prueba
 Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-<a href="https://bit.ly/3YPHzB8"><img alt="Casos de prueba" src="https://img.shields.io/badge/Casos_de_prueba-%233973B9?style=for-the-badge"></a>
+<a href="https://bit.ly/3YPHzB8"><img alt="Casos de prueba" src="https://img.shields.io/badge/Casos_de_prueba-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Reporte de defectos
 Los reportes de defectos proporcionan información sobre 
 
-<a href="https://bit.ly/3YPHzB8"><img alt="Reporte de defectos" src="https://img.shields.io/badge/Reporte_de_defectos-%233973B9?style=for-the-badge"></a>
+<a href="https://bit.ly/3YPHzB8"><img alt="Reporte de defectos" src="https://img.shields.io/badge/Reporte_de_defectos-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Testing Exploratorio
 Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-<a href="https://bit.ly/44sXqHd"><img alt="Testing Exploratorio" src="https://img.shields.io/badge/Testing_Exploratorio-%233973B9?style=for-the-badge"></a>
+<a href="https://bit.ly/44sXqHd"><img alt="Testing Exploratorio" src="https://img.shields.io/badge/Testing_Exploratorio-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ### Planilla de Registro de Testeo
 Un caso de prueba es un conjunto de acciones que se ejecutan para verificar una característica o funcionalidad particular de una aplicación de software. Es decir, que todas las características de una aplicación de software van a ser representadas por uno o más casos de prueba.  
 
-<a href="https://bit.ly/3EdZhF2"><img alt="Planilla de Registro de Testeo" src="https://img.shields.io/badge/Planilla_de_registro_de_tests-%233973B9?style=for-the-badge"></a>
+<a href="https://bit.ly/3EdZhF2"><img alt="Planilla de Registro de Testeo" src="https://img.shields.io/badge/Planilla_de_registro_de_tests-%233973B9?style=for-the-badge" target="_blank"></a>
 
 
 ## ![Sprint 1](https://imagizer.imageshack.com/img922/8982/JJWAiR.png) **Sprint 1**
@@ -98,9 +98,8 @@ Durante el primer sprint se trabajó sobre los primeros avances del desarrollo d
     4. Implementar template de login
     5. Modo oscuro  
 
-> :page_facing_up: **Documento:** **[Reporte de Sprint 1](./sprint-1.md)**
-
-> :memo: **Nota:** **Las tareas realizadas durante este sprint se evidencian en los documentos detallados en [**entregables de testing**](#entregables-de-testing).**
+> :memo: **Nota:** **Las tareas realizadas durante este sprint se evidencian en los documentos detallados en [**entregables de testing**](#entregables-de-testing).**  
+> :page_facing_up: **[Reporte de Sprint 1](./sprint-1.md)**
 
 
 ## ![Sprint 2](https://imagizer.imageshack.com/img923/2181/LZzNr5.png) **Sprint 2**
