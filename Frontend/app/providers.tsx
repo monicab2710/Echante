@@ -12,7 +12,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <UserContext.Provider value={{user , setUser }}>
-
     <ThemeProvider attribute="class" enableSystem={false} defaultTheme="dark">
       {children}
     </ThemeProvider>
