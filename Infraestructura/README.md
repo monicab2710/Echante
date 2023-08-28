@@ -40,7 +40,7 @@ En este sprint, el objetivo principal fue la *creación* y *configuración* de r
 
 - [x] Crear EC2 para el servicio de BackEnd :desktop_computer:
 
-Se crearon tres instancias EC2 para alojar las API's de Enchanté, con sus respectivas **Par de claves**. :locked_with_key:
+Se crearon tres instancias EC2 para alojar las API's de Enchanté, con sus respectivas **Par de claves**. :closed_lock_with_key:
 
 | Nombre                    | Tipo     | AMI                     | Dirección IPv4 Pública |
 | :----:                    | :----:   | :----:                  | :----:                 |
@@ -48,9 +48,9 @@ Se crearon tres instancias EC2 para alojar las API's de Enchanté, con sus respe
 | Enchante-API-Products     | t2.micro | Ubuntu Server 22.04 LTS | 3.81.126.14            |
 | Enchante-API-Reservations | t2.micro | Ubuntu Server 22.04 LTS | 54.91.68.46            |
 
-Respecto a las configuraciones de red utilizadas, dichas instancias se lanzaron en la **VPC predeterminada** para la región y la Subred fue sin preferencias; así mismo, se creo un Grupo de Seguridad "**EnchanteSecurityGroup**", el cual permite el acceso *SSH* y *TCP* para cada una de las APIs. :locked:
+Respecto a las configuraciones de red utilizadas, dichas instancias se lanzaron en la **VPC predeterminada** para la región y la Subred fue sin preferencias; así mismo, se creo un Grupo de Seguridad "**EnchanteSecurityGroup**", el cual permite el acceso *SSH* y *TCP* para cada una de las APIs. :lock:
 
-***Reglas de Entrada:*** :high_voltage:
+***Reglas de Entrada:*** :zap:
 
 | Tipo   | Puerto | Origen    |
 | :----: | :----: | :----:    |    
@@ -63,23 +63,23 @@ Posteriormente, se establece conexión SSH con cada una de las instancias, y se 
 
 :file_folder: <https://docs.docker.com/engine/install/ubuntu/>
 
-- [x] Conectar a una base de datos MySQL existente :bullseye:
+- [x] Conectar a una base de datos MySQL existente :dart:
 
 Se accede a la base de datos RDS a través de **MySQL Workbench** con las credenciales provistas por DH, y se ejecutan los scripts de las bases de datos.
 
-[`productos`](/Base%20de%20datos/products.sql)
-[`reservations`](/Base%20de%20datos/reservation.sql)
-[`users`](/Base%20de%20datos/user.sql)
+* [`productos`](/Base%20de%20datos/products.sql)
+* [`reservations`](/Base%20de%20datos/reservation.sql)
+* [`users`](/Base%20de%20datos/user.sql)
 
 ![Captura](/Infraestructura/Captura.png)
 
 ***
 
-- [x] Crear S3 Bucket para almacenar las imágenes de Enchanté :framed_picture:
+- [x] Crear S3 Bucket para almacenar las imágenes de Enchanté :art:
 
 Se crea un Bucket llamado "**enchante-images**", para almacenar las diferentes imágenes de nuestra aplicación. Se establece una política en la configuración del mismo, con el fin de que sus objetos sean **accesibles públicamente**.
 
-***Política de bucket*** :check_mark_button:
+***Política de bucket*** :white_check_mark:
 
 ```json
 {
@@ -98,7 +98,7 @@ Se crea un Bucket llamado "**enchante-images**", para almacenar las diferentes i
 
 Finalmente, se suben las imágenes necesarias, y sus URL's se añaden a la base de datos.
 
-> **P.D.** Los recursos fueron creados en la región de EE.UU. Este (Norte de Virginia) **us-east-1** :globe_showing_americas:
+> **P.D.** Los recursos fueron creados en la región de EE.UU. Este (Norte de Virginia) **us-east-1** :earth_americas:
 
 ***
 
