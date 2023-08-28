@@ -1,10 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "styles/Home.module.css";
-import type { GetServerSideProps, NextPage } from "next";
-import { Product, ProductsAPIResponse } from "types";
 import axiosH from "../../app/helper/axiosH"
-import SectionTitle from "../Common/SectionTitle";
 import { useEffect, useState } from "react";
 
 const HeroSectionOne = () => {
