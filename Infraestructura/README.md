@@ -67,7 +67,7 @@ Posteriormente, se establece conexión SSH con cada una de las instancias, y se 
 
 Se accede a la base de datos RDS a través de **MySQL Workbench** con las credenciales provistas por DH, y se ejecutan los scripts de las bases de datos.
 
-* [`productos`](/Base%20de%20datos/products.sql)
+* [`products`](/Base%20de%20datos/products.sql)
 * [`reservations`](/Base%20de%20datos/reservation.sql)
 * [`users`](/Base%20de%20datos/user.sql)
 
