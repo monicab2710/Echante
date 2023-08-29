@@ -1,7 +1,9 @@
+'use client'
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import { Brand } from '../../types/brand';
-
+import { useEffect, useState } from "react";
+import {userData} from "@/services/users"
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -10,6 +12,12 @@ const checkIcon = (
 );
 
 const ProfilePage = () => {
+  const [response, setResponse] = useState(null);
+  useEffect(() => {
+    const user = userData(5)
+    setResponse(user);
+    console.log(user);
+  }, []);
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
       <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
@@ -24,12 +32,7 @@ const ProfilePage = () => {
       <div className="container">
         <div className="border-b border-body-color/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
           <div className="-mx-4 flex flex-wrap items-center">
-            <div className="w-full px-4  mt-8 ">
-              
-
-             
-
-             
+            <div className="w-full px-4  mt-8 ">       
                 <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
 
                 <h1 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Bienvenido a Enchanté</h1>
@@ -54,17 +57,17 @@ const ProfilePage = () => {
                 
                     <div className="mb-4">
                       <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="nombre">Andres Felipe Fajardo Parra</p>
+                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="nombre">{response && response.userData.name}</p>
                     </div>
                 
                     <div className="mb-4">
                       <label htmlFor="usuario" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre de Usuario</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="usuario">pipe</p>
+                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="usuario">{response && response.userName}</p>
                     </div>
                 
                     <div className="mb-4">
                       <label htmlFor="email" className="mb-3 block text-sm font-medium text-dark dark:text-white">Email</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="email">pipeparra@gmail.com</p>
+                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="email">{response && response.email}</p>
                     </div>
                 
                     <div className="mb-8">
@@ -75,11 +78,6 @@ const ProfilePage = () => {
                     <button className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Editar mis datos
                     </button>
-           
-
-             
-               
-            
             </div>
           </div>
         </div>

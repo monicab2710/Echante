@@ -1,6 +1,46 @@
+"use client";
+
 import NewsLatterBox from "./NewsLatterBox";
+import axiosHe from "../../app/helper/axiosHe"
+import axiosHelper from "@/app/helper/axiosHelper";
+import { useEffect, useState } from "react";
+
 
 const Reserve = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [response, setResponse] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem('token');
+      const apiUrl = await axiosHelper.post(
+        "/api/v1/users/auth/signin",)
+      
+
+         const requestBody = {
+          email: formData.email,
+            password: formData.password,
+           };
+
+         const headers = {
+         'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          };
+      
+      try {
+        const response = await axiosHe.post(apiUrl, requestBody, { headers });
+        setResponse(response.data);
+      } catch (error) {
+        console.error('Error en la petición POST:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -21,7 +61,7 @@ const Reserve = () => {
                         htmlFor="title"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                       Motivo de la reserva:
+                        Motivo de la reserva:
                       </label>
                       <input
                         type="text"
@@ -105,6 +145,6 @@ const Reserve = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Reserve;

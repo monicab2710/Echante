@@ -14,7 +14,7 @@ interface DecodedData {
   name: string;
   lastName: string;
   email: string;
-  // rol: string; // No proporcionaste suficiente información sobre el tipo de 'rol'
+  // rol: string;
 }
 
 
