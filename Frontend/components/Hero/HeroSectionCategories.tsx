@@ -20,12 +20,12 @@ const HeroSectionCategories = () => {
     fetchCategories();
   }, []);
 
-  const renderCategories = ({ id, title, description, imageUrl }) => (
-    <div className={styles.categoryCard} key={id}>
-      <div className={styles.categoryImage}>
+  const renderCategories = ({ id, title, imageUrl }) => (
+    <div className="-mx-4 flex flex-wrap justify-center" key={id}>
+      <div className="relative block h-[100px] w-[190px]">
         <Image src={imageUrl} layout="fill" objectFit="cover" alt={title} />
-        <div className={styles.categoryInfo}>
-          <h3>{title}</h3>
+        <div className="absolute bottom-0 left-0 w-full p-2 bg-black bg-opacity-70 text-white text-center">
+          <h4 className="mb-2 block text-sm font-medium text-yellow dark:text-yellow sm:text-xl">{title}</h4>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@ const HeroSectionCategories = () => {
           encantadoras categorías a continuación y déjate llevar
           por una experiencia gastronómica de la cocina francesa tradicional y contemporánea.
         </p>
-        <div className={styles.categoryContainer}>
+        <div className="grid grid-cols-4 gap-x-0 gap-y-2">
           {categories.map(renderCategories)}
         </div>
       </div>
