@@ -6,14 +6,15 @@ export const userData = async (id) => {
         'Authorization': `Bearer ${token}`,
          'Content-Type': 'application/json',
      };
-    const apiUrl = await axiosHelper.get(
+    const user = await axiosHelper.get(
       `/api/v1/users/${id}`, {headers})
+     return user
     
-    console.log('moni', apiUrl)
-
-       
-
+   //console.log('moni', apiUrl)
+    
     } catch (error) {
         console.error('Error en la petición POST:', error);
     }
   };
+
+  

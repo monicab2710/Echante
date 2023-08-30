@@ -3,7 +3,7 @@ import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import { Brand } from '../../types/brand';
 import { useEffect, useState } from "react";
-import {userData} from "@/services/users"
+import { userData } from "@/services/users"
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -12,12 +12,18 @@ const checkIcon = (
 );
 
 const ProfilePage = () => {
-  const [response, setResponse] = useState(null);
+  const [user, setUser] = useState(null);
+  const fetchUser = async () => {
+    const response = await userData(5)
+    setUser(response.data);
+    console.log(response.data);
+    console.log('probando')
+  }
   useEffect(() => {
-    const user = userData(5)
-    setResponse(user);
-    console.log(user);
+
+    fetchUser()
   }, []);
+
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
       <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
@@ -32,56 +38,78 @@ const ProfilePage = () => {
       <div className="container">
         <div className="border-b border-body-color/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
           <div className="-mx-4 flex flex-wrap items-center">
-            <div className="w-full px-4  mt-8 ">       
-                <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
+            <div className="w-full px-4  mt-8 ">
+              <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
 
                 <h1 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Bienvenido a Enchanté</h1>
-             <br />
+                <br />
                 <div
-               
-                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0 "
-                data-wow-delay=".2s"
-              >
-                <Image
-                  src="/usuario/PerfilFinal.png"
-                  alt="Usuario"
-                  fill
-                  
-                  className="mx-auto max-w-full lg:mr-0 rounded-full  w-full h-full object-cover shadow-md"
-                />
-                
+
+                  className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0 "
+                  data-wow-delay=".2s"
+                >
+                  <Image
+                    src="/usuario/PerfilFinal.png"
+                    alt="Usuario"
+                    fill
+
+                    className="mx-auto max-w-full lg:mr-0 rounded-full  w-full h-full object-cover shadow-md"
+                  />
+
+                </div>
+                <br />
+                <br />
+                <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario</h2>
+                <div className="mb-4">
+                  <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido</label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    value={user && user.name}
+                    readOnly
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label htmlFor="usuario" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre de Usuario</label>
+                  <input
+                    type="text"
+                    id="usuario"
+                    className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    value={user && user.userName}
+                    readOnly
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="email" className="mb-3 block text-sm font-medium text-dark dark:text-white">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    value={user && user.email}
+                    readOnly
+                  />
+                </div>
+
+                <div className="mb-8">
+                  <label htmlFor="contrasena" className="mb-3 block text-sm font-medium text-dark dark:text-white">Contraseña</label>
+                  <input
+                    type="password"
+                    id="contrasena"
+                    className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                    value="********"
+                    readOnly
+                  />
+                </div>
+
+                <button className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                  Editar mis datos
+                </button>
               </div>
-              <br />
-              <br />
-                    <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario</h2>
-                
-                    <div className="mb-4">
-                      <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="nombre">{response && response.userData.name}</p>
-                    </div>
-                
-                    <div className="mb-4">
-                      <label htmlFor="usuario" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre de Usuario</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="usuario">{response && response.userName}</p>
-                    </div>
-                
-                    <div className="mb-4">
-                      <label htmlFor="email" className="mb-3 block text-sm font-medium text-dark dark:text-white">Email</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="email">{response && response.email}</p>
-                    </div>
-                
-                    <div className="mb-8">
-                      <label htmlFor="contrasena" className="mb-3 block text-sm font-medium text-dark dark:text-white">Contraseña</label>
-                      <p className="mb-3 block text-sm font-medium text-dark dark:text-white" id="contrasena">********</p>
-                    </div>
-                
-                    <button className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Editar mis datos
-                    </button>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   );
