@@ -32,6 +32,76 @@ En conclusión, esta arquitectura en AWS destaca por su enfoque en la seguridad,
 
 ***
 
+## :rocket: Sprint 2
+
+### **Issue #36: Crear infraestructura en AWS**
+
+En este sprint, el objetivo principal fue la *creación* y *configuración* de recursos clave en Amazon Web Services (**AWS**) para respaldar las necesidades de infraestructura de nuestro proyecto; por lo que se llevaron a cabo una serie de tareas clave:
+
+- [x] Crear EC2 para el servicio de BackEnd :desktop_computer:
+
+Se crearon tres instancias EC2 para alojar las API's de Enchanté, con sus respectivas **Par de claves**. :closed_lock_with_key:
+
+| Nombre                    | Tipo     | AMI                     | Dirección IPv4 Pública |
+| :----:                    | :----:   | :----:                  | :----:                 |
+| Enchante-API-Users        | t2.micro | Ubuntu Server 22.04 LTS | 34.229.48.113          |
+| Enchante-API-Products     | t2.micro | Ubuntu Server 22.04 LTS | 3.81.126.14            |
+| Enchante-API-Reservations | t2.micro | Ubuntu Server 22.04 LTS | 54.91.68.46            |
+
+Respecto a las configuraciones de red utilizadas, dichas instancias se lanzaron en la **VPC predeterminada** para la región y la Subred fue sin preferencias; así mismo, se creo un Grupo de Seguridad "**EnchanteSecurityGroup**", el cual permite el acceso *SSH* y *TCP* para cada una de las APIs. :lock:
+
+***Reglas de Entrada:*** :zap:
+
+| Tipo   | Puerto | Origen    |
+| :----: | :----: | :----:    |    
+| TCP    | 8081   | 0.0.0.0/0 |
+| TCP    | 8082   | 0.0.0.0/0 |
+| TCP    | 8087   | 0.0.0.0/0 |
+| SSH    | 22     | 0.0.0.0/0 |
+
+Posteriormente, se establece conexión SSH con cada una de las instancias, y se instala **Docker Engine**, siguiendo las instrucciones de la documentación oficial de Docker.
+
+:file_folder: <https://docs.docker.com/engine/install/ubuntu/>
+
+- [x] Conectar a una base de datos MySQL existente :dart:
+
+Se accede a la base de datos RDS a través de **MySQL Workbench** con las credenciales provistas por DH, y se ejecutan los scripts de las bases de datos.
+
+* [`products`](/Base%20de%20datos/products.sql)
+* [`reservations`](/Base%20de%20datos/reservation.sql)
+* [`users`](/Base%20de%20datos/user.sql)
+
+![Captura](/Infraestructura/Captura.png)
+
+***
+
+- [x] Crear S3 Bucket para almacenar las imágenes de Enchanté :art:
+
+Se crea un Bucket llamado "**enchante-images**", para almacenar las diferentes imágenes de nuestra aplicación. Se establece una política en la configuración del mismo, con el fin de que sus objetos sean **accesibles públicamente**.
+
+***Política de bucket*** :white_check_mark:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::enchante-images/*"
+        }
+    ]
+}
+```
+
+Finalmente, se suben las imágenes necesarias, y sus URL's se añaden a la base de datos.
+
+> **P.D.** Los recursos fueron creados en la región de EE.UU. Este (Norte de Virginia) **us-east-1** :earth_americas:
+
+***
+
 <div style="text-align:center;">
   <img src="https://cdn-icons-png.flaticon.com/512/4682/4682602.png" height="100" width="100"/>
 </div>
