@@ -22,6 +22,7 @@ public class User {
     private String userName;
     private String email;
     private String password;
+    private String resetToken;
     //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
@@ -34,4 +35,5 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
 }

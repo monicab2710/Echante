@@ -60,4 +60,40 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @Async
+    @Override
+    public void forgotPasswordMail(String email, String link) {
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper;
+
+        try {
+
+            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+            mimeMessageHelper.setFrom(sender);
+            mimeMessageHelper.setTo(email);
+
+            String content = "<p>Hello,</p>"
+                    + "<p>You have requested to reset your password.</p>"
+                    + "<p>Click the link below to change your password:</p>"
+                    + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                    + "<br>"
+                    + "<p>Ignore this email if you do remember your password, "
+                    + "or you have not made the request.</p>";
+
+            mimeMessageHelper.setText(content, true);
+            mimeMessageHelper.setSubject("Here's the link to reset your password");
+
+            javaMailSender.send(mimeMessage);
+
+            logger.info("Mail Sent Successfully...");
+
+        } catch (MessagingException e) {
+
+            logger.error("Error while Sending Mail");
+        }
+
+    }
+
 }

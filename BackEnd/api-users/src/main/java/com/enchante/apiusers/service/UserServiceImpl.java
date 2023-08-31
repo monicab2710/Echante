@@ -1,10 +1,12 @@
 package com.enchante.apiusers.service;
 
+import com.enchante.apiusers.controller.payload.ResetPasswordRequest;
 import com.enchante.apiusers.dto.UserDTO;
 import com.enchante.apiusers.model.Role;
 import com.enchante.apiusers.model.User;
 import com.enchante.apiusers.repository.RoleRepository;
 import com.enchante.apiusers.repository.UserRepository;
+import net.bytebuddy.utility.RandomString;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -102,6 +105,36 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Integer id) {
 
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public String forgotPassword(String email) {
+
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user != null) {
+
+            //String token = RandomString.make(255);
+            String token = UUID.randomUUID().toString();
+            user.setResetToken(token);
+            userRepository.save(user);
+            return token;
+        }
+        return null;
+    }
+
+    @Override
+    public String resetPassword(ResetPasswordRequest request) {
+
+        User user = userRepository.findByResetToken(request.getToken()).orElse(null);
+
+        if (user != null) {
+
+            user.setPassword(encoder.encode(request.getPassword()));
+            user.setResetToken(null);
+            userRepository.save(user);
+            return "Password reset succeed";
+        }
+        return null;
     }
 
 }
