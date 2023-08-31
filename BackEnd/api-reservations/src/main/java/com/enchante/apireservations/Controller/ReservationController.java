@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/api/v1/reservations")
 public class ReservationController {
 
@@ -102,8 +102,15 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable Integer id) {
 
+        ReservationDTO reservation = reservationService.getReservationById(id);
+
+        if (reservation == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reservation with ID " + id + " not found");
+        }
+
         reservationService.deleteReservation(id);
         return ResponseEntity.ok().body("Reservation deleted successfully");
+
     }
 
     public Boolean stringArrayToIntegerValid(String[] array) {
@@ -154,6 +161,20 @@ public class ReservationController {
             return false;
         }
         return true;
+    }
+
+    @GetMapping("/my-reservations")
+    public ResponseEntity<List<ReservationDTO>> getUserReservations(){
+        AppUser userDetails = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String userEmail= userDetails.getEmail();
+
+        List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(userEmail);
+
+        if (!userReservations.isEmpty()){
+            return ResponseEntity.ok().body(userReservations);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
