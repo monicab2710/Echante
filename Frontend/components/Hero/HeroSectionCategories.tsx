@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "styles/Categories.module.css";
 import axiosH from "../../app/helper/axiosH";
 
 const HeroSectionCategories = () => {
