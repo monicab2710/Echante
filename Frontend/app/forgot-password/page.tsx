@@ -9,16 +9,8 @@ import * as Yup from "yup";
 import { useRouter } from 'next/navigation'
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../providers";
-
-interface DecodedData {
-  name: string;
-  lastName: string;
-  email: string;
-  // rol: string; // No proporcionaste suficiente información sobre el tipo de 'rol'
-}
-
-
-const SigninPage = () => {
+import { useFormik } from 'formik';
+const forgotPasswordPage = () => {
 
   const MySwal = withReactContent(Swal)
   const Toast = Swal.mixin({
@@ -35,42 +27,43 @@ const SigninPage = () => {
     }
   })
 
-  const [showPassword, setPassword] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const router = useRouter();
+
   const validation = Yup.object({
     email: Yup.string()
-      .email("Ingresa un email valido")
+      .email("Ingresa un email válido")
       .required("Este campo es requerido"),
-    password: Yup.string()
-      .min(6, "La contraseña debe tener al menos 6 caracteres")
+    confirmEmail: Yup.string()
+      .oneOf([Yup.ref('email'), null], 'Los correos deben coincidir')
       .required("Este campo es requerido"),
   });
-
+/* 
   const initialValues = {
-    name: '',
-    userName: '',
-    lastName: '',
     email: '',
-    password: '',
-    confirmpassword: ''
-  };
+    confirmemail: ''
+  }; */
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      confirmEmail: ''
+  },
+    validationSchema: validation,
+    onSubmit: (values) => {
+      sendEmail(values);
 
-  let { setUser } = useContext(UserContext)
+    },
+  });
 
+const { setUser } = useContext(UserContext)
 
-  const [responseMessage, setResponseMessage] = useState('');
-
-  const saveUser = async (values) => {
+  const sendEmail = async (values) => {
 
     try {
       const res = await axiosHelper.post(
-        "/api/v1/users/auth/signin",
+        "/api/v1/users/auth/forgot-password?email=" + values.email,
         {
           email: values.email,
-          password: values.password,
+          confirmEmail: values.confimEmail,
         },
         {
           headers: {
@@ -80,43 +73,28 @@ const SigninPage = () => {
       )
       if (res.status === 200) {
         router.push('/')
-        const bearerToken = res.data.token
-        const token = bearerToken.split(" ")[1]
-        sessionStorage.setItem('token', token);
-        const decoded = jwt_decode(token);
-        console.log(decoded)
-        const userStorage = JSON.stringify({
-          name: decoded.name,
-          lastName: decoded.lastName,
-          email: decoded.sub,
-          //rol: res.data.authorities[0].authority
-        })
+
+        const userStorage = JSON.stringify(res.data.data);
         sessionStorage.setItem('user', userStorage);
         setUser(userStorage);
         Toast.fire({
           icon: 'success',
-          title: 'Inicio de sesión exitoso.'
+          title: '¡Solicitud enviada con éxito!'
         });
-
       } else if (res.status === 400) {
-        console.log("respuesta1 ", res.data.data);
+        console.log("respuesta", res.data.data);
       }
     }
     catch (error) {
       MySwal.fire({
-        html: <strong>Lamentablemente no ha podido iniciar sesión. ingrese una contrseña valida</strong>,
+        html: <strong>Tu usuario no existe. Ingresa los campos correctos.</strong>,
         icon: 'warning',
       });
-
-      console.error("CONTRASEñA INCORRECTA: ", error);
+      console.error("Correo Incorrecto: ", error);
     }
+
   };
-
-
-  useEffect(() => {
-    document.title = `Iniciar Sesion`;
-  }, []);
-
+        
 
   return (
     <>
@@ -126,19 +104,18 @@ const SigninPage = () => {
             <div className="w-full px-4">
               <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
-                  Iniciar sesión
+                  Recuperar contraseña
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Inicia sesión para reservar.
+                  Ingresa tu e-mail para enviarte el proceso de recuparación.
                 </p>
                 <Formik
-                  initialValues={initialValues}
+                  initialValues={formik.initialValues}
                   validationSchema={validation}
                   validateOnChange={false}
                   validateOnBlur={false}
                   onSubmit={(values) => {
-                    saveUser(values);
-                    setIsLoggedIn(true)
+                    sendEmail(values);
                   }}
                 >
                   {({ values, handleSubmit, handleChange, handleBlur, errors }) => (
@@ -148,7 +125,7 @@ const SigninPage = () => {
                           htmlFor="email"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
-                          Tu Email
+                          Tu e-mail
                         </label>
 
                         <Field
@@ -158,7 +135,7 @@ const SigninPage = () => {
                           value={values.email}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="Ingresa tu Email"
+                          placeholder="Ingresa tu e-mail"
                           className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
                         />
                         <ErrorMessage
@@ -172,81 +149,39 @@ const SigninPage = () => {
                           htmlFor="password"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
-                          Tu contraseña
+                          Confirma tu e-mail
                         </label>
                         <Field
-                          type={showPassword ? "text" : "password"}
-                          id='password'
-                          name="password"
-                          value={values.password}
+                          type="email"
+                          name="confirmEmail"
+                          id="confirmemail"
+                          value={values.confirmEmail}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          placeholder="Ingresa tu contraseña"
+                          placeholder="Confirma tu e-mail"
                           className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
                         />
                         <ErrorMessage
-                          name="password"
-                          id="password"
+                          name="confirmEmail"
+                          id="confirmEmail"
                           component="small"
                           className="text-red-500 text-sm"
                         />
                       </div>
-                      <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
-                        <div className="mb-4 sm:mb-0">
-                          <label
-                            htmlFor="checkboxLabel"
-                            className="flex cursor-pointer select-none items-center text-sm font-medium text-body-color"
-                          >
-                            <div className="relative">
-                              <Field
-                                type="checkbox"
-                                id="checkboxLabel"
-                                className="sr-only"
-                              />
-                              <div className="box mr-4 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
-                                <span className="opacity-0">
-                                  <svg
-                                    width="11"
-                                    height="8"
-                                    viewBox="0 0 11 8"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
-                                      className="stroke-width-[0.4] fill-[#0D263B] stroke-[#0D263B] dark:fill-[#EA7363] dark:stroke-[#EA7363]"
-                                    />
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
-                            Mantener mi sesión
-                          </label>
-                        </div>
-                        <div>
-                          <a
-                            href="#0"
-                            className="text-sm font-medium text-primary dark:text-white hover:underline"
-                          >
-                            
-                            <Link href="/forgot-password" className="text-primary dark:text-white hover:underline">
-                            ¿Olvidaste la contraseña?
-                  </Link>
-                          </a>
-                        </div>
-                      </div>
+                      
+                  
                       <div className="mb-6">
                         <button type="submit" className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                          Iniciar sesión
+                          Enviar
                         </button>
                       </div>
                     </Form>
                   )}
                 </Formik>
                 <p className="text-center text-base font-medium text-body-color">
-                  ¿No tienes una cuenta? &nbsp;
-                  <Link href="/signup" className="text-primary dark:text-white hover:underline">
-                    Registrarse
+                  
+                  <Link href="/signin" className="text-primary dark:text-white hover:underline">
+                    Volver al login
                   </Link>
                 </p>
               </div>
@@ -315,4 +250,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default forgotPasswordPage;
