@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +21,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Integer EXPIRATION_TOKEN_MINUTES = 30;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
@@ -116,6 +119,7 @@ public class UserServiceImpl implements UserService {
             //String token = RandomString.make(255);
             String token = UUID.randomUUID().toString();
             user.setResetToken(token);
+            user.setTokenCreationDate(LocalDateTime.now());
             userRepository.save(user);
             return token;
         }
@@ -127,14 +131,27 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByResetToken(request.getToken()).orElse(null);
 
-        if (user != null) {
-
-            user.setPassword(encoder.encode(request.getPassword()));
-            user.setResetToken(null);
-            userRepository.save(user);
-            return "Password reset succeed";
+        if (user == null) {
+            return "Invalid Token";
         }
-        return null;
+
+        if (isTokenExpired(user.getTokenCreationDate())) {
+            return "Token is expired";
+        }
+
+        user.setPassword(encoder.encode(request.getPassword()));
+        user.setResetToken(null);
+        user.setTokenCreationDate(null);
+        userRepository.save(user);
+        return "Password reset succeed";
+    }
+
+    private Boolean isTokenExpired(LocalDateTime tokenCreationDate) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Duration diff = Duration.between(tokenCreationDate, now);
+
+        return diff.toMinutes() >= EXPIRATION_TOKEN_MINUTES;
     }
 
 }

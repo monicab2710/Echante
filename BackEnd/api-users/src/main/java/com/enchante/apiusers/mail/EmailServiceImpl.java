@@ -74,15 +74,12 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setFrom(sender);
             mimeMessageHelper.setTo(email);
 
-            String content = "<p>Hello,</p>"
-                    + "<p>You have requested to reset your password.</p>"
-                    + "<p>Click the link below to change your password:</p>"
-                    + "<p><a href=\"" + link + "\">Change my password</a></p>"
-                    + "<br>"
-                    + "<p>Ignore this email if you do remember your password, "
-                    + "or you have not made the request.</p>";
+            Context ctx = new Context();
+            ctx.setVariable("link", link);
 
-            mimeMessageHelper.setText(content, true);
+            String htmlContent = templateEngine.process("password-email", ctx);
+
+            mimeMessageHelper.setText(htmlContent, true);
             mimeMessageHelper.setSubject("Here's the link to reset your password");
 
             javaMailSender.send(mimeMessage);

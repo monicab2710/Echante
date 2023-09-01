@@ -25,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.regex.Pattern;
 
@@ -124,7 +123,7 @@ public class AuthController {
     */
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(HttpServletRequest request, @RequestParam String email) {
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
 
         Boolean isValidEmail = validEmail(email);
         if (!isValidEmail) {
@@ -137,10 +136,9 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Error: Email is not registered!");
         }
 
-        String siteURL = request.getRequestURL().toString();
-        //siteURL = siteURL.replace(request.getServletPath(), "");
+        String siteURL = "http://localhost:3000/reset-password";
 
-        String resetPasswordLink = siteURL + "/reset-password?token=" + token;
+        String resetPasswordLink = siteURL + "?token=" + token;
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setRecipient(email);
 
@@ -154,8 +152,8 @@ public class AuthController {
 
         String message = userService.resetPassword(request);
 
-        if (message == null) {
-            return ResponseEntity.badRequest().body("Invalid Token");
+        if (message.contains("Token")) {
+            return ResponseEntity.badRequest().body(message);
         }
 
         return ResponseEntity.ok().body("You have successfully changed your password.");
