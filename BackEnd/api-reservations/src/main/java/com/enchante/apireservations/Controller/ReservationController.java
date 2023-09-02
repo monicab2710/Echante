@@ -17,7 +17,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/reservations")
 public class ReservationController {
 
@@ -164,11 +164,10 @@ public class ReservationController {
     }
 
     @GetMapping("/my-reservations")
-    public ResponseEntity<List<ReservationDTO>> getUserReservations(){
-        AppUser userDetails = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String userEmail= userDetails.getEmail();
+    public ResponseEntity<List<ReservationDTO>> getUserReservations(@RequestParam String email){
 
-        List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(userEmail);
+
+        List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
 
         if (!userReservations.isEmpty()){
             return ResponseEntity.ok().body(userReservations);
