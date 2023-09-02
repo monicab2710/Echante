@@ -2,8 +2,9 @@
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import { Brand } from '../../types/brand';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { userData } from "@/services/users"
+import { UserContext } from '@/app/providers';
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -12,17 +13,20 @@ const checkIcon = (
 );
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
-  const fetchUser = async () => {
-    const response = await userData(5)
+  const [test, setTest] = useState(null);
+  let { user } = useContext(UserContext)
+
+  console.log("current user", user)
+  /* const fetchUser = async () => {
+    const response = await userData(user.userId)
     setUser(response.data);
     console.log(response.data);
     console.log('probando')
-  }
+  } */
   useEffect(() => {
-
-    fetchUser()
-  }, []);
+    setTest(user)
+    //fetchUser()
+  }, [user]);
 
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-body-color">
@@ -59,9 +63,9 @@ const ProfilePage = () => {
                 </div>
                 <br />
                 <br />
-                <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario</h2>
+                <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario {user} </h2>
                 <div className="mb-4">
-                  <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido</label>
+                  <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido  {test}</label>
                   <input
                     type="text"
                     id="nombre"

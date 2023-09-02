@@ -84,11 +84,12 @@ const SigninPage = () => {
         const token = bearerToken.split(" ")[1]
         sessionStorage.setItem('token', token);
         const decoded = jwt_decode(token);
-        console.log(decoded)
+        console.log("decode", decoded)
         const userStorage = JSON.stringify({
           name: decoded.name,
           lastName: decoded.lastName,
           email: decoded.sub,
+          userId: decoded.userId
           //rol: res.data.authorities[0].authority
         })
         sessionStorage.setItem('user', userStorage);

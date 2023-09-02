@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import Link from "next/link";
 import { useRouter } from 'next/navigation'
 import { UserContext } from '@/app/providers';
 import { useContext } from 'react';
@@ -9,16 +8,15 @@ import { useContext } from 'react';
 
 export default function signOut({currentUser}) {
   const router = useRouter();
-  console.log('currentUser', currentUser)
 
   let { user, setUser } = useContext(UserContext)
+  console.log('1.', user)
   const userObj = currentUser !== null ? JSON.parse(user) : {}
     const removeUser = () => {
         sessionStorage.removeItem("user");
         router.push('/')    
         setUser(null);
     }
-    
     return (
         <>
 
