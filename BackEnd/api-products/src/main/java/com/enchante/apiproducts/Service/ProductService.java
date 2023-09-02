@@ -18,4 +18,6 @@ public interface ProductService {
 
     void deleteProduct(Integer id);
 
+    ProductDTO randomProduct();
+
 }

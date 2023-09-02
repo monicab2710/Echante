@@ -80,4 +80,15 @@ public class ProductController {
         return ResponseEntity.ok().body("Product deleted successfully");
     }
 
+    @GetMapping("/featured")
+    public ResponseEntity<ProductDTO> featuredProduct() {
+
+        try {
+            return ResponseEntity.ok(productService.randomProduct());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 }
