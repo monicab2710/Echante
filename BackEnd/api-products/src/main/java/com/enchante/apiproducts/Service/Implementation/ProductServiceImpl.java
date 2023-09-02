@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,6 +110,14 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Integer id) {
 
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public ProductDTO randomProduct() {
+
+        List<ProductDTO> products = getAllProducts();
+        Collections.shuffle(products);
+        return products.get(0);
     }
 
 }
