@@ -55,12 +55,12 @@ public class ReservationServiceImpl implements ReservationService {
         if (!reservationAvailable) {
             return null;
         }
-        Integer amountDiners;
+        /*Integer amountDiners;
         try {
             amountDiners = reservation.getAmountDiners().intValue();
         } catch (NumberFormatException e) {
             throw new BadRequestException("The amount of diners must be an integer");
-        }
+        }*/
 
         Reservation r = modelMapper.map(reservation, Reservation.class);
         r.setStatus("CONFIRMED");
@@ -102,16 +102,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
 
-
-    public Boolean isReservationAvailable(String date, String time) {
-
-        List<Reservation> reservations = reservationRepository.findByDateAndTime(date, time);
-
-        return reservations.size() < MAX_TABLES;
-    }
-
     @Override
     public List<ReservationDTO> getReservationsByUserEmail(String emailUser) {
+        if (!reservationRepository.existsReservationByEmailUser(emailUser)) {
+            return null;
+        }
+
         List<Reservation> reservations = reservationRepository.findByEmailUser(emailUser);
         List<ReservationDTO> reservationDTO= new ArrayList<>();
 
@@ -121,6 +117,13 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         return reservationDTO;
+    }
+
+    public Boolean isReservationAvailable(String date, String time) {
+
+        List<Reservation> reservations = reservationRepository.findByDateAndTime(date, time);
+
+        return reservations.size() < MAX_TABLES;
     }
 
 }
