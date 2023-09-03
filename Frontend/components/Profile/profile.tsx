@@ -17,6 +17,8 @@ const ProfilePage = () => {
   let { user } = useContext(UserContext)
 
   console.log("current user", user)
+
+  const getname = sessionStorage.getItem("name")
   /* const fetchUser = async () => {
     const response = await userData(user.userId)
     setUser(response.data);

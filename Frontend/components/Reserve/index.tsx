@@ -17,8 +17,8 @@ const Reserve = () => {
   useEffect(() => {
     const fetchData = async () => {
       const token = sessionStorage.getItem('token');
-      const apiUrl = await axiosHelper.post(
-        "/api/v1/users/auth/signin",)
+      const apiUrl = await axiosHe.post(
+        "/api/v1/users/reservation",)
       
 
          const requestBody = {
