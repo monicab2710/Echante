@@ -120,6 +120,28 @@
 					"response": []
 				},
 				{
+					"name": "RandomProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/products/featured",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"featured"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateProduct",
 					"request": {
 						"method": "POST",
@@ -271,6 +293,41 @@
 					"response": []
 				},
 				{
+					"name": "GetUserReservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8087/api/v1/reservations/my-reservations?email=fkelley@mail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"reservations",
+								"my-reservations"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "fkelley@mail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateReservation",
 					"request": {
 						"auth": {
@@ -367,7 +424,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8087/api/v1/reservations/1",
+							"raw": "http://localhost:8087/api/v1/reservations/23",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -377,7 +434,7 @@
 								"api",
 								"v1",
 								"reservations",
-								"1"
+								"23"
 							]
 						}
 					},
@@ -458,7 +515,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Florence\",\r\n    \"lastName\": \"Kelley\",\r\n    \"userName\": \"fkelley\",\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Florence\",\r\n    \"lastName\": \"Kelley\",\r\n    \"userName\": \"fkelley\",\r\n    \"email\": \"fkelley@gmail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -521,6 +578,67 @@
 								"users",
 								"auth",
 								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/users/auth/forgot-password?email=cfoster@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "cfoster@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"c83dd04a-647b-4c1d-8198-d45bf544dccd\",\r\n    \"password\": \"cfoster_89\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/users/auth/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"reset-password"
 							]
 						}
 					},
