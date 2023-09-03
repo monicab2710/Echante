@@ -14,7 +14,7 @@ interface DecodedData {
   name: string;
   lastName: string;
   email: string;
-  // rol: string;
+  userId: number;
 }
 
 
@@ -90,7 +90,6 @@ const SigninPage = () => {
           lastName: decoded.lastName,
           email: decoded.sub,
           userId: decoded.userId
-          //rol: res.data.authorities[0].authority
         })
         sessionStorage.setItem('user', userStorage);
         setUser(userStorage);
