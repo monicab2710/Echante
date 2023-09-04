@@ -16,7 +16,7 @@ const validationSchema = yup.object().shape({
     .required('La hora es obligatoria'),
 });
 
-
+const router = useRouter()
 const token = sessionStorage.getItem('token');
 
 const MySwal = withReactContent(Swal)
@@ -30,7 +30,7 @@ const Reserve = () => {
   });
 
   const handleSubmit = async (values, actions) => {
-const router = useRouter()
+
     try {
 
       const response = await axiosHe.post(
@@ -68,7 +68,7 @@ const router = useRouter()
       MySwal.fire({
         html: (
           <strong>
-            Lamentablemente no ha podido hacer su reserva. Por favor intente más tarde.
+            Lamentablemente no ha podido hacer su. Por favor intente más tarde.
           </strong>
         ),
         icon: 'warning',
