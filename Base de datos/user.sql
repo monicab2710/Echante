@@ -56,7 +56,9 @@ CREATE TABLE `user` (
   `user_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
   `role_id` int NOT NULL,
+  `token_creation_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_rol_idx` (`role_id`),
   CONSTRAINT `fk_user_rol` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
@@ -81,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-19 19:55:28
+-- Dump completed on 2023-09-01 19:37:28

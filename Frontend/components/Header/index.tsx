@@ -10,6 +10,7 @@ import SignOut from "./signOut";
 import { UserContext } from '@/app/providers';
 import { useContext } from 'react';
 import Profile from "../Profile/profile"
+import { decoded } from '@/app/helper/global'
 
 const Header = () => {
   // Navbar toggle
@@ -31,9 +32,10 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-    const userSessionStorage = sessionStorage.getItem('user');
+    const userSessionStorage = sessionStorage.getItem('token');
     if (userSessionStorage) {
-      setUser(userSessionStorage);
+      const profile = decoded(userSessionStorage);
+      setUser(profile);
     }
   }, []);
 

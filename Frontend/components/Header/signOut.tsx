@@ -10,9 +10,7 @@ export default function signOut({currentUser}) {
   const router = useRouter();
 
   let { user, setUser } = useContext(UserContext)
-  console.log('1.', user)
- const userObj = currentUser !== null ? JSON.parse(user) : {}
-    const removeUser = () => {
+      const removeUser = () => {
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("token");
         router.push('/')    
@@ -24,7 +22,7 @@ export default function signOut({currentUser}) {
             <p
                 className=" py-3 px-7 text-base font-bold text-black dark:text-yellow dark:hover:text-body-color  md:block"
             >
-               !Hola!{userObj.name} {userObj.lastName}
+               !Hola!{user.name} {user.lastName}
               
             </p>
             <div className="mb-6">

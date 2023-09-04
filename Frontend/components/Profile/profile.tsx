@@ -1,10 +1,11 @@
 'use client'
 import Image from "next/image";
-import SectionTitle from "../Common/SectionTitle";
-import { Brand } from '../../types/brand';
 import { useEffect, useState, useContext } from "react";
-import { userData } from "@/services/users"
+import { updateUserData } from "@/services/users"
 import { UserContext } from '@/app/providers';
+import withReactContent from "sweetalert2-react-content";
+import Swal from 'sweetalert2';
+import { Profile } from '@/types/profile'
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -13,21 +14,56 @@ const checkIcon = (
 );
 
 const ProfilePage = () => {
-  const [test, setTest] = useState(null);
-  let { user } = useContext(UserContext)
+const MySwal = withReactContent(Swal)
 
-  console.log("current user", user)
+  let { user, setUser } = useContext(UserContext)
+  const [newUser, setNewUser] = useState({
+    name: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    userId: 0,
+    password: "******"
+  });
 
-  const getname = sessionStorage.getItem("name")
-  /* const fetchUser = async () => {
-    const response = await userData(user.userId)
-    setUser(response.data);
-    console.log(response.data);
-    console.log('probando')
-  } */
+  const fireSuccess = () => {
+    MySwal.fire({
+      html: <strong>El registro se ha realizado de manera exitosa.</strong>,
+      icon: 'success',
+      background: "#008F95",
+      color: "#EA7363",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 3000,
+    });
+  }
+
+  const fireError = () => {
+    MySwal.fire({
+      html: <strong>El registro se ha realizado de manera exitosa.</strong>,
+      icon: 'success',
+      background: "#008F95",
+      color: "#EA7363",
+      showConfirmButton: false,
+      timerProgressBar: true,
+      timer: 3000,
+    });
+  }
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setNewUser({
+      ...newUser,
+      [event.target.id]: value
+    });
+  }
+
+  const updateUser = () => {
+    updateUserData(newUser, fireSuccess , fireError)
+  }
+
   useEffect(() => {
-    setTest(user)
-    //fetchUser()
+    setNewUser(user);
   }, [user]);
 
   const List = ({ text }) => (
@@ -65,15 +101,15 @@ const ProfilePage = () => {
                 </div>
                 <br />
                 <br />
-                <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario {user} </h2>
+                <h2 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">Perfil de Usuario</h2>
                 <div className="mb-4">
-                  <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido  {test}</label>
+                  <label htmlFor="nombre" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre y Apellido</label>
                   <input
                     type="text"
-                    id="nombre"
+                    id="name"
                     className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                    value={user && user.name}
-                    readOnly
+                    onChange={handleChange}
+                    value={(newUser && newUser.name) || ""}
                   />
                 </div>
 
@@ -81,10 +117,10 @@ const ProfilePage = () => {
                   <label htmlFor="usuario" className="mb-3 block text-sm font-medium text-dark dark:text-white">Nombre de Usuario</label>
                   <input
                     type="text"
-                    id="usuario"
+                    id="userName"
                     className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                    value={user && user.userName}
-                    readOnly
+                    onChange={handleChange}
+                    value={(newUser && newUser.userName) || ""}
                   />
                 </div>
                 <div className="mb-4">
@@ -93,8 +129,8 @@ const ProfilePage = () => {
                     type="email"
                     id="email"
                     className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                    value={user && user.email}
-                    readOnly
+                    onChange={handleChange}
+                    value={(newUser && newUser.email) || ""}
                   />
                 </div>
 
@@ -104,12 +140,12 @@ const ProfilePage = () => {
                     type="password"
                     id="contrasena"
                     className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                    value="********"
+                    value={(newUser && newUser.password) || "*******"}
                     readOnly
                   />
                 </div>
 
-                <button className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                <button onClick={updateUser} className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                   Editar mis datos
                 </button>
               </div>
