@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { useRouter } from 'next/navigation'
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../providers";
+import { decoded } from '@/app/helper/global'
 
 interface DecodedData {
   name: string;
@@ -83,16 +84,10 @@ const SigninPage = () => {
         const bearerToken = res.data.token
         const token = bearerToken.split(" ")[1]
         sessionStorage.setItem('token', token);
-        const decoded = jwt_decode(token);
-        console.log("decode", decoded)
-        const userStorage = JSON.stringify({
-          name: decoded.name,
-          lastName: decoded.lastName,
-          email: decoded.sub,
-          userId: decoded.userId
-        })
+        const profile = decoded(token);
+        const userStorage = JSON.stringify(profile)
         sessionStorage.setItem('user', userStorage);
-        setUser(userStorage);
+        setUser(profile);
         Toast.fire({
           icon: 'success',
           title: 'Inicio de sesión exitoso.'
