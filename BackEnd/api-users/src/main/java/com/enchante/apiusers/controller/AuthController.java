@@ -93,6 +93,15 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Invalid data");
         }
+        if ((!isAlpha(signUpRequest.getName())) || (!isAlpha(signUpRequest.getLastName()))) {
+            return ResponseEntity.badRequest().body("Invalid name and/or last name");
+        }
+        if (!validEmail(signUpRequest.getEmail())) {
+            return ResponseEntity.badRequest().body("Invalid email");
+        }
+        if (!validPassword(signUpRequest.getPassword())) {
+            return ResponseEntity.badRequest().body("Invalid password");
+        }
         if (userRepository.existsUserByEmail(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body("Error: Email is already in use!");
         }
@@ -165,6 +174,18 @@ public class AuthController {
         String regexPatter = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
         return Pattern.compile(regexPatter).matcher(email).matches();
+    }
+
+    public Boolean isAlpha(String s) {
+
+        String regexPattern = "^[a-zA-Z]*$";
+        return Pattern.compile(regexPattern).matcher(s).matches();
+    }
+
+    public Boolean validPassword(String password) {
+
+        String regexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,20}$";
+        return Pattern.compile(regexPattern).matcher(password).matches();
     }
 
 }
