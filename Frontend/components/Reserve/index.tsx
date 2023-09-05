@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import * as yup from 'yup';
+import DatePicker from "react-datepicker";
 
 const validationSchema = yup.object().shape({
   time: yup
@@ -16,21 +17,20 @@ const validationSchema = yup.object().shape({
     .required('La hora es obligatoria'),
 });
 
-const router = useRouter()
-const token = sessionStorage.getItem('token');
-
 const MySwal = withReactContent(Swal)
+
+
 const Reserve = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [formData, setFormData] = useState({
-    time: "",
-    date: "",
-    amountDiners: "",
-    message: ""
-  });
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+
+  const [isRegistered, setIsRegistered] = useState();
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [amountDiners, setAmountDiners] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (values, actions) => {
-
+    const router = useRouter()
     try {
 
       const response = await axiosHe.post(
@@ -90,7 +90,12 @@ const Reserve = () => {
                 Reserva en Enchanté
               </h2>
               <Formik
-                initialValues={formData}
+                initialValues={{
+                  time: "",
+                  date: "",
+                  amountDiners: "",
+                  message: ""
+                }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
@@ -106,9 +111,12 @@ const Reserve = () => {
                           >
                             Fecha:
                           </label>
-                          <Field
+                          <DatePicker name="date"
                             type="date"
                             id="date"
+                            selected={date}
+                            onChange={(date) => setDate(date)}
+                            dateFormat="dd/MM/yyyy"
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
                           <ErrorMessage
@@ -129,6 +137,13 @@ const Reserve = () => {
                           </label>
                           <Field
                             type="time"
+                            selected={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={30}
+                            timeCaption="Hora"
+                            dateFormat="HH:mm"
                             id="time"
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
@@ -144,6 +159,9 @@ const Reserve = () => {
                           </label>
                           <Field
                             type="number"
+                            id="amountDiners"
+                            value={amountDiners}
+                            onChange={(e) => setAmountDiners(e.target.value)}
                             placeholder="2"
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
@@ -159,6 +177,7 @@ const Reserve = () => {
                           </label>
                           <textarea
                             name="message"
+                            onChange={(e) => setMessage(e.target.value)}                 
                             rows={5}
                             placeholder="Envíanos un mensaje"
                             className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
