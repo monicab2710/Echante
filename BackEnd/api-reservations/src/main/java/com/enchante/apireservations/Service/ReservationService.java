@@ -19,5 +19,4 @@ public interface ReservationService {
 
     List<ReservationDTO> getReservationsByUserEmail(String emailUser);
 
-
 }
