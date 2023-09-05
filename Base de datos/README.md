@@ -11,6 +11,7 @@ Este repositorio contiene la estructura y los datos esenciales para el sistema d
 La base de datos se organiza en torno a determinadas tablas clave que capturan la información esencial sobre las reservas y los clientes. La estructura básica de la base de datos es la siguiente:
 
 - **Tabla "User":** Almacena los detalles de nuestros clientes, como nombres, email y lo más importante su usuario en el que se registro junto con su contraseña.
+- **Tabla "Role":** Contiene los tipos de roles existentes, en nuestro caso solo hay 2 roles.
 - **Tabla "Reservation":** Registra las reservas realizadas por los clientes, incluidos la fecha y la hora de la reserva y el tamaño del grupo.
 - **Tabla "Category":** Contiene información sobre las categorías de los productos que brindamos.
 - **Tabla "Product":** Guarda los productos que estamos ofreciendo dentro de nuestro menú.
@@ -26,7 +27,7 @@ Ejemplo: "SELECT * FROM product;"
 
 ## Aclaraciones :mega:
 
-¡Agradecemos las contribuciones y sugerencias para mejorar nuestro sistema de reservas! Tengan en cuenta que lo que brindamos hasta el momento es para este primer sprint, pronto estaremos realizando las actualizaciones para los sprint contiguos.
+¡Agradecemos las contribuciones y sugerencias para mejorar nuestro sistema de reservas! Tengan en cuenta que lo que brindamos hasta el momento es para estos 3 primeros sprint, pronto estaremos realizando las actualizaciones para el sprint contiguo.
 
 :rainbow: ¡Gracias por formar parte de nuestro equipo para brindar una experiencia excepcional a nuestros comensales! :rainbow:
 
