@@ -1,6 +1,4 @@
 import Image from "next/image";
-import SectionTitle from "../Common/SectionTitle";
-import { Brand } from '../../types/brand';
 
 
 const checkIcon = (
