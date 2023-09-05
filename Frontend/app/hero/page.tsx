@@ -1,5 +1,6 @@
-import HeroSectionOne from "@/components/Hero/HeroSectionOne";
+import HeroSectionOne from "@/components/Hero/HeroSectionProducts";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import HeroSectionOnex from "@/components/Hero/HeroSectionCategories";
 
 const HeroPage = () => {
   return (
@@ -8,6 +9,7 @@ const HeroPage = () => {
         pageName="Hero Page"
         description="Aquí encontrarás la información de nuestras últimas novedades."
       />
+      <HeroSectionOnex />
       <HeroSectionOne />
     </>
   );

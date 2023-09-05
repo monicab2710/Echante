@@ -1,13 +1,11 @@
 "use client";
 import Image from "next/image";
 import styles from "styles/Home.module.css";
-import type { GetServerSideProps, NextPage } from "next";
-import { Product, ProductsAPIResponse } from "types";
 import axiosH from "../../app/helper/axiosH"
-import SectionTitle from "../Common/SectionTitle";
 import { useEffect, useState } from "react";
 
-const HeroSectionOne = () => {
+
+const HeroSectionProducts = () => {
   const [products, setProducts] = useState([]);
 //accediendo a la api 
   useEffect(() => {
@@ -42,14 +40,14 @@ const renderProductCard = ({ id, name, description, imageUrl, price }) => (
     </div>
   </div>
 );
-
+const renderedProducts = products.slice(0, 4).map(renderProductCard);
 return (
   <section id="hero" className="pt-16 md:pt-20 lg:pt-28">
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.heading}>Descubre Nuestros Productos</h1>
+        <h1 className="mb-3 text-2xl font-bold text-primary dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl text-center">Descubre Nuestros Productos</h1>
         <div className={styles.productsGrid}>
-          {products.map(renderProductCard)}
+          {renderedProducts}
         </div>
       </main>
     </div>
@@ -57,7 +55,7 @@ return (
 );
 };
 
-export default HeroSectionOne;
+export default HeroSectionProducts;
 
 
 
