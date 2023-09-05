@@ -101,18 +101,18 @@ public class ReservationServiceImpl implements ReservationService {
         reservationRepository.deleteById(id);
     }
 
-
     @Override
     public List<ReservationDTO> getReservationsByUserEmail(String emailUser) {
+
         if (!reservationRepository.existsReservationByEmailUser(emailUser)) {
             return null;
         }
 
         List<Reservation> reservations = reservationRepository.findByEmailUser(emailUser);
-        List<ReservationDTO> reservationDTO= new ArrayList<>();
+        List<ReservationDTO> reservationDTO = new ArrayList<>();
 
-        for (Reservation reservation: reservations){
-            ReservationDTO reservationDTO1= modelMapper.map(reservation, ReservationDTO.class);
+        for (Reservation reservation : reservations) {
+            ReservationDTO reservationDTO1 = modelMapper.map(reservation, ReservationDTO.class);
             reservationDTO.add(reservationDTO1);
         }
 

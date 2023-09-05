@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -52,6 +54,10 @@ public class ProductController {
     @PostMapping("")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO p) {
 
+        if ((!isAlpha(p.getName())) || (!isAlpha(p.getDescription())) || (!isValidURL(p.getImageUrl()))) {
+            return ResponseEntity.badRequest().build();
+        }
+
         ProductDTO product = productService.createProduct(p);
 
         if (product != null) {
@@ -63,6 +69,10 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Integer id, @RequestBody ProductDTO p) {
+
+        if ((!isAlpha(p.getName())) || (!isAlpha(p.getDescription())) || (!isValidURL(p.getImageUrl()))) {
+            return ResponseEntity.badRequest().build();
+        }
 
         ProductDTO product = productService.updateProduct(id, p);
 
@@ -76,8 +86,12 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {
 
-        productService.deleteProduct(id);
-        return ResponseEntity.ok().body("Product deleted successfully");
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.ok().body("Product deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is not product with that id");
+        }
     }
 
     @GetMapping("/featured")
@@ -88,6 +102,22 @@ public class ProductController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    public Boolean isAlpha(String s) {
+
+        String regexPattern = "^[a-zA-Z]*$";
+        return Pattern.compile(regexPattern).matcher(s).matches();
+    }
+
+    public Boolean isValidURL(String url) {
+
+        try {
+            new URL(url).toURI();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

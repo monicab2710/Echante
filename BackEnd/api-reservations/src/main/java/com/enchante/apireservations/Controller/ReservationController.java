@@ -114,20 +114,16 @@ public class ReservationController {
     }
 
     @GetMapping("/my-reservations")
-    public ResponseEntity<?> getUserReservations(@RequestParam String email){
+    public ResponseEntity<?> getUserReservations(@RequestParam String email) {
 
 
         List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
 
         if (userReservations == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Email");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User has no reservations");
         }
 
-        if (!userReservations.isEmpty()){
-            return ResponseEntity.ok().body(userReservations);
-        }else {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User has no reservations");
-        }
+        return ResponseEntity.ok().body(userReservations);
     }
 
     public Boolean stringArrayToIntegerValid(String[] array) {
@@ -179,7 +175,5 @@ public class ReservationController {
         }
         return true;
     }
-
-
 
 }
