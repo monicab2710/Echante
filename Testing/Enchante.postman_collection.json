@@ -120,7 +120,7 @@
 					"response": []
 				},
 				{
-					"name": "RandomProduct",
+					"name": "GetFeaturedProduct",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -589,7 +589,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/users/auth/forgot-password?email=cfoster@gmail.com",
+							"raw": "http://localhost:8082/api/v1/users/auth/forgot-password?email=fkelley@mail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -605,7 +605,7 @@
 							"query": [
 								{
 									"key": "email",
-									"value": "cfoster@gmail.com"
+									"value": "fkelley@mail.com"
 								}
 							]
 						}
