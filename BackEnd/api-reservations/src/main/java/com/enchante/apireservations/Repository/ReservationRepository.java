@@ -10,5 +10,7 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
     List<Reservation> findByDateAndTime(String date, String time);
+    List<Reservation> findByEmailUser (String email);
+    Boolean existsReservationByEmailUser(String email);
 
 }
