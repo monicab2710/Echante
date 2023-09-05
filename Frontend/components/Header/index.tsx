@@ -9,6 +9,8 @@ import SignIn from "./signIn";
 import SignOut from "./signOut";
 import { UserContext } from '@/app/providers';
 import { useContext } from 'react';
+import Profile from "../Profile/profile"
+import { decoded } from '@/app/helper/global'
 
 const Header = () => {
   // Navbar toggle
@@ -30,9 +32,10 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-    const userSessionStorage = sessionStorage.getItem('user');
-    if(userSessionStorage) {
-      setUser(userSessionStorage);
+    const userSessionStorage = sessionStorage.getItem('token');
+    if (userSessionStorage) {
+      const profile = decoded(userSessionStorage);
+      setUser(profile);
     }
   }, []);
 
@@ -50,8 +53,8 @@ const Header = () => {
     <>
       <header
         className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent  ${sticky
-            ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
-            : "absolute"
+          ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
+          : "absolute"
           }`}
       >
         <div className="container">
@@ -154,19 +157,22 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
+                <div className="flex items-center justify-end pr-16 lg:pr-0">
+                  {!user ? (
+                    <SignIn />
+                  ) : (
+                    <>
+                      <SignOut currentUser={user} />
+                      <Link
+                        href="/profile"
+                        className="py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color md:block"
+                      >
+                        Mi Perfil
+                      </Link>
+                    </>
+                  )}
+                </div>
 
-                <Link
-
-                  href="/profile"
-                  className=" py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color  md:block"
-
-                >
-                 Mi Perfil
-
-                </Link>
-                
-
-                {!user ? <SignIn /> : <SignOut currentUser={user} />}
                 <div>
                   <ThemeToggler />
                 </div>
