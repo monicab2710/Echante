@@ -1,4 +1,4 @@
-import RevPassword from '@/components/Reset-Password/reset-password';
+import RevPassword from '@/components/Reset-password/reset-password';
 
 
 const Passw = () => {
