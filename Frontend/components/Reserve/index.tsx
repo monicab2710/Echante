@@ -12,6 +12,7 @@ import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
+import styles from '../../styles/Categories.module.css';
 //const validationSchema = yup.object().shape({
 // time: yup
 ///   .()
@@ -25,11 +26,30 @@ const Reserve = () => {
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
 
   const [isRegistered, setIsRegistered] = useState(false);
+
   const [date, setDate] = useState(new Date());
 
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
+
+  const isMondayOrTuesday = (date) => {
+    const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
+    return dayOfWeek === 1 || dayOfWeek === 2; // 1 es lunes, 2 es martes
+  };
+
+  const handleDateChange = (date) => {
+    if (isMondayOrTuesday(date)) {
+      MySwal.fire({
+        icon: "error",
+        title: "Día no permitido",
+        text: "No puedes seleccionar un lunes o martes.",
+      });
+    } else {
+      setDate(date); 
+    }
+  };
+
 
   const handleSubmit = async (values, actions) => {
     const formattedDate = moment(date).format('DD/MM/YYYY');
@@ -43,7 +63,7 @@ const Reserve = () => {
         {
           time: formattedTime,
           date: formattedDate,
-          amountDiners:amountDiners,
+          amountDiners: amountDiners,
           message: "message"
         },
         {
@@ -116,8 +136,9 @@ const Reserve = () => {
                           </label>
                           <DatePicker
                             selected={date}
-                            onChange={(date) => setDate(date)}
+                            onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
+                            filterDate= {(date) => !isMondayOrTuesday(date)}
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
                           <ErrorMessage
@@ -139,7 +160,9 @@ const Reserve = () => {
                           <TimePicker
                             onChange={setTime}
                             value={time}
-                            format="HH:mm" />
+                            format="HH:mm" 
+                            showOn={null}
+                            />                           
                         </div>
                       </div>
                       <div className="w-full px-4 md:w-1/2">
