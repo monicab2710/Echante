@@ -10,7 +10,6 @@ import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;

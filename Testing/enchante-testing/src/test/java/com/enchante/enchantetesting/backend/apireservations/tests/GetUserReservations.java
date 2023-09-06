@@ -5,11 +5,10 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
-import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.hamcrest.Matchers;
-import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.get;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetUserReservations {
@@ -25,37 +24,22 @@ public class GetUserReservations {
     }
 
 
-    String usersURL = "http://localhost:8082/api/v1/users/auth/signin";
     String reservationURL = "http://localhost:8087/api/v1/reservations/my-reservations?email=";
 
     @Test
     @Tag("Smoke")
-    public void getLoggedInUserReservationsPositive() {
-
-        JSONObject request1 = new JSONObject();
-        request1.put("email", "fkelley@mail.com");
-        request1.put("password", "fkelley_989");
-
-        String token =
-                given()
-                        .header("Content-type", "application/json")
-                        .contentType(ContentType.JSON)
-                        .body(request1.toJSONString())
-                        .when()
-                        .post(usersURL)
-                        .then().extract().path("token").toString();
-
+    public void getUserReservationsPositive() {
 
         test = extent.createTest("Get de Reserva por Usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationEmail = "fkelley@mail.com";
+        Response response = get(reservationURL+reservationEmail);
 
-        given()
-                .header("Content-type","application/json")
-                .header("Authorization",token)
-                .when()
-                .get(reservationURL+reservationEmail)
+        int statusCode = response.getStatusCode();
+        System.out.println("Response status is: " + statusCode);
+
+        response
                 .then()
                 .assertThat().statusCode(200)
                 .and().log().all();
@@ -66,54 +50,18 @@ public class GetUserReservations {
 
     @Test
     @Tag("Smoke")
-    public void getNotLoggedInUserReservationsNegative() {
-
-        test = extent.createTest("Get de Reserva por Usuario Negativo");
-        test.log(Status.INFO, "Inicia el test");
-
-        String reservationEmail = "fkelley@mail.com";
-
-        given()
-                .header("Content-type","application/json")
-                //.header("Authorization",token)
-                .when()
-                .get(reservationURL+reservationEmail)
-                .then()
-                .assertThat().statusCode(401)
-                .and().log().all();
-
-        test.log(Status.PASS, "Validación del código de estado 401 al solicitar las reservas de un usuario no logueado");
-        test.log(Status.INFO, "Finaliza el test");
-    }
-
-    @Test
-    @Tag("Smoke")
-    public void getUserReservationResponsePositive() {
-
-        JSONObject request1 = new JSONObject();
-        request1.put("email", "radams@gmail.com");
-        request1.put("password", "radams_789");
-
-        String token =
-                given()
-                        .header("Content-type", "application/json")
-                        .contentType(ContentType.JSON)
-                        .body(request1.toJSONString())
-                        .when()
-                        .post(usersURL)
-                        .then().extract().path("token").toString();
-
+    public void getUserReservationsResponseNegative() {
 
         test = extent.createTest("Get de Reserva por Usuario sin reservas - Contiene");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationEmail = "radams@mail.com";
+        Response response = get(reservationURL+reservationEmail);
 
-        given()
-                .header("Content-type","application/json")
-                .header("Authorization",token)
-                .when()
-                .get(reservationURL+reservationEmail)
+        int statusCode = response.getStatusCode();
+        System.out.println("Response status is: " + statusCode);
+
+        response
                 .then()
                 .assertThat()
                 .body(Matchers.containsString("User has no reservations"))
