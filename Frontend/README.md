@@ -1,17 +1,16 @@
-# Front End - Proyecto Integrador 2 
-<h1 style="text-align:center;">Front End - Proyecto Integrador 2</h1>
+ 
+<h1 style="text-align:center;"># Front End - Proyecto Integrador 2</h1>
 
-Enchanté<br><br>
+Enchanté<br>
 
 ## Sprint 1
 
-En el apartado de frontend desarrollamos la presentación para el usuario de la siguiente manera:<br><br>
-
+En el apartado de frontend desarrollamos la presentación para el usuario de la siguiente manera:<br>
 
 
 ### **Issue #1: Implementar template general responsive**
 
-En el desarrollo de este sprint el grupo encargado de desarrollar se centró en el diseño responsive en celular,tablet y pc, para ello se crea la siguiente secuencia: <br> <br>1
+En el desarrollo de este sprint el grupo encargado de desarrollar se centró en el diseño responsive en celular,tablet y pc, para ello se crea la siguiente secuencia: <br> 
 
 Primeros pasos con la aplicación Create React <br>
 Este proyecto se inició con Create React App .
@@ -25,7 +24,7 @@ Abra http://localhost:3000 para verlo en su navegador.<br>
 La página se volverá a cargar cuando realice cambios.<br>
 
 Documentación:<br>
-https://es.legacy.reactjs.org/docs/getting-started.html<br><br>
+https://es.legacy.reactjs.org/docs/getting-started.html<br>
 
 Se agregaron dependencias como: <br>
 
@@ -44,14 +43,13 @@ Paquete.json<br>
 }<br>
 <br>
 Documentación:<br>
-https://nextjs.org/docs/getting-started/installation<br><br>
+https://nextjs.org/docs/getting-started/installation<br>
 
 TailwindCss<br>
 Instalación manual<br>
 Para crear manualmente una nueva aplicación TailwindCss, instale los paquetes necesarios:<br>
 npm install -D tailwindcss<br>
 npx tailwindcss init<br>
-<br><br>
 Configura tus rutas de plantilla <br>
 Agregue las rutas a todos sus archivos de plantilla en su tailwind.config.jsarchivo.<br>
 /** @type {import('tailwindcss').Config} */<br>
@@ -62,19 +60,18 @@ module.exports = {<br>
   },<br>
   plugins: [],<br>
 }<br>
-<br>
+
 Documentación :<br>
 https://tailwindcss.com/docs/installation<br>
-<br><br>
+
 Node.js<br>
 Instalación Automática<br><br>
 Documentación:<br>
 https://nodejs.org/es/docs<br>
-<br><br><br>
- 
+
 
 Se crea la página de inicio <br>
-![Alt text](image.png)<br><br>
+![Alt text](image.png)<br>
 
 ### **Issue #5: Implementar el template de Registro**
 
@@ -96,25 +93,36 @@ con un botón de luna en la parte superior derecha de la pantalla. <br>
 
 Se crea el inicio de sesión <br>
 ![Alt text](image-3.png)<br>
-<br>
+
 
 
 ## Sprint 2
 
 ### **Issue #17: **Añadir nuevos elementos al Footer**
 
+Se agregan el apartado de nosotros, menú el cual se puede visualizar en otra página, informacion de contacto, horario del restaurante <br>
+![Alt text](image-5.png) <br>
+
 ### **Issue #25: **Implementar la integración con la API de Reservas**
+
+Se hacae la integración para el renderizar el contenido de las reservas.  <br>
+
 
 ### **Issue #26: **Implementar la integración con la API de Productos**
 
+Se hacae la integración para el renderizar el contenido de los productos. <br>
+
 ### **Issue #28: **Implementar la integración con la API de Usuarios**
+
+Se hacae la integración para el renderizar el perfil de usuarios. <br>
 
 ### **Issue #29: **Implementar el template de "Mi Perfil"**
 
+El perfil del usuario se implementa con los datos personales y la fotografia generica <br>
+
+![Alt text](image-6.png) <br>
 
 
 
-
-
-
+## Sprint 3
 
