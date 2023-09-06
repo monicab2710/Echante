@@ -8,38 +8,43 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import * as yup from 'yup';
 import DatePicker from "react-datepicker";
-
-const validationSchema = yup.object().shape({
-  time: yup
-    .number()
-    .min(700, 'La hora debe ser mayor o igual a las 7:00')
-    .max(1800, 'La hora debe ser menor o igual a las 23:30')
-    .required('La hora es obligatoria'),
-});
-
+import TimePicker from "react-time-picker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-time-picker/dist/TimePicker.css";
+import moment from "moment";
+//const validationSchema = yup.object().shape({
+// time: yup
+///   .()
+//   .min(1900, 'La hora debe ser mayor o igual a las 19:00')
+//  .max(2330, 'La hora debe ser menor o igual a las 23:30')
+/////  .required('La hora es obligatoria'),
+//});
+//const router = useRouter()
 const MySwal = withReactContent(Swal)
-
-
 const Reserve = () => {
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
 
-  const [isRegistered, setIsRegistered] = useState();
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [date, setDate] = useState(new Date());
+
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (values, actions) => {
-    const router = useRouter()
+    const formattedDate = moment(date).format('DD/MM/YYYY');
+
+    const formattedTime = moment(time, 'HH:mm').format('HH:mm');
+
     try {
 
       const response = await axiosHe.post(
         "/api/v1/reservations",
         {
-          time: values.time,
-          date: values.date,
-          amountDiners: values.amountDiners,
-          message: ""
+          time: formattedTime,
+          date: formattedDate,
+          amountDiners:amountDiners,
+          message: "message"
         },
         {
           headers: {
@@ -49,7 +54,7 @@ const Reserve = () => {
         }
       );
       if (response.status === 201) {
-        router.push("/");
+        // router.push("/");
         setIsRegistered(true);
         MySwal.fire({
           html: <strong> tu reserva se ha realizado de manera exitosa.</strong>,
@@ -68,7 +73,7 @@ const Reserve = () => {
       MySwal.fire({
         html: (
           <strong>
-            Lamentablemente no ha podido hacer su. Por favor intente más tarde.
+            Lamentablemente no ha podido hacer su reserva. Por favor intente más tarde.
           </strong>
         ),
         icon: 'warning',
@@ -91,12 +96,10 @@ const Reserve = () => {
               </h2>
               <Formik
                 initialValues={{
-                  time: "",
-                  date: "",
                   amountDiners: "",
                   message: ""
                 }}
-                validationSchema={validationSchema}
+                // validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
@@ -111,9 +114,7 @@ const Reserve = () => {
                           >
                             Fecha:
                           </label>
-                          <DatePicker name="date"
-                            type="date"
-                            id="date"
+                          <DatePicker
                             selected={date}
                             onChange={(date) => setDate(date)}
                             dateFormat="dd/MM/yyyy"
@@ -135,18 +136,10 @@ const Reserve = () => {
                           >
                             Hora:
                           </label>
-                          <Field
-                            type="time"
-                            selected={time}
-                            onChange={(e) => setTime(e.target.value)}
-                            showTimeSelect
-                            showTimeSelectOnly
-                            timeIntervals={30}
-                            timeCaption="Hora"
-                            dateFormat="HH:mm"
-                            id="time"
-                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                          />
+                          <TimePicker
+                            onChange={setTime}
+                            value={time}
+                            format="HH:mm" />
                         </div>
                       </div>
                       <div className="w-full px-4 md:w-1/2">
@@ -162,7 +155,7 @@ const Reserve = () => {
                             id="amountDiners"
                             value={amountDiners}
                             onChange={(e) => setAmountDiners(e.target.value)}
-                            placeholder="2"
+                            placeholder=""
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
                         </div>
@@ -177,7 +170,7 @@ const Reserve = () => {
                           </label>
                           <textarea
                             name="message"
-                            onChange={(e) => setMessage(e.target.value)}                 
+                            onChange={(e) => setMessage(e.target.value)}
                             rows={5}
                             placeholder="Envíanos un mensaje"
                             className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
