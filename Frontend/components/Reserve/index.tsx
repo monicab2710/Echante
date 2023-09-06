@@ -161,7 +161,8 @@ const Reserve = () => {
                             onChange={setTime}
                             value={time}
                             format="HH:mm" 
-                            showOn={null}
+                            minTime="19:00"
+                         
                             />                           
                         </div>
                       </div>
