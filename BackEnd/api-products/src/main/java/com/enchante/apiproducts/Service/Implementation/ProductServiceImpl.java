@@ -120,4 +120,12 @@ public class ProductServiceImpl implements ProductService {
         return products.get(0);
     }
 
+    @Override
+    public List<ProductDTO> randomProducts() {
+
+        List<ProductDTO> products = getAllProducts();
+        Collections.shuffle(products);
+        return products;
+    }
+
 }

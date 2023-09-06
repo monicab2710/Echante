@@ -105,6 +105,18 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/random")
+    public ResponseEntity<List<ProductDTO>> getRandomProducts() {
+
+        try {
+            return ResponseEntity.ok().body(productService.randomProducts());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+
+    }
+
     public Boolean isAlpha(String s) {
 
         String regexPattern = "^[a-zA-Z]*$";

@@ -20,4 +20,6 @@ public interface ProductService {
 
     ProductDTO randomProduct();
 
+    List<ProductDTO> randomProducts();
+
 }
