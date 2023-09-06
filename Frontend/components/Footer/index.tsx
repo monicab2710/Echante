@@ -43,6 +43,15 @@ const Footer = () => {
                   Nosotros
                 </Link>
               </p>
+              
+              <p>
+                <Link
+                  href="/reset-password"
+                  className=" py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color  md:block"
+                >
+                  Reset
+                </Link>
+              </p>
 
               <MenuPage />
 
