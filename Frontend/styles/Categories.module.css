@@ -56,35 +56,6 @@
 }
 
 
-..react-time-picker__inputGroup {
-  display: flex;
-  align-items: center;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-}
-
-/* Style the time picker input text */
-.react-time-picker__input {
-  flex: 1;
-  border: none;
-  padding: 0 8px;
-  font-size: 16px;
-  outline: none;
-}
-
-/* Style the time picker arrow icon */
-.react-time-picker__icon {
-  cursor: pointer;
-  padding: 8px;
-  background-color: #ccc;
-  border-radius: 4px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.react-time-picker__icon:hover {
-  background-color: #aaa;
-}
 
 
 

@@ -12,14 +12,15 @@ import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
-import styles from '../../styles/Categories.module.css';
-//const validationSchema = yup.object().shape({
-// time: yup
-///   .()
-//   .min(1900, 'La hora debe ser mayor o igual a las 19:00')
-//  .max(2330, 'La hora debe ser menor o igual a las 23:30')
-/////  .required('La hora es obligatoria'),
-//});
+
+const validationSchema = yup.object().shape({
+  amountDiners: yup
+    .number()
+    .integer('Debe ser un número entero')
+    .positive('Debe ser un número positivo')
+    .required('Este campo es requerido'),
+})
+
 //const router = useRouter()
 const MySwal = withReactContent(Swal)
 const Reserve = () => {
@@ -119,7 +120,7 @@ const Reserve = () => {
                   amountDiners: "",
                   message: ""
                 }}
-                // validationSchema={validationSchema}
+                validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
@@ -162,7 +163,7 @@ const Reserve = () => {
                             value={time}
                             format="HH:mm" 
                             minTime="19:00"
-                         
+                        
                             />                           
                         </div>
                       </div>
@@ -178,7 +179,12 @@ const Reserve = () => {
                             type="number"
                             id="amountDiners"
                             value={amountDiners}
-                            onChange={(e) => setAmountDiners(e.target.value)}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
+                                setAmountDiners(inputValue); // Actualiza el estado solo si es un número válido
+                              }
+                            }}
                             placeholder=""
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
