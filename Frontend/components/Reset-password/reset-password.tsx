@@ -2,34 +2,15 @@
 import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axiosHelper from "@/app/helper/axiosHelper";
-import { log } from "console";
-import Swal from "sweetalert2";
-import axios from "axios";
-import React from "react";
-
-const alertPassword = Swal.mixin({
-  toast: true,
-  position: 'bottom-end',
-  background: "#008F95",
-  color: "#EA7363",
-  showConfirmButton: false,
-  timer: 4000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
 
 
 const validationSchema = Yup.object({
-  /* name: Yup.string().required("Campo requerido"),
+  name: Yup.string().required("Campo requerido"),
   lastname: Yup.string().required("apellido por favor"),
   username: Yup.string().required("Campo reuqerido"),
   email: Yup.string()
     .email("Ingresa un email válido")
-    .required("Campo requerido"), */
+    .required("Campo requerido"),
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .required("Campo requerido"),
@@ -42,66 +23,13 @@ const validationSchema = Yup.object({
 
 
 
-export const passwordReset = async (values) => {
-  const query = window.location.search;
-  console.log(query);
-  const urlParams = new URLSearchParams(query);
-  const token = urlParams.get('token');
-  console.log(token);
-  try {
-    const response = await axiosHelper.post(`/api/v1/users/auth/reset-password`,
-
-      {
-        token: token,
-        password: values.password,
-      },
-      {
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    )
-    if (response.status === 200) {
-      alertPassword.fire(
-        {
-          icon:"success",
-          title: "La contraseña se cambio con exito"
-        }
-      )
-    } else if (response.status === 400) {
-      alertPassword.fire(
-        {
-          icon:"warning",
-          title: "Lo sentimos no pudimos actualizar tu contraseña"
-        }
-      )
-    }
-  }
-
-  catch (error) {
-    console.error('Error petición POST', error);
-    alertPassword.fire(
-      {
-        icon:"warning",
-        title: "No se pudo cambiar la contraseña"
-      }
-    )
-    
-  }
-
-};
-
-
-/* const handleSubmit = async (values, actions) => {
-  // aqui se enviaran los datos al servidor o se guardaran en la base de datos
-  alert("¡La recuperación de la contraseña se llevo con éxito!");
-  // setSubmitting(false);
-  actions.resetForm();
-}; */
-
 const RevPassword = () => {
-  
-
+  const handleSubmit = async (values, actions) => {
+    // aqui se enviaran los datos al servidor o se guardaran en la base de datos
+    alert("¡La recuperación de la contraseña se llevo con éxito!");
+    // setSubmitting(false);
+    actions.resetForm();
+  };
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -127,7 +55,7 @@ const RevPassword = () => {
                     confirmpassword: "",
                   }}
                   validationSchema={validationSchema}
-                  onSubmit={passwordReset}
+                  onSubmit={handleSubmit}
                 >
                   {({ isSubmitting }) => (
                     <Form>
