@@ -7,6 +7,7 @@ import com.enchante.apireservations.Repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.BadRequestException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,12 @@ public class ReservationServiceImpl implements ReservationService {
         if (!reservationAvailable) {
             return null;
         }
+        /*Integer amountDiners;
+        try {
+            amountDiners = reservation.getAmountDiners().intValue();
+        } catch (NumberFormatException e) {
+            throw new BadRequestException("The amount of diners must be an integer");
+        }*/
 
         Reservation r = modelMapper.map(reservation, Reservation.class);
         r.setStatus("CONFIRMED");
@@ -92,6 +99,24 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteReservation(Integer id) {
 
         reservationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ReservationDTO> getReservationsByUserEmail(String emailUser) {
+
+        if (!reservationRepository.existsReservationByEmailUser(emailUser)) {
+            return null;
+        }
+
+        List<Reservation> reservations = reservationRepository.findByEmailUser(emailUser);
+        List<ReservationDTO> reservationDTO = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            ReservationDTO reservationDTO1 = modelMapper.map(reservation, ReservationDTO.class);
+            reservationDTO.add(reservationDTO1);
+        }
+
+        return reservationDTO;
     }
 
     public Boolean isReservationAvailable(String date, String time) {

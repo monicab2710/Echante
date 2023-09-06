@@ -102,8 +102,28 @@ public class ReservationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable Integer id) {
 
+        ReservationDTO reservation = reservationService.getReservationById(id);
+
+        if (reservation == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reservation with ID " + id + " not found");
+        }
+
         reservationService.deleteReservation(id);
         return ResponseEntity.ok().body("Reservation deleted successfully");
+
+    }
+
+    @GetMapping("/my-reservations")
+    public ResponseEntity<?> getUserReservations(@RequestParam String email) {
+
+
+        List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
+
+        if (userReservations == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User has no reservations");
+        }
+
+        return ResponseEntity.ok().body(userReservations);
     }
 
     public Boolean stringArrayToIntegerValid(String[] array) {

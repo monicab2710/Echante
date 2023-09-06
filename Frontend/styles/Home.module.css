@@ -33,7 +33,7 @@
   left: 0;
   width: 100%;
   background-color: rgba(53, 14, 14, 0.5); /* Fondo semi-transparente */
-  padding: 10px 450px 10px 40px; /* Espaciado interno para la información */
+  padding: 10px 250px 10px 40px; /* Espaciado interno para la información */
 }
 
 .productInfo {
@@ -52,26 +52,11 @@
   height: 100%; /* Asegura que la imagen ocupe todo el alto del contenedor */
 }
 
-.cardImage {
-  flex: 1;
-  position: relative;
-  max-width: 800px; /* Ajusta el ancho máximo de la imagen */
-  margin-right: 20px; /* Espacio entre la imagen y el contenido */
-}
 
-.cardContent {
-  flex: 1;
-  max-width: 900px; /* Ancho máximo de la imagen */
-  margin-right: 20px; /* Espacio entre la imagen y el contenido */
-  position: relative;
-}
 
-.cardInfo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+
+
+
 
 .svgContainer {
   position: relative;

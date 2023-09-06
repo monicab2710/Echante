@@ -1,6 +1,82 @@
+"use client";
 import NewsLatterBox from "./NewsLatterBox";
+import axiosHe from "../../app/helper/axiosHe"
+import { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useRouter } from "next/navigation";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import * as yup from 'yup';
+import DatePicker from "react-datepicker";
+
+const validationSchema = yup.object().shape({
+  time: yup
+    .number()
+    .min(700, 'La hora debe ser mayor o igual a las 7:00')
+    .max(1800, 'La hora debe ser menor o igual a las 23:30')
+    .required('La hora es obligatoria'),
+});
+
+const MySwal = withReactContent(Swal)
+
 
 const Reserve = () => {
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+
+  const [isRegistered, setIsRegistered] = useState();
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [amountDiners, setAmountDiners] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (values, actions) => {
+    const router = useRouter()
+    try {
+
+      const response = await axiosHe.post(
+        "/api/v1/reservations",
+        {
+          time: values.time,
+          date: values.date,
+          amountDiners: values.amountDiners,
+          message: ""
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 201) {
+        router.push("/");
+        setIsRegistered(true);
+        MySwal.fire({
+          html: <strong> tu reserva se ha realizado de manera exitosa.</strong>,
+          icon: 'success',
+          background: "#008F95",
+          color: "#EA7363",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 3000,
+        });
+      } else {
+        console.log('Error:', response.data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      MySwal.fire({
+        html: (
+          <strong>
+            Lamentablemente no ha podido hacer su. Por favor intente más tarde.
+          </strong>
+        ),
+        icon: 'warning',
+      });
+    }
+    actions.setSubmitting(false);
+  };
+
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -13,89 +89,111 @@ const Reserve = () => {
               <h2 className="mb-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl">
                 Reserva en Enchanté
               </h2>
-              <form>
-                <div className="-mx-4 flex flex-wrap">
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="title"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                       Motivo de la reserva:
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Cuéntanos el motivo de tu reserva"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                      />
+              <Formik
+                initialValues={{
+                  time: "",
+                  date: "",
+                  amountDiners: "",
+                  message: ""
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => (
+
+                  <Form >
+                    <div className="-mx-4 flex flex-wrap">
+                      <div className="w-full px-4 md:w-1/2">
+                        <div className="mb-8">
+                          <label
+                            htmlFor="date"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            Fecha:
+                          </label>
+                          <DatePicker name="date"
+                            type="date"
+                            id="date"
+                            selected={date}
+                            onChange={(date) => setDate(date)}
+                            dateFormat="dd/MM/yyyy"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                          <ErrorMessage
+                            name="date"
+                            id="date"
+                            component="small"
+                            className="text-red-500 "
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full px-4 md:w-1/2">
+                        <div className="mb-8">
+                          <label
+                            htmlFor="time"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            Hora:
+                          </label>
+                          <Field
+                            type="time"
+                            selected={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={30}
+                            timeCaption="Hora"
+                            dateFormat="HH:mm"
+                            id="time"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full px-4 md:w-1/2">
+                        <div className="mb-8">
+                          <label
+                            htmlFor="people"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            Personas:
+                          </label>
+                          <Field
+                            type="number"
+                            id="amountDiners"
+                            value={amountDiners}
+                            onChange={(e) => setAmountDiners(e.target.value)}
+                            placeholder="2"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full px-4">
+                        <div className="mb-8">
+                          <label
+                            htmlFor="message"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            Mensaje (Opcional):
+                          </label>
+                          <textarea
+                            name="message"
+                            onChange={(e) => setMessage(e.target.value)}                 
+                            rows={5}
+                            placeholder="Envíanos un mensaje"
+                            className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div className="w-full px-4">
+                        <button disabled={isSubmitting} type="submit"
+                          className="rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                          Reservar
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="date"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        Fecha:
-                      </label>
-                      <input
-                        type="date"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="time"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        Hora:
-                      </label>
-                      <input
-                        type="time"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="people"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        Personas:
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="2"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full px-4">
-                    <div className="mb-8">
-                      <label
-                        htmlFor="message"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        Mensaje (Opcional):
-                      </label>
-                      <textarea
-                        name="message"
-                        rows={5}
-                        placeholder="Envíanos un mensaje"
-                        className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div className="w-full px-4">
-                    <button className="rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
-                      Reservar
-                    </button>
-                  </div>
-                </div>
-              </form>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
           <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
@@ -105,6 +203,6 @@ const Reserve = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Reserve;
