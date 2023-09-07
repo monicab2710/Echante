@@ -18,7 +18,6 @@ interface DecodedData {
   userId: number;
 }
 
-
 const SigninPage = () => {
 
   const MySwal = withReactContent(Swal)
@@ -37,6 +36,10 @@ const SigninPage = () => {
   })
 
   const [showPassword, setPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPassword(!showPassword)
+  }
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -60,7 +63,6 @@ const SigninPage = () => {
   };
 
   let { setUser } = useContext(UserContext)
-
 
   const [responseMessage, setResponseMessage] = useState('');
 
@@ -92,26 +94,27 @@ const SigninPage = () => {
           icon: 'success',
           title: 'Inicio de sesión exitoso.'
         });
-
-      } else if (res.status === 400) {
-        console.log("respuesta1 ", res.data.data);
       }
     }
     catch (error) {
-      MySwal.fire({
-        html: <strong>Lamentablemente no ha podido iniciar sesión. ingrese una contrseña valida</strong>,
-        icon: 'warning',
-      });
-
-      console.error("CONTRASEñA INCORRECTA: ", error);
+      if (error.response.status === 400) {
+        MySwal.fire({
+          html: <strong>El correo electrónico ingresado no se encuentra registrado.</strong>,
+          icon: 'error',
+        });
+      } else {
+        MySwal.fire({
+          html: <strong>Usuario o contraseña inválidos</strong>,
+          icon: 'warning',
+        });
+        console.error("Contraseña incorrecta: ", error);
+      }
     }
   };
-
 
   useEffect(() => {
     document.title = `Iniciar Sesion`;
   }, []);
-
 
   return (
     <>
@@ -124,7 +127,7 @@ const SigninPage = () => {
                   Iniciar sesión
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Inicia sesión para reservar.
+                  {/* Inicia sesión para reservar. */}
                 </p>
                 <Formik
                   initialValues={initialValues}
@@ -143,7 +146,7 @@ const SigninPage = () => {
                           htmlFor="email"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
-                          Tu Email
+                          Correo electrónico
                         </label>
 
                         <Field
@@ -162,23 +165,47 @@ const SigninPage = () => {
                           className="text-red-500 text-sm"
                         />
                       </div>
-                      <div className="mb-8">
+                      <div className="mb-5">
                         <label
                           htmlFor="password"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
-                          Tu contraseña
-                        </label>
-                        <Field
-                          type={showPassword ? "text" : "password"}
-                          id='password'
-                          name="password"
-                          value={values.password}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          placeholder="Ingresa tu contraseña"
-                          className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
-                        />
+                          Contraseña
+                          </label>
+                        <div className="flex relative">
+                          <Field
+                            type={showPassword ? "text" : "password"}
+                            id='password'
+                            name="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            placeholder="Ingresa tu contraseña"
+                            className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black dark:text-yellow placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:placeholder-yellow/[70%] dark:shadow-signUp"
+                          />
+                          <div className="cursor-pointer flex translate-y-[38%] translate-x-[-175%]" onClick={togglePasswordVisibility}>
+                          
+                            {showPassword ? (
+                              <span className="text-gray-500" role="img" aria-label="Hide-password">
+                                <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                  <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+                                    <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                    <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
+                                  </g>
+                                </svg>
+                                
+                              </span>
+                            ) : (
+                              <span className="text-gray-500" role="img" aria-label="Show-password">
+                                <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1.933 10.909A4.357 4.357 0 0 1 1 9c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 19 9c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M2 17 18 1m-5 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                </svg>
+                              </span>
+                            )}
+                          
+                          </div>
+                        </div>
+                        
                         <ErrorMessage
                           name="password"
                           id="password"
@@ -186,17 +213,19 @@ const SigninPage = () => {
                           className="text-red-500 text-sm"
                         />
                       </div>
-                      <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
-                        <div className="mb-4 sm:mb-0">
+                      <div className="mb-8 flex flex-col justify-center sm:flex-row sm:items-center">
+                        {/* <div className="mb-4 sm:mb-0">
                           <label
                             htmlFor="checkboxLabel"
-                            className="flex cursor-pointer select-none items-center text-sm font-medium text-body-color"
+                            className="flex cursor-pointer items-center text-sm font-medium text-body-color"
                           >
                             <div className="relative">
                               <Field
                                 type="checkbox"
                                 id="checkboxLabel"
                                 className="sr-only"
+                                value={showPassword}
+                                onChange={() => setPassword(!showPassword)}
                               />
                               <div className="box mr-4 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
                                 <span className="opacity-0">
@@ -217,16 +246,13 @@ const SigninPage = () => {
                             </div>
                             Mantener mi sesión
                           </label>
-                        </div>
+                        </div> */}
                         <div>
                           <a
                             href="#0"
                             className="text-sm font-medium text-primary dark:text-white hover:underline"
                           >
-                            
-                            <Link href="/forgot-password" className="text-primary dark:text-white hover:underline">
-                            ¿Olvidaste la contraseña?
-                  </Link>
+                            ¿Olvidaste tu contraseña?
                           </a>
                         </div>
                       </div>
