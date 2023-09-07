@@ -22,7 +22,7 @@ export default function signOut({currentUser}) {
             <p
                 className=" py-3 px-7 text-base font-bold text-black dark:text-yellow dark:hover:text-body-color  md:block"
             >
-               !Hola!{user.name} {user.lastName}
+               !Hola! {user.name} {user.lastName}
               
             </p>
             <div className="mb-6">
