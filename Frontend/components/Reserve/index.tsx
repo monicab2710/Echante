@@ -26,9 +26,26 @@ import moment from "moment";
 
 const MySwal = withReactContent(Swal)
 
+
 const Reserve = () => {
   const router = useRouter()
+  const router = useRouter()
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+  // 
+  if (!token) {
+    // El usuario no está logeado, mostrar alerta y redirigir
+    MySwal.fire({
+      icon: "warning",
+      title: "Usuario no logeado",
+      background: "#008F95",
+      color: "#EA7363",
+      text: "Debes iniciar sesión para realizar una reserva.",
+    }).then(() => {
+      // Redirige a la página principal
+      window.location.href = "/signup" // Cambia la URL a la página principal
+    });
+    return null; // No renderiza el componente si el usuario no está logeado
+  }
   // 
   if (!token) {
     // El usuario no está logeado, mostrar alerta y redirigir
@@ -47,10 +64,33 @@ const Reserve = () => {
 
   const [isRegistered, setIsRegistered] = useState(false);
 
+
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
+
+  const today = new Date();
+
+  const isMondayOrTuesday = (date) => {
+    const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
+    return dayOfWeek === 1 || dayOfWeek === 2; // 1 es lunes, 2 es martes
+  };
+
+  const handleDateChange = (date) => {
+    if (isMondayOrTuesday(date)) {
+      MySwal.fire({
+        icon: "error",
+        title: "Día no permitido",
+        background: "#008F95",
+        color: "#EA7363",
+        text: "No puedes seleccionar un lunes o martes.",
+      });
+    } else {
+      setDate(date);
+    }
+  };
+
 
   const today = new Date();
 
@@ -85,6 +125,7 @@ const Reserve = () => {
           time: formattedTime,
           date: formattedDate,
           amountDiners: amountDiners,
+          amountDiners: amountDiners,
           message: "message"
         },
         {
@@ -104,6 +145,7 @@ const Reserve = () => {
           showConfirmButton: false,
           timerProgressBar: true,
           timer: 3000,
+        })
         })
       } else {
         console.log('Error:', response.data);
@@ -157,7 +199,10 @@ const Reserve = () => {
                           <DatePicker
                             selected={date}
                             onChange={handleDateChange}
+                            onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
+                            filterDate={(date) => !isMondayOrTuesday(date)}
+                            minDate={today}
                             filterDate={(date) => !isMondayOrTuesday(date)}
                             minDate={today}
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
@@ -199,6 +244,12 @@ const Reserve = () => {
                             type="number"
                             id="amountDiners"
                             value={amountDiners}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
+                                setAmountDiners(inputValue); // Actualiza el estado solo si es un número válido
+                              }
+                            }}
                             onChange={(e) => {
                               const inputValue = e.target.value;
                               if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
