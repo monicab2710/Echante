@@ -142,6 +142,28 @@
 					"response": []
 				},
 				{
+					"name": "GetRandomProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/products/random",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"random"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CreateProduct",
 					"request": {
 						"method": "POST",
