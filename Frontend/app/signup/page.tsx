@@ -10,39 +10,55 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 const validationSchema = Yup.object({
   name: Yup.string().required("Campo requerido")
-  .max(20, "tu nombre no deberia tener mas de 20 caracteres")
-  .matches(/^[a-zA-Z]+$/, "tu nombre no puede contener números"),
-  lastName: Yup.string().required("apellido por favor")
-  .max(20, "tu apellido no deberia tener mas de 20 caracteres")
-  .matches(/^[a-zA-Z]+$/, "tu apellido no puede contener números o caracteres especiales"),
+  .max(20, "El nombre no puede tener más de 20 caracteres")
+  .matches(/^[a-zA-Z]+$/, "El nombre no puede tener números o caracteres especiales"),
+  lastName: Yup.string().required("Campo requerido")
+  .max(20, "El apellido no puede tener más de 20 caracteres")
+  .matches(/^[a-zA-Z]+$/, "El apellido no puede tener números o caracteres especiales"),
   userName: Yup.string().required("Campo requerido")
-  .max(20, "tu usuario no deberia tener mas de 20 caracteres"),
+  .max(20, "El usuario no puede tener más de 20 caracteres"),
   email: Yup.string()
-    .email("Ingresa un email válido")
-    .required("Campo requerido"),
+  .email("Correo electrónico inválido")
+  .required("Campo requerido"),
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")
-    .max(10, "tu contraseña no debe tener mas de 10 caracteres")
-    .matches(/\d/, "La contraseña debe contener al menos un dígito")
-    .matches(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
-    .matches(/[@#$%^&*()_+!¡¿?~-]/, "La contraseña debe contener al menos un carácter especial")
+    .max(12, "Tu contraseña no puede tener más de 12 caracteres")
+    .matches(/\d/, "La contraseña debe tener al menos un número")
+    .matches(/[A-Z]/, "La contraseña debe tener al menos una letra mayúscula")
+    .matches(/[@#$%^&*()_+!¡¿?~-]/, "La contraseña debe tener al menos un caracter especial")
     .required("Campo requerido"),
   confirmpassword: Yup.string()
-    .min(6, "La contraseña debe tener los mismos caracteres")
+    .min(6, "Las contraseñas deben tener los mismos caracteres")
     .required("Campo requerido")
-    .oneOf([Yup.ref("password"), null], "la contraseña no coincide"),
+    .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden"),
+  checkboxLabel: Yup.boolean()
+    .required("Debes aceptar los términos y condiciones")
+    .oneOf([true], "Debes aceptar los términos y condiciones"),
 })
 
 const MySwal = withReactContent(Swal)
 const SignupPage = () => {
   const [isRegistered, setIsRegistered] = useState(false);
+
+  const [showPassword, setPassword] = useState(true);
+  const [showConfirmPassword, setConfirmPassword] = useState(true);
+
+  const togglePasswordVisibility = () => {
+    setPassword(!showPassword);
+  };
+    
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPassword(!showConfirmPassword);
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     userName: '',
     lastName: '',
     email: '',
     password: '',
-    confirmpassword: ''
+    confirmpassword: '',
+    checkboxLabel: '',
   });
 
   const handleFieldChange = (e) => {
@@ -62,12 +78,12 @@ const SignupPage = () => {
         email: values.email,
         password: values.password,
       });
-      console.log(response)
+      //console.log(response)
       if (response.status === 201) {
         router.push("/signin");
         setIsRegistered(true);
         MySwal.fire({
-          html: <strong>El registro se ha realizado de manera exitosa.</strong>,
+          html: <strong>El registro se ha realizado exitosamente.</strong>,
           icon: 'success',
           background: "#008F95",
           color: "#EA7363",
@@ -80,15 +96,24 @@ const SignupPage = () => {
         console.log('Error:', response.data);
       }
     } catch (error) {
-      console.error('Error:', error);
-      MySwal.fire({
-        html: (
-          <strong>
-            Lamentablemente no ha podido registrarse. Por favor intente más tarde.
-          </strong>
-        ),
-        icon: 'warning',
-      });
+      if (error.response.status === 400) {
+        console.log('Error: ', error.response.data);
+        MySwal.fire({
+          html: <strong>El correo electrónico ya se encuentra registrado.</strong>,
+          icon: 'error',
+        });
+        
+      } else {
+        console.error('Error:', error);
+        MySwal.fire({
+          html: (
+            <strong>
+              Lamentablemente no ha podido registrarse. Por favor intente nuevamente más tarde.
+            </strong>
+          ),
+          icon: 'warning',
+        });
+      }
     }
     actions.setSubmitting(false);
   };
@@ -104,12 +129,9 @@ const SignupPage = () => {
                   Crea tu cuenta
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-                  "¡Hazlo en segundos!"
+                  ¡Hazlo en segundos!
                 </p>
 
-                <div className="mb-8 flex items-center justify-center">
-
-                </div>
                 <Formik
                   initialValues={formData}
                   validationSchema={validationSchema}
@@ -118,190 +140,244 @@ const SignupPage = () => {
                   {({ isSubmitting }) => (
                     <Form >
                       <div className="mb-8">
-                        <label
-                          htmlFor="name"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Nombre{" "}
-                        </label>
-                        <Field
-                          type="text"
-                          id="name"
-                          name="name"
+                          <label
+                            htmlFor="name"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Nombre{" "}
+                          </label>
+                          <Field
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Tu nombre"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                          <ErrorMessage
+                            name="name"
+                            id="name"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
+                        
+                        <div className="mb-8">
+                          <label
+                            htmlFor="lastName"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Apellido{" "}
+                          </label>
+                          <Field
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Tu apellido"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                          <ErrorMessage
+                            name="lastName"
+                            id="lastName"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="mb-8">
+                          <label
+                            htmlFor="userName"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Usuario{" "}
+                          </label>
+                          <Field
+                            type="text"
+                            id="userName"
+                            name="userName"
+                            placeholder="Tu usuario"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                          <ErrorMessage
+                            name="userName"
+                            id="userName"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="mb-8">
+                          <label
+                            htmlFor="email"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Correo electrónico{" "}
+                          </label>
+                          <Field
+                            type="email"
+                            name="email"
+                            placeholder="Tu correo electrónico"
+                            className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                          />
+                          <ErrorMessage
+                            name="email"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
 
-                          placeholder="Tu nombre"
-
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="name"
-                          id="name"
-                          component="small"
-                          className="text-red-500 "
-                        />
-                      </div>
-                      <div className="mb-8">
-                        <label
-                          htmlFor="userName"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Usuario{" "}
-                        </label>
-                        <Field
-                          type="text"
-                          id="userName"
-                          name="userName"
-
-                          placeholder=" Tu usuario"
-
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="userName"
-                          id="userName"
-                          component="small"
-                          className="text-red-500 "
-                        />
-                      </div>
-
-                      <div className="mb-8">
-                        <label
-                          htmlFor="name"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Apellido{" "}
-                        </label>
-                        <Field
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-
-                          placeholder="Escribe tu apellido"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="name"
-                          id="lastName"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-                      <div className="mb-8">
-                        <label
-                          htmlFor="email"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Email{" "}
-                        </label>
-                        <Field
-                          type="email"
-                          name="email"
-
-                          placeholder="Tu Email"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="email"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-                      <div className="mb-8">
-                        <label
-                          htmlFor="password"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Contraseña{" "}
-                        </label>
-                        <Field
-                          type="password"
-                          name="password"
-
-                          placeholder="Tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="password"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div className="mb-8">
-                        <label
-                          htmlFor="password"
-                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                        >
-                          {" "}
-                          Confirma tu contraseña{" "}
-                        </label>
-                        <Field
-                          type="password"
-                          name="confirmpassword"
-                          id="confirmpassword"
-
-                          placeholder="Confirma tu contraseña"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
-                        />
-                        <ErrorMessage
-                          name="confirmpassword"
-                          component="small"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div className="mb-8 flex">
-                        <label
-                          htmlFor="checkboxLabel"
-                          className="flex cursor-pointer select-none text-sm font-medium text-body-color"
-                        >
+                        {/* Contraseña */}
+                        <div className="mb-8">
+                          <label
+                            htmlFor="password"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Contraseña{" "}
+                          </label>
                           <div className="relative">
-                            <input
-                              type="checkbox"
-                              id="checkboxLabel"
-                              className="sr-only"
+                            <Field
+                              type={showPassword ? "password" : "text"}
+                              name="password"
+                              placeholder="Tu contraseña"
+                              className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                             />
-                            <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
-                              <span className="opacity-0">
-                                <svg
-                                  width="11"
-                                  height="8"
-                                  viewBox="0 0 11 8"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
-                                    className="stroke-width-[0.4] fill-[#0D263B] stroke-[#0D263B] dark:fill-[#EA7363] dark:stroke-[#EA7363]"
-                                  />
-                                </svg>
-                              </span>
-                            </div>
+                            <button
+                              type="button"
+                              onClick={togglePasswordVisibility}
+                              className="absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
+                            >
+                              {showPassword ? (
+                                  
+                                  <span className="text-gray-500" role="img" aria-label="Show-password">
+                                    <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1.933 10.909A4.357 4.357 0 0 1 1 9c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 19 9c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M2 17 18 1m-5 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    </svg>
+                                  </span>
+                                ) : (
+                                  <span className="text-gray-500" role="img" aria-label="Hide-password">
+                                    <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+                                        <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                        <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
+                                      </g>
+                                    </svg>
+                                  </span>
+                              )}
+                            </button>
                           </div>
-                          <span>
-                            Al crear una cuenta significa que aceptas los
-                            <a
-                              href="#0"
-                              className="text-primary dark:text-white hover:underline"
+                          <ErrorMessage
+                            name="password"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
+
+                        {/* Confirmar contraseña */}
+                        <div className="mb-8">
+                          <label
+                            htmlFor="password"
+                            className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                          >
+                            {" "}
+                            Confirmar contraseña{" "}
+                          </label>
+                          <div className="relative">
+                            <Field
+                              type={showConfirmPassword ? "password" : "text"}
+                              name="confirmpassword"
+                              id="confirmpassword"
+                              placeholder="Confirma tu contraseña"
+                              className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-dark focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
+                            />
+                            <button
+                              type="button"
+                              onClick={toggleConfirmPasswordVisibility}
+                              className="absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
                             >
-                              {" "}
-                              Términos y condiciones{" "}
-                            </a>
-                            , con nuestra
-                            <a
-                              href="#0"
-                              className="text-primary dark:text-white hover:underline"
+                              {showConfirmPassword ? (
+                                <span className="text-gray-500" role="img" aria-label="Show-password">
+                                  <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1.933 10.909A4.357 4.357 0 0 1 1 9c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 19 9c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M2 17 18 1m-5 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                  </svg>
+                                </span>
+                                
+                              ) : (
+                                <span className="text-gray-500" role="img" aria-label="Hide-password">
+                                  <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                                    <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+                                      <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                      <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
+                                    </g>
+                                  </svg>
+                                </span>
+                              )}
+                            </button>
+                          </div>
+                          <ErrorMessage
+                            name="confirmpassword"
+                            component="small"
+                            className="text-red-500"
+                          />
+                        </div>
+                        <div className="mb-8 flex">
+                          <div>
+                            <label
+                              htmlFor="checkboxLabel"
+                              className="flex cursor-pointer select-none text-sm font-medium text-body-color"
                             >
-                              {" "}
-                              Política de Privacidad{" "}
-                            </a>
-                          </span>
-                        </label>
+                              <div>
+                                <Field
+                                  type="checkbox"
+                                  name="checkboxLabel"
+                                  id="checkboxLabel"
+                                  className="sr-only"
+                                />
+                                <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
+                                  <span className="opacity-0">
+                                    <svg
+                                      width="11"
+                                      height="8"
+                                      viewBox="0 0 11 8"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
+                                        className="stroke-width-[0.4] fill-[#0D263B] stroke-[#0D263B] dark:fill-[#EA7363] dark:stroke-[#EA7363]"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                              </div>
+                              <span>
+                                Al crear una cuenta significa que aceptas los
+                                <a
+                                  href="#0"
+                                  className="text-primary dark:text-white hover:underline"
+                                >
+                                  {" "}
+                                  Términos y condiciones
+                                </a>
+                                {" "}y nuestra{" "}
+                                <a
+                                  href="#0"
+                                  className="text-primary dark:text-white hover:underline"
+                                >
+                                  Política de Privacidad
+                                </a>
+                                {""}.
+                              </span>
+                            </label>
+                          <div className="mt-1 flex ">
+                            <ErrorMessage
+                              name="checkboxLabel"
+                              component="small"
+                              className="text-red-500"
+                            />
+                          </div>
+                        </div>
                       </div>
                       <div className="mb-6">
                         <button disabled={isSubmitting} type="submit"
