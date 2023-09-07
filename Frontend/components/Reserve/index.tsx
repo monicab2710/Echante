@@ -1,7 +1,7 @@
 "use client";
 import NewsLatterBox from "./NewsLatterBox";
 import axiosHe from "../../app/helper/axiosHe"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react"; //useContext DD
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import withReactContent from "sweetalert2-react-content";
@@ -12,6 +12,8 @@ import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
+import { UserContext } from "@/app/providers"; //DD
+import DashboardPage from '@/components/Dashboard/dashboard'; //DD
 //const validationSchema = yup.object().shape({
 // time: yup
 ///   .()
@@ -21,9 +23,11 @@ import moment from "moment";
 //});
 //const router = useRouter()
 const MySwal = withReactContent(Swal)
-const Reserve = () => {
-  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
 
+const Reserve = () => {
+  const { user } = useContext(UserContext); //DD
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+  const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
   const [isRegistered, setIsRegistered] = useState(false);
   const [date, setDate] = useState(new Date());
 
@@ -81,7 +85,28 @@ const Reserve = () => {
     }
     actions.setSubmitting(false);
   };
+/*DD <------ */
+  useEffect(() => {
 
+    if (token && user?.email) {
+      axiosHe
+        .get(`/api/v1/reservations/my-reservations?email=${user.email}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setUserReservationsCount(response.data.length);
+          }
+        })
+        .catch((error) => {
+          console.error('Error al obtener las reservas del usuario:', error);
+        });
+    }
+  }, [token, user]);
+/*DD ------> */
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -193,7 +218,9 @@ const Reserve = () => {
             <NewsLatterBox />
           </div>
         </div>
+        <DashboardPage userReservationsCount={userReservationsCount} />
       </div>
+      
     </section>
   );
 }
