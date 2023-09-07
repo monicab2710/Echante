@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
-import { MdFactCheck, MdDinnerDining } from "react-icons/md";
+import { MdFactCheck, MdDinnerDining, MdCalendarMonth } from "react-icons/md";
 import axiosH from "@/app/helper/axiosH";
 
 const DashboardPage = ({ userReservationsCount }) => {
@@ -50,7 +50,7 @@ const DashboardPage = ({ userReservationsCount }) => {
   return (
     <section id="hero" className="pt-16 md:pt-20 lg:pt-28">
       <div className="container">
-        <div className="color flex border border-primary bg-primary/5">
+        <div className="color flex border border-primary bg-primary/5 h-[900px]">
           <aside className="w-1/4 bg-primary py-4">
             <button
               className={`mb-4 block w-full rounded p-2 text-left text-yellow${
@@ -86,7 +86,7 @@ const DashboardPage = ({ userReservationsCount }) => {
               
 
               <div className="mb-5 flex items-center text-black">
-                <MdFactCheck
+                <MdCalendarMonth
                   size={20}
                   className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
                 />
@@ -98,15 +98,15 @@ const DashboardPage = ({ userReservationsCount }) => {
               <div className="mb-6">
   <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
     <div className="flex items-center justify-between">
-      <div className="text-success text-2xl font-semibold">
+      <div className="dark:text-black text-primary text-2xl font-semibold">
         {userReservationsCount}1
       </div>
-      <div className="bg-success-light rounded-full p-2">
+      <div className=" rounded-full p-2">
         <i className="fas fa-chart-line text-success"></i>
       </div>
     </div>
     <div className="mt-4">
-      <div className="text-gray-600 dark:text-gray-400">
+      <div className="text-primary dark:text-black">
         Cantidad de reservas
       </div>
     </div>
