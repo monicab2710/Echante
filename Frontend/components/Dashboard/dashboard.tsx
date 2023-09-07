@@ -99,7 +99,7 @@ const DashboardPage = ({ userReservationsCount }) => {
   <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
     <div className="flex items-center justify-between">
       <div className="dark:text-black text-primary text-2xl font-semibold">
-        {userReservationsCount}1
+        {userReservationsCount}
       </div>
       <div className=" rounded-full p-2">
         <i className="fas fa-chart-line text-success"></i>

@@ -6,48 +6,69 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import * as yup from 'yup';
+import * as Yup from 'yup';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
 import { UserContext } from "@/app/providers"; //DD
-import DashboardPage from '@/components/Dashboard/dashboard'; //DD
-//const validationSchema = yup.object().shape({
-// time: yup
-///   .()
-//   .min(1900, 'La hora debe ser mayor o igual a las 19:00')
-//  .max(2330, 'La hora debe ser menor o igual a las 23:30')
-/////  .required('La hora es obligatoria'),
-//});
-//const router = useRouter()
 const MySwal = withReactContent(Swal)
 
 const Reserve = () => {
+
   const { user } = useContext(UserContext); //DD
-  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
+  const router = useRouter()
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+  // 
+  if (!token) {
+    // El usuario no está logeado, mostrar alerta y redirigir
+    MySwal.fire({
+      icon: "warning",
+      title: "Usuario no logeado",
+      background: "#008F95",
+      color: "#EA7363",
+      text: "Debes iniciar sesión para realizar una reserva.",
+    }).then(() => {
+      // Redirige a la página principal
+      window.location.href = "/signup" // Cambia la URL a la página principal
+    });
+    return null; // No renderiza el componente si el usuario no está logeado
+  }
   const [isRegistered, setIsRegistered] = useState(false);
   const [date, setDate] = useState(new Date());
-
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
-
+  const today = new Date();
+  const isMondayOrTuesday = (date) => {
+    const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
+    return dayOfWeek === 1 || dayOfWeek === 2; // 1 es lunes, 2 es martes
+  };
+  const handleDateChange = (date) => {
+    if (isMondayOrTuesday(date)) {
+      MySwal.fire({
+        icon: "error",
+        title: "Día no permitido",
+        background: "#008F95",
+        color: "#EA7363",
+        text: "No puedes seleccionar un lunes o martes.",
+      });
+    } else {
+      setDate(date);
+    }
+  };
   const handleSubmit = async (values, actions) => {
     const formattedDate = moment(date).format('DD/MM/YYYY');
-
     const formattedTime = moment(time, 'HH:mm').format('HH:mm');
-
     try {
-
       const response = await axiosHe.post(
         "/api/v1/reservations",
         {
           time: formattedTime,
           date: formattedDate,
-          amountDiners:amountDiners,
+          amountDiners: amountDiners,
           message: "message"
         },
         {
@@ -58,7 +79,6 @@ const Reserve = () => {
         }
       );
       if (response.status === 201) {
-        // router.push("/");
         setIsRegistered(true);
         MySwal.fire({
           html: <strong> tu reserva se ha realizado de manera exitosa.</strong>,
@@ -68,7 +88,7 @@ const Reserve = () => {
           showConfirmButton: false,
           timerProgressBar: true,
           timer: 3000,
-        });
+        })
       } else {
         console.log('Error:', response.data);
       }
@@ -85,6 +105,7 @@ const Reserve = () => {
     }
     actions.setSubmitting(false);
   };
+
 /*DD <------ */
   useEffect(() => {
 
@@ -107,6 +128,7 @@ const Reserve = () => {
     }
   }, [token, user]);
 /*DD ------> */
+
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -124,11 +146,10 @@ const Reserve = () => {
                   amountDiners: "",
                   message: ""
                 }}
-                // validationSchema={validationSchema}
+                //validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
-
                   <Form >
                     <div className="-mx-4 flex flex-wrap">
                       <div className="w-full px-4 md:w-1/2">
@@ -141,8 +162,10 @@ const Reserve = () => {
                           </label>
                           <DatePicker
                             selected={date}
-                            onChange={(date) => setDate(date)}
+                            onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
+                            filterDate={(date) => !isMondayOrTuesday(date)}
+                            minDate={today}
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
                           <ErrorMessage
@@ -164,7 +187,10 @@ const Reserve = () => {
                           <TimePicker
                             onChange={setTime}
                             value={time}
-                            format="HH:mm" />
+                            format="HH:mm"
+                            minTime="19:00"
+                            disableClock={true}
+                          />
                         </div>
                       </div>
                       <div className="w-full px-4 md:w-1/2">
@@ -179,7 +205,12 @@ const Reserve = () => {
                             type="number"
                             id="amountDiners"
                             value={amountDiners}
-                            onChange={(e) => setAmountDiners(e.target.value)}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
+                                setAmountDiners(inputValue); // Actualiza el estado solo si es un número válido
+                              }
+                            }}
                             placeholder=""
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-black dark:placeholder-yellow shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
@@ -223,5 +254,4 @@ const Reserve = () => {
     </section>
   );
 }
-
 export default Reserve;

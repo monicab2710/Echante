@@ -10,11 +10,11 @@ const ProductCard = ({ id, name, description, imageUrl, price }) => {
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const response = await axiosH.get('/products/random');
+          const response = await axiosH.get('/products/featured');
           setProducts(response.data);
      
-          const randomIndex = Math.floor(Math.random() * response.data.length);
-          setRandomProduct(response.data[randomIndex]);
+          /* const randomIndex = Math.floor(Math.random() * response.data.length); */
+          setRandomProduct(response.data); 
         } catch (error) {
           console.error('Error fetching products:', error);
         }
