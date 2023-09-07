@@ -6,7 +6,7 @@ import { useContext } from 'react';
 
 
 
-export default function signOut({currentUser}) {
+export default function SignOut({currentUser}) {
   const router = useRouter();
 
   let { user, setUser } = useContext(UserContext)
