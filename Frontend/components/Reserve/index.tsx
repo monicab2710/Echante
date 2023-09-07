@@ -13,15 +13,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
 
-const validationSchema = Yup.object().shape({
-  amountDiners: Yup
-    .number()
-    .integer('Debe ser un número entero')
-    .positive('Debe ser un número positivo')
-    .required('Este campo es requerido'),
-  message: Yup.string()
-    .max(90, "Ete campo solo permite 250 caracteres")
-})
+//const validationSchema = Yup.object().shape({
+ // amountDiners: Yup
+  //  .number()
+  //  .integer('Debe ser un número entero')
+  //  .positive('Debe ser un número positivo')
+   // .required('Este campo es requerido'),
+ // message: Yup.string()
+  //  .max(90, "Ete campo solo permite 250 caracteres")
+//})
 
 
 const MySwal = withReactContent(Swal)
@@ -139,7 +139,7 @@ const Reserve = () => {
                   amountDiners: "",
                   message: ""
                 }}
-                validationSchema={validationSchema}
+                //validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
@@ -183,6 +183,7 @@ const Reserve = () => {
                             value={time}
                             format="HH:mm"
                             minTime="19:00"
+                            disableClock={true}
                           />
                         </div>
                       </div>
