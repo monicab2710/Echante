@@ -61,10 +61,10 @@ const { setUser } = useContext(UserContext)
     try {
       const res = await axiosHelper.post(
         "/api/v1/users/auth/forgot-password?email=" + values.email,
-        {
+        /* {
           email: values.email,
           confirmEmail: values.confimEmail,
-        },
+        }, */
         {
           headers: {
             "Content-type": "application/json",
@@ -79,7 +79,7 @@ const { setUser } = useContext(UserContext)
         setUser(userStorage);
         Toast.fire({
           icon: 'success',
-          title: '¡Solicitud enviada con éxito!'
+          title: '¡Revisa tu correo y sigue los pasos que te enviamos!'
         });
       } else if (res.status === 400) {
         console.log("respuesta", res.data.data);

@@ -11,7 +11,7 @@ const HeroSectionProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axiosH.get('/products');
+        const response = await axiosH.get('/products/random');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
