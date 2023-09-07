@@ -119,7 +119,7 @@ public class ProductController {
 
     public Boolean isAlpha(String s) {
 
-        String regexPattern = "^[a-zA-Z]*$";
+        String regexPattern = "^[A-Za-záéíóúüÜÀàÂâÆæÇçÉÈèÊêËëÎîÏïÔôŒœÙùÛû\\s.'`\\-]+$";
         return Pattern.compile(regexPattern).matcher(s).matches();
     }
 
