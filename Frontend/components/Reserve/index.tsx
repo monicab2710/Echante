@@ -6,33 +6,53 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import * as yup from 'yup';
+import * as Yup from 'yup';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
 
-const validationSchema = yup.object().shape({
-  amountDiners: yup
+const validationSchema = Yup.object().shape({
+  amountDiners: Yup
     .number()
     .integer('Debe ser un número entero')
     .positive('Debe ser un número positivo')
     .required('Este campo es requerido'),
+  message: Yup.string()
+    .max(90, "Ete campo solo permite 250 caracteres")
 })
 
-//const router = useRouter()
+
 const MySwal = withReactContent(Swal)
+
 const Reserve = () => {
+  const router = useRouter()
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+  // 
+  if (!token) {
+    // El usuario no está logeado, mostrar alerta y redirigir
+    MySwal.fire({
+      icon: "warning",
+      title: "Usuario no logeado",
+      background: "#008F95",
+      color: "#EA7363",
+      text: "Debes iniciar sesión para realizar una reserva.",
+    }).then(() => {
+      // Redirige a la página principal
+      window.location.href = "/signup" // Cambia la URL a la página principal
+    });
+    return null; // No renderiza el componente si el usuario no está logeado
+  }
 
   const [isRegistered, setIsRegistered] = useState(false);
 
   const [date, setDate] = useState(new Date());
-
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
+
+  const today = new Date();
 
   const isMondayOrTuesday = (date) => {
     const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
@@ -44,19 +64,19 @@ const Reserve = () => {
       MySwal.fire({
         icon: "error",
         title: "Día no permitido",
+        background: "#008F95",
+        color: "#EA7363",
         text: "No puedes seleccionar un lunes o martes.",
       });
     } else {
-      setDate(date); 
+      setDate(date);
     }
   };
 
 
   const handleSubmit = async (values, actions) => {
     const formattedDate = moment(date).format('DD/MM/YYYY');
-
     const formattedTime = moment(time, 'HH:mm').format('HH:mm');
-
     try {
 
       const response = await axiosHe.post(
@@ -75,7 +95,6 @@ const Reserve = () => {
         }
       );
       if (response.status === 201) {
-        // router.push("/");
         setIsRegistered(true);
         MySwal.fire({
           html: <strong> tu reserva se ha realizado de manera exitosa.</strong>,
@@ -85,7 +104,7 @@ const Reserve = () => {
           showConfirmButton: false,
           timerProgressBar: true,
           timer: 3000,
-        });
+        })
       } else {
         console.log('Error:', response.data);
       }
@@ -139,7 +158,8 @@ const Reserve = () => {
                             selected={date}
                             onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
-                            filterDate= {(date) => !isMondayOrTuesday(date)}
+                            filterDate={(date) => !isMondayOrTuesday(date)}
+                            minDate={today}
                             className="w-full rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow body-color/[60%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           />
                           <ErrorMessage
@@ -161,10 +181,9 @@ const Reserve = () => {
                           <TimePicker
                             onChange={setTime}
                             value={time}
-                            format="HH:mm" 
+                            format="HH:mm"
                             minTime="19:00"
-                        
-                            />                           
+                          />
                         </div>
                       </div>
                       <div className="w-full px-4 md:w-1/2">
