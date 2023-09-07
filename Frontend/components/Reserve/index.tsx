@@ -218,7 +218,6 @@ const Reserve = () => {
             <NewsLatterBox />
           </div>
         </div>
-        <DashboardPage userReservationsCount={userReservationsCount} />
       </div>
       
     </section>
