@@ -4,8 +4,8 @@ import axiosHe from "../../app/helper/axiosHe"
 import { useEffect, useState, useContext } from "react"; //useContext DD
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
-import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import * as Yup from 'yup';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
@@ -17,30 +17,33 @@ const MySwal = withReactContent(Swal)
 
 const Reserve = () => {
 
-  const { user } = useContext(UserContext); //DD
-  const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
+  //const { user } = useContext(UserContext); //DD
+  //const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
   const router = useRouter()
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
-  // 
-  if (!token) {
-    // El usuario no está logeado, mostrar alerta y redirigir
-    MySwal.fire({
-      icon: "warning",
-      title: "Usuario no logeado",
-      background: "#008F95",
-      color: "#EA7363",
-      text: "Debes iniciar sesión para realizar una reserva.",
-    }).then(() => {
-      // Redirige a la página principal
-      window.location.href = "/signup" // Cambia la URL a la página principal
-    });
-    return null; // No renderiza el componente si el usuario no está logeado
-  }
   const [isRegistered, setIsRegistered] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
+  // 
+  if (!token) {
+    // El usuario no está logeado, mostrar alerta y redirigir
+    /* MySwal.fire({
+      icon: "info",
+      title: "Usuario no logueado",
+      background: "#008F95",
+      color: "#EA7363",
+      text: "Debes iniciar sesión para realizar una reserva.",
+    }).then((result) => {
+      // Redirige a la página principal
+      //window.location.href = "/signup" // Cambia la URL a la página principal
+      if (result.isConfirmed) {
+        router.push("/signin");
+      }
+    });
+    return null; */ // No renderiza el componente si el usuario no está logeado
+  }
   const today = new Date();
   const isMondayOrTuesday = (date) => {
     const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
@@ -106,16 +109,16 @@ const Reserve = () => {
     actions.setSubmitting(false);
   };
 
-/*DD <------ */
-  useEffect(() => {
-
+  /*DD <------ */
+  /* useEffect(() => {
+ 
     if (token && user?.email) {
       axiosHe
         .get(`/api/v1/reservations/my-reservations?email=${user.email}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
+          //headers: {
+            //Authorization: `Bearer ${token}`,
+            //'Content-Type': 'application/json',
+          //},
         })
         .then((response) => {
           if (response.status === 200) {
@@ -126,8 +129,8 @@ const Reserve = () => {
           console.error('Error al obtener las reservas del usuario:', error);
         });
     }
-  }, [token, user]);
-/*DD ------> */
+  }, [token, user]); */
+  /*DD ------> */
 
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
@@ -250,7 +253,7 @@ const Reserve = () => {
           </div>
         </div>
       </div>
-      
+
     </section>
   );
 }

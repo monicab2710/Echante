@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../providers";
 import { useFormik } from 'formik';
-const forgotPasswordPage = () => {
+const ForgotPasswordPage = () => {
 
   const MySwal = withReactContent(Swal)
   const Toast = Swal.mixin({
@@ -250,4 +250,4 @@ const { setUser } = useContext(UserContext)
   );
 };
 
-export default forgotPasswordPage;
+export default ForgotPasswordPage;
