@@ -145,7 +145,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Error: Email is not registered!");
         }
 
-        String siteURL = "http://localhost:3000/reset-password";
+        String siteURL = "http://ec2-35-173-255-106.compute-1.amazonaws.com:3000/reset-password";
 
         String resetPasswordLink = siteURL + "?token=" + token;
         EmailDetails emailDetails = new EmailDetails();

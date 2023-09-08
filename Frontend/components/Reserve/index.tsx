@@ -4,8 +4,8 @@ import axiosHe from "../../app/helper/axiosHe"
 import { useEffect, useState, useContext } from "react"; //useContext DD
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
-import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import * as Yup from 'yup';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
@@ -29,21 +29,20 @@ const Reserve = () => {
   // 
   if (!token) {
     // El usuario no está logeado, mostrar alerta y redirigir
-    MySwal.fire({
+    /* MySwal.fire({
       icon: "info",
       title: "Usuario no logueado",
       background: "#008F95",
       color: "#EA7363",
       text: "Debes iniciar sesión para realizar una reserva.",
-    });
-    //.then((result) => {
+    }).then((result) => {
       // Redirige a la página principal
       //window.location.href = "/signup" // Cambia la URL a la página principal
-      //if (result.isConfirmed) {
+      if (result.isConfirmed) {
         router.push("/signin");
-      //}
-    //});
-    return null; // No renderiza el componente si el usuario no está logeado
+      }
+    });
+    return null; */ // No renderiza el componente si el usuario no está logeado
   }
   const today = new Date();
   const isMondayOrTuesday = (date) => {
