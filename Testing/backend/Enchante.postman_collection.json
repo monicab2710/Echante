@@ -537,7 +537,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Florence\",\r\n    \"lastName\": \"Kelley\",\r\n    \"userName\": \"fkelley\",\r\n    \"email\": \"fkelley@gmail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Florence\",\r\n    \"lastName\": \"Kelley\",\r\n    \"userName\": \"fkelley\",\r\n    \"email\": \"fkelley@gmail.com\",\r\n    \"password\": \"Fkelley_989&\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -580,7 +580,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"fkelley_989\"\r\n}",
+							"raw": "{\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"Fkelley_989&\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -641,7 +641,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"token\": \"c83dd04a-647b-4c1d-8198-d45bf544dccd\",\r\n    \"password\": \"cfoster_89\"\r\n}",
+							"raw": "{\r\n    \"token\": \"c83dd04a-647b-4c1d-8198-d45bf544dccd\",\r\n    \"password\": \"Cfoster_89&\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

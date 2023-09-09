@@ -39,7 +39,7 @@ public class PostUser_SignUp {
         request.put("lastName", "Foster");
         request.put("userName", "cfoster");
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
@@ -67,7 +67,7 @@ public class PostUser_SignUp {
         request.put("lastName", "Adams");
         request.put("userName", "radams");
         request.put("email", "radams@mail.com");
-        request.put("password", "radams_789");
+        request.put("password", "Radams_789&");
 
         System.out.println(request.toJSONString());
 
@@ -97,7 +97,7 @@ public class PostUser_SignUp {
         request.put("lastName", "Foster");
         request.put("userName", "cfoster");
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
@@ -125,7 +125,7 @@ public class PostUser_SignUp {
         request.put("lastName", "Foster");
         request.put("userName", "cfoster");
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
