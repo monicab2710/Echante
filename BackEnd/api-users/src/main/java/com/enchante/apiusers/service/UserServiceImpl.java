@@ -1,6 +1,7 @@
 package com.enchante.apiusers.service;
 
 import com.enchante.apiusers.controller.payload.ResetPasswordRequest;
+import com.enchante.apiusers.controller.payload.UpdateProfileRequest;
 import com.enchante.apiusers.dto.UserDTO;
 import com.enchante.apiusers.model.Role;
 import com.enchante.apiusers.model.User;
@@ -144,6 +145,31 @@ public class UserServiceImpl implements UserService {
         user.setTokenCreationDate(null);
         userRepository.save(user);
         return "Password reset succeed";
+    }
+
+    @Override
+    public String updateProfile(Integer id, UpdateProfileRequest profileRequest) {
+
+        User found = userRepository.findById(id).orElse(null);
+
+        if (found != null) {
+
+            if (!profileRequest.getEmail().equals(found.getEmail()) && userRepository.existsUserByEmail(profileRequest.getEmail())) {
+                return "Error: Email is already in use!";
+            }
+
+            found.setId(id);
+            found.setName(profileRequest.getName());
+            found.setLastName(profileRequest.getLastName());
+            found.setUserName(profileRequest.getUserName());
+            found.setEmail(profileRequest.getEmail());
+            found.setPassword(encoder.encode(profileRequest.getPassword()));
+            userRepository.save(found);
+            return "Profile updated successfully!";
+
+        }
+
+        return "Invalid ID. User Not Found";
     }
 
     private Boolean isTokenExpired(LocalDateTime tokenCreationDate) {
