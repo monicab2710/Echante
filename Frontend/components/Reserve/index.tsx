@@ -74,7 +74,7 @@ const Reserve = () => {
           time: formattedTime,
           date: formattedDate,
           amountDiners: amountDiners,
-          message: "message"
+          message: message
         },
         {
           headers: {

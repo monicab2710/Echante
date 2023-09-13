@@ -17,11 +17,11 @@ export const userData = async (id) => {
 
   export const updateUserData = async (newUser, fireSuccess, fireError) => {
     try {
-      const response = await axiosHelper.put('/api/v1/users/auth',
+      const response = await axiosHelper.put('/api/v1/users/auth/update/${userId}',
       {
         name: newUser.name,
-        userName: newUser.userName,
         lastName: newUser.lastName,
+        userName: newUser.userName,
         email: newUser.email,
         password: newUser.password,
       });
