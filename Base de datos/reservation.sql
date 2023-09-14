@@ -43,7 +43,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,'05/10/2023','20:00',3,'Un comensal es vegetariano','Activo','tacosta98@gmail.com'),(2,'10/10/2023','21:00',5,'Por favor una mesa cerca de la ventana','Activo','feliciano.alonso@gmail.com'),(3,'08/10/2023','22:00',2,'Precisamos una mesa lejos de la puerta por favor','Activo','damian.pacheco@yahoo.com'),(4,'22/09/2023','22:00',10,'Reserva por un cumpleaños','Activo','sami.95@yahoo.com'),(5,'28/09/2023','21:.0',6,'','Activo','javiermontes10@gmail.com');
+INSERT INTO `reservation` VALUES (1,'05/10/2023','20:00',3,'Un comensal es vegetariano','CONFIRMED','tacosta98@gmail.com'),(2,'10/10/2023','21:00',5,'Por favor una mesa cerca de la ventana','CONFIRMED','feliciano.alonso@gmail.com'),(3,'08/10/2023','22:00',2,'Precisamos una mesa lejos de la puerta por favor','CONFIRMED','damian.pacheco@yahoo.com'),(4,'22/09/2023','22:00',10,'Reserva por un cumpleaños','CONFIRMED','sami.95@yahoo.com'),(5,'28/09/2023','21:.0',6,'','CONFIRMED','javiermontes10@gmail.com');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-14 19:00:21
+-- Dump completed on 2023-09-14 19:51:38
