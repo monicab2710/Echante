@@ -4,6 +4,7 @@ export type Profile = {
   userName: string;
   email: string;
   userId: number;
+  roleId: number;
 };
 
 
@@ -15,5 +16,6 @@ export type User = {
   userName: string;
   iat: number;
   exp: number;
+  roleId: number;
 };
 
