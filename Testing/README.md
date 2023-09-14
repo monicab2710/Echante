@@ -158,16 +158,13 @@ El equipo de **Enchanté** esta formado por:
     </tr>
     <tr>
       <td> <img src="https://imagizer.imageshack.com/img922/319/Hv0GvE.png"> </td>
-      <td> <b>Deysi <br> Garzón</b> </td>
-      <td>FrontEnd <br> UX/UI</td>
-      <td> <img src="https://imagizer.imageshack.com/img922/3742/QSpcQq.png"> </td>
-      <td> <b>Laura <br> Peralta</b> </td>
+      <td> <b>Daisy <br> Garzón</b> </td>
       <td>FrontEnd <br> UX/UI</td>
     </tr>
     <tr>
       <td> <img src="https://imagizer.imageshack.com/img922/2340/9c4qNW.png"> </td>
       <td> <b>Marcela <br> Ramirez</b> </td>
-      <td>Product Owner <br> BackEnd</td>
+      <td>Scrum Master <br> BackEnd</td>
       <td> <img src="https://imagizer.imageshack.com/img923/3853/huOUvu.png"> </td>
       <td> <b>Mónica <br> Bernal</b> </td>
       <td>FrontEnd</td>
@@ -188,8 +185,7 @@ El equipo de **Enchanté** esta formado por:
 [![Pipe](./profiles/Pipe.png)](#equipo "Andrés Parra")   
 [![Cari](./profiles/Cari.png)](#equipo "Carina Groisman") 
 [![Dai](./profiles/Dai.png)](#equipo "Daiana Belen Miño")   
-[![Dey](./profiles/Dey.png)](#equipo "Deysi Garzón")
-[![Lau](./profiles/Lau.png)](#equipo "Laura Peralta")   
+[![Dey](./profiles/Dei.png)](#equipo "Daisy Garzón")
 [![Marce](./profiles/Marce.png)](#equipo "Marcela Ramirez")
 [![Moni](./profiles/Moni.png)](#equipo "Mónica Bernal")  
 [![Vane](./profiles/Vane.png)](#equipo "Vanesa Vilte")
