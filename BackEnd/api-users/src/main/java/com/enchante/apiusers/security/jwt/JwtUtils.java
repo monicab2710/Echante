@@ -58,6 +58,9 @@ public class JwtUtils {
         claims.put("name", appUser.getName());
         claims.put("lastName", appUser.getLastName());
         claims.put("userName", appUser.getUsername());
+        String role = String.valueOf(appUser.getAuthorities().stream().toList().get(0));
+        claims.put("role", role);
+        //claims.put("role", appUser.getAuthorities());
 
         return Jwts.builder()
                 .setClaims(claims)
