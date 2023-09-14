@@ -1,9 +1,6 @@
 package com.enchante.apiusers.controller;
 
-import com.enchante.apiusers.controller.payload.LoginRequest;
-import com.enchante.apiusers.controller.payload.LoginResponse;
-import com.enchante.apiusers.controller.payload.ResetPasswordRequest;
-import com.enchante.apiusers.controller.payload.SignUpRequest;
+import com.enchante.apiusers.controller.payload.*;
 import com.enchante.apiusers.mail.EmailDetails;
 import com.enchante.apiusers.mail.EmailService;
 import com.enchante.apiusers.model.Role;
@@ -166,6 +163,32 @@ public class AuthController {
         }
 
         return ResponseEntity.ok().body("You have successfully changed your password.");
+
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateProfile(@PathVariable Integer id, @RequestBody UpdateProfileRequest u) {
+
+        if ((!isAlpha(u.getName())) || (!isAlpha(u.getLastName()))) {
+            return ResponseEntity.badRequest().body("Invalid name and/or last name");
+        }
+        if (!validEmail(u.getEmail())) {
+            return ResponseEntity.badRequest().body("Invalid email");
+        }
+        if (!validPassword(u.getPassword())) {
+            return ResponseEntity.badRequest().body("Invalid password");
+        }
+
+        String message = userService.updateProfile(id, u);
+
+        if (message.contains("User Not Found")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+        if (message.contains("Email is already in use")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
+
+        return ResponseEntity.ok().body("You have successfully changed your profile.");
 
     }
 
