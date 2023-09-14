@@ -160,19 +160,19 @@ El equipo de **Enchanté** esta formado por:
       <td> <img src="https://imagizer.imageshack.com/img922/319/Hv0GvE.png"> </td>
       <td> <b>Daisy <br> Garzón</b> </td>
       <td>FrontEnd <br> UX/UI</td>
-    </tr>
-    <tr>
       <td> <img src="https://imagizer.imageshack.com/img922/2340/9c4qNW.png"> </td>
       <td> <b>Marcela <br> Ramirez</b> </td>
       <td>Scrum Master <br> BackEnd</td>
+    </tr>
+    <tr>
       <td> <img src="https://imagizer.imageshack.com/img923/3853/huOUvu.png"> </td>
       <td> <b>Mónica <br> Bernal</b> </td>
       <td>FrontEnd</td>
-    </tr>
-    <tr>
       <td> <img src="https://imagizer.imageshack.com/img923/4528/Cp20bX.png"> </td>
       <td> <b>Vanesa <br> Vilte</b> </td>
       <td>Testing</td>
+    </tr>
+    <tr> 
       <td> <img src="https://imagizer.imageshack.com/img922/796/8I15pV.png"> </td>
       <td> <b>Victoria <br> Stancic</b> </td>
       <td>Testing</td>
