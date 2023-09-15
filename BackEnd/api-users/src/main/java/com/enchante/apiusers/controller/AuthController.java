@@ -175,9 +175,9 @@ public class AuthController {
         if (!validEmail(u.getEmail())) {
             return ResponseEntity.badRequest().body("Invalid email");
         }
-        if (!validPassword(u.getPassword())) {
+        /*if (!validPassword(u.getPassword())) {
             return ResponseEntity.badRequest().body("Invalid password");
-        }
+        }*/
 
         String message = userService.updateProfile(id, u);
 

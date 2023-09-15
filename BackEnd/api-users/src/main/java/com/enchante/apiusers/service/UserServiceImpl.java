@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
             found.setLastName(profileRequest.getLastName());
             found.setUserName(profileRequest.getUserName());
             found.setEmail(profileRequest.getEmail());
-            found.setPassword(encoder.encode(profileRequest.getPassword()));
+            //found.setPassword(encoder.encode(profileRequest.getPassword()));
             userRepository.save(found);
             return "Profile updated successfully!";
 
