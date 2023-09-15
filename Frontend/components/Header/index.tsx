@@ -6,6 +6,7 @@ import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 import SignIn from "./signIn";
 import SignOut from "./signOut";
+import Admin from "../Admin/admin";
 import { UserContext } from '@/app/providers';
 import { useContext } from 'react';
 import { decoded } from '@/app/helper/global'
@@ -168,9 +169,9 @@ const Header = () => {
                         Mi Perfil
                       </Link>
 
-                      {user.role === 'admin' && (
+                      {user.role === 'ROLE_ADMIN' && (
                         <Link
-                          href="/admin" // Ruta a la página de administrador
+                          href="/Admin"
                           className="py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color md:block"
                         >
                           Admin

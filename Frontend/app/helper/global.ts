@@ -9,6 +9,7 @@ export const decoded = (payload: string) : Profile => {
         lastName: decoded.lastName,
         userName: decoded.userName,
         email: decoded.sub,
-        userId: decoded.userId
+        userId: decoded.userId,
+        role: decoded.role
     }
 };
