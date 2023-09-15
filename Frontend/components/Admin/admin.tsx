@@ -15,19 +15,19 @@ const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [backendData, setBackendData] = useState(null);
-  
+
   const handleSubmit = async (values, { setSubmitting }) => {
     // ...
-  
-    // Hacer una solicitud al backend para obtener los datos
+
+    // Hacer una solicitud al backend para obtener los datos esperando end point
     try {
-      const response = await fetch('URL_DE_TU_API');
+      const response = await fetch('URL_DE_API');
       const data = await response.json();
       setBackendData(data);
     } catch (error) {
       console.error('Error al obtener datos del backend:', error);
     }
-  
+
     setSubmitting(false);
   };
 
@@ -41,11 +41,10 @@ const AdminPage = () => {
                 Bienvenido Administrador
               </h3>
               <p className="mb-11 text-center text-base font-medium text-body-color">
-                {/* Inicia sesión para reservar. */}
               </p>
               <Formik
                 initialValues={{
-                  startDate: "", 
+                  startDate: "",
                   endDate: ""
                 }}
                 onSubmit={handleSubmit}
@@ -81,6 +80,7 @@ const AdminPage = () => {
                             selected={endDate}
                             onChange={date => setEndDate(date)}
                             dateFormat="dd/MM/yyyy"
+                            style={{ backgroundColor: 'blue' }} 
                           // ... Otras propiedades
                           />
                         </div>
@@ -91,8 +91,15 @@ const AdminPage = () => {
                           type="submit"
                           className="rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                         >
-                          Reservar
+                          Buscar
                         </button>
+                        {backendData && (
+                          <div className="card">
+                            <h4>{backendData.titulo}</h4>
+                            <p>{backendData.descripcion}</p>
+                            {/* Agrega más campos según tus necesidades */}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Form>
