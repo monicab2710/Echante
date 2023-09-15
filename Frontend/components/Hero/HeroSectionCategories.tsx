@@ -21,8 +21,8 @@ const HeroSectionCategories = () => {
 
   const renderCategories = ({ id, title, imageUrl }) => (
     <div className="2xl:w-full xl:w-full lg:w-full sm:w-full md:w-full lg:w-1/4" key={id}>
-      <div className="relative w-full ">
-        <Image src={imageUrl} layout="responsive" width={16} height={9} objectFit="cover" alt={title} />
+      <div className="relative w-full"> 
+        <Image src={imageUrl} layout="responsive" width={19} height={6} objectFit="cover" alt={title} />
         <div className="absolute bottom-0 left-0 aspect-ratio-16/9 w-full p-1 bg-white bg-opacity-70 text-white text-center">
           <h4 className="my-2 text-xl sm:text-xl font-medium text-black">{title}</h4>
         </div>

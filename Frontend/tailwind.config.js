@@ -49,6 +49,9 @@ module.exports = {
         sticky: "inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)",
         preflight: false,
       },
+      borderRadius: {
+        'top': '100px 8px 0 0',
+      },
     },
   },
   plugins: [],
