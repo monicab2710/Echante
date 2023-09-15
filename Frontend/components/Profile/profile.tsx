@@ -128,7 +128,7 @@ const ProfilePage = () => {
                         htmlFor="nombre"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Nombre y Apellido
+                        Nombre 
                       </label>
                       <input
                         type="text"
@@ -153,9 +153,6 @@ const ProfilePage = () => {
                         value={(newUser && newUser.lastName) || ""}
                       />
                     </div>
-
-
-
                     <div className="mb-4">
                       <label
                         htmlFor="usuario"
@@ -187,8 +184,8 @@ const ProfilePage = () => {
                       />
                     </div>
 
-                    <div className="mb-8">
-                      <label
+ {/*                 <div className="mb-8">
+                     <label
                         htmlFor="contrasena"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
@@ -201,7 +198,7 @@ const ProfilePage = () => {
                         value={(newUser && newUser.password) || "*******"}
                         readOnly
                       />
-                    </div>
+                 </div>*/}   
 
                     <button
                       onClick={updateUser}

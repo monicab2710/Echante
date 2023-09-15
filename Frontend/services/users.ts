@@ -17,7 +17,9 @@ export const userData = async (id) => {
 
   export const updateUserData = async (newUser, fireSuccess, fireError) => {
     try {
-      const response = await axiosHelper.put('/api/v1/users/auth/update/${userId}',
+
+      console.log(newUser)
+      const response = await axiosHelper.put(`/api/v1/users/auth/update/${newUser.userId}`,
       {
         name: newUser.name,
         lastName: newUser.lastName,
@@ -25,7 +27,7 @@ export const userData = async (id) => {
         email: newUser.email,
         password: newUser.password,
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         fireSuccess()
         
       } else {
@@ -37,4 +39,4 @@ export const userData = async (id) => {
     }
   };
 
-  
+   
