@@ -12,7 +12,6 @@ const ProductCard = ({ id, name, description, imageUrl, price }) => {
         try {
           const response = await axiosH.get('/products/featured');
           setProducts(response.data);
-     
           /* const randomIndex = Math.floor(Math.random() * response.data.length); */
           setRandomProduct(response.data); 
         } catch (error) {
