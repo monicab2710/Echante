@@ -144,6 +144,36 @@ public class PostUser_SignUp {
         test.log(Status.INFO, "Finaliza el test");
     }
 
+    @Test
+    @Tag("Regression")
+    public void signUpPasswordNegative() {
+        test = extent.createTest("Registro de usuario Negativo - Contraseña inválida");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("name", "Lilian");
+        request.put("lastName", "Collins");
+        request.put("userName", "lcollins");
+        request.put("email", "lcollins@mail.com");
+        request.put("password", "lcollins789");
+
+        System.out.println(request.toJSONString());
+
+        given()
+                .header("Content-type","application/json")
+                .contentType(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post(usersURL)
+                .then()
+                .assertThat()
+                .body(equalTo("Invalid password"))
+                .log().all();
+
+        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con una contraseña que no cumple con las condiciones requeridas");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
     @AfterAll
     public void quit() {
         extent.flush();
