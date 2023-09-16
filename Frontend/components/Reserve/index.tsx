@@ -17,8 +17,8 @@ const MySwal = withReactContent(Swal)
 
 const Reserve = () => {
 
-  //const { user } = useContext(UserContext); //DD
-  //const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
+  const { user } = useContext(UserContext); //DD
+  const [userReservationsCount, setUserReservationsCount] = useState(0); //DD
   const router = useRouter()
   const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
   const [isRegistered, setIsRegistered] = useState(false);
@@ -26,24 +26,26 @@ const Reserve = () => {
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
-  // 
-  if (!token) {
-    // El usuario no está logeado, mostrar alerta y redirigir
-    /* MySwal.fire({
-      icon: "info",
+
+  const handleUnauthenticatedUser = () => {
+    MySwal.fire({
+      icon: "error",
       title: "Usuario no logueado",
       background: "#008F95",
       color: "#EA7363",
       text: "Debes iniciar sesión para realizar una reserva.",
     }).then((result) => {
-      // Redirige a la página principal
-      //window.location.href = "/signup" // Cambia la URL a la página principal
       if (result.isConfirmed) {
         router.push("/signin");
       }
     });
-    return null; */ // No renderiza el componente si el usuario no está logeado
+  };
+  
+  if (!token) {
+    handleUnauthenticatedUser();
+    return null;
   }
+
   const today = new Date();
   const isMondayOrTuesday = (date) => {
     const dayOfWeek = date.getDay(); // 0: domingo, 1: lunes, 2: martes, etc.
@@ -72,7 +74,7 @@ const Reserve = () => {
           time: formattedTime,
           date: formattedDate,
           amountDiners: amountDiners,
-          message: "message"
+          message: message
         },
         {
           headers: {
@@ -108,30 +110,6 @@ const Reserve = () => {
     }
     actions.setSubmitting(false);
   };
-
-  /*DD <------ */
-  /* useEffect(() => {
- 
-    if (token && user?.email) {
-      axiosHe
-        .get(`/api/v1/reservations/my-reservations?email=${user.email}`, {
-          //headers: {
-            //Authorization: `Bearer ${token}`,
-            //'Content-Type': 'application/json',
-          //},
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            setUserReservationsCount(response.data.length);
-          }
-        })
-        .catch((error) => {
-          console.error('Error al obtener las reservas del usuario:', error);
-        });
-    }
-  }, [token, user]); */
-  /*DD ------> */
-
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
