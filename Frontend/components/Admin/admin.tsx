@@ -14,12 +14,12 @@ import styles from "styles/Home.module.css";
 const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
- const [backendData, setBackendData] = useState({
-  titulo: "Título de prueba",
-  descripcion: "Descripción de prueba",
-  fecha: "2023-09-30",
-  hora: "14:30",
-});
+  const [backendData, setBackendData] = useState({
+    titulo: "Título de prueba",
+    descripcion: "Descripción de prueba",
+    fecha: "2023-09-30",
+    hora: "14:30",
+  });
 
   const handleSubmit = async (values, { setSubmitting }) => {
     // ...
@@ -69,7 +69,6 @@ const AdminPage = () => {
                             selected={startDate}
                             onChange={date => setStartDate(date)}
                             dateFormat="dd/MM/yyyy"
-                          // ... Otras propiedades
                           />
                         </div>
                       </div>
@@ -86,7 +85,6 @@ const AdminPage = () => {
                             onChange={date => setEndDate(date)}
                             dateFormat="dd/MM/yyyy"
                             style={{ backgroundColor: 'blue' }}
-                          // ... Otras propiedades
                           />
                         </div>
                       </div>
@@ -98,15 +96,6 @@ const AdminPage = () => {
                         >
                           Buscar
                         </button>
-                        {backendData && (
-                          <div className="card">
-                            <h4>{backendData.titulo}</h4>
-                            <p>{backendData.descripcion}</p>
-                            <p>Fecha: {backendData.fecha}</p>
-                            <p>Hora: {backendData.hora}</p>
-                            {/* Agrega más campos según tus necesidades */}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </Form>
@@ -116,6 +105,17 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
+
+      {backendData && (
+        <div className="w-full px-4 mt-8">
+          <div className="mx-auto max-w-[500px] rounded-md bg-white border border-gray-200 p-4">
+            <h4>{backendData.titulo}</h4>
+            <p>{backendData.descripcion}</p>
+            <p>Fecha: {backendData.fecha}</p>
+            <p>Hora: {backendData.hora}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
