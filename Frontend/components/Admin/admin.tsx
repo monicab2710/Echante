@@ -14,7 +14,12 @@ import styles from "styles/Home.module.css";
 const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [backendData, setBackendData] = useState(null);
+ const [backendData, setBackendData] = useState({
+  titulo: "Título de prueba",
+  descripcion: "Descripción de prueba",
+  fecha: "2023-09-30",
+  hora: "14:30",
+});
 
   const handleSubmit = async (values, { setSubmitting }) => {
     // ...
@@ -80,7 +85,7 @@ const AdminPage = () => {
                             selected={endDate}
                             onChange={date => setEndDate(date)}
                             dateFormat="dd/MM/yyyy"
-                            style={{ backgroundColor: 'blue' }} 
+                            style={{ backgroundColor: 'blue' }}
                           // ... Otras propiedades
                           />
                         </div>
@@ -97,6 +102,8 @@ const AdminPage = () => {
                           <div className="card">
                             <h4>{backendData.titulo}</h4>
                             <p>{backendData.descripcion}</p>
+                            <p>Fecha: {backendData.fecha}</p>
+                            <p>Hora: {backendData.hora}</p>
                             {/* Agrega más campos según tus necesidades */}
                           </div>
                         )}
