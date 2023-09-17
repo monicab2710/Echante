@@ -6,7 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

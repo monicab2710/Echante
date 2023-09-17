@@ -8,7 +8,6 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -45,9 +44,6 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
-
 
         test = extent.createTest("Post de reserva Positivo - Día y horario correctos");
         test.log(Status.INFO, "Inicia el test");
@@ -90,9 +86,6 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
-
 
         test = extent.createTest("Post de reserva Negativo - Horario incorrecto");
         test.log(Status.INFO, "Inicia el test");
@@ -135,9 +128,6 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
-
 
         test = extent.createTest("Post de reserva Negativo - Día incorrecto");
         test.log(Status.INFO, "Inicia el test");

@@ -8,7 +8,6 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.given;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -43,6 +42,7 @@ public class PutProductById {
         System.out.println(request.toJSONString());
 
         String productId = "1";
+
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -72,6 +72,7 @@ public class PutProductById {
         System.out.println(request.toJSONString());
 
         String productId = "89";
+
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)

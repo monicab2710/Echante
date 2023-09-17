@@ -580,7 +580,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"fkelley@mail.com\",\r\n    \"password\": \"Fkelley_989&\"\r\n}",
+							"raw": "{\r\n    \"email\": \"fkelley@gmail.com\",\r\n    \"password\": \"Fkelley_989&\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -702,6 +702,39 @@
 								"v1",
 								"users",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAuthUserById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pepita\",\r\n    \"lastName\": \"Perez\",\r\n    \"userName\": \"pperez\",\r\n    \"email\": \"pp6@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/users/auth/update/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"update",
+								"8"
 							]
 						}
 					},

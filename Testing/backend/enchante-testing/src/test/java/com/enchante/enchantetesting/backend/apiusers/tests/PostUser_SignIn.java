@@ -73,7 +73,6 @@ public class PostUser_SignIn {
                 .post(usersURL)
                 .then()
                 .assertThat()
-                //.body(equalTo("User signed-in successfully!"))
                 .body("message", Matchers.containsString("User signed-in successfully!"))
                 .log().all();
 
@@ -101,8 +100,6 @@ public class PostUser_SignIn {
                 .post(usersURL)
                 .then()
                 .body("token", Matchers.containsString("Bearer "));
-                //.then()
-                //.header("Authorization", Matchers.containsString("Bearer "));
 
         test.log(Status.PASS, "Validación del tipo de token (Bearer) al loguearse con un usuario registrado");
         test.log(Status.INFO, "Finaliza el test");

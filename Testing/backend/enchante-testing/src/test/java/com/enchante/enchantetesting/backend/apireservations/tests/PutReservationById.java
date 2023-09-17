@@ -8,7 +8,6 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.given;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -41,6 +40,7 @@ public class PutReservationById {
         System.out.println(request.toJSONString());
 
         String reservationId = "20";
+
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
