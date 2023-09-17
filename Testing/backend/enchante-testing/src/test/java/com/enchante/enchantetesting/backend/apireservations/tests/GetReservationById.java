@@ -34,7 +34,7 @@ public class GetReservationById {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -70,7 +70,7 @@ public class GetReservationById {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -107,7 +107,7 @@ public class GetReservationById {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -144,7 +144,7 @@ public class GetReservationById {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()

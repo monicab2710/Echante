@@ -6,11 +6,18 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
+
+import java.util.Base64;
+
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PostUser_SignIn {
@@ -36,7 +43,7 @@ public class PostUser_SignIn {
 
         JSONObject request = new JSONObject();
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
@@ -55,13 +62,13 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInEqualToPositive() {
+    public void signInContainsPositive() {
         test = extent.createTest("Login de usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
@@ -82,13 +89,13 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInHeaderContainsPositive() {
+    public void signInContainsBearerPositive() {
         test = extent.createTest("Login de usuario Positivo - Bearer Token");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
         request.put("email", "cfoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
@@ -102,6 +109,74 @@ public class PostUser_SignIn {
                 .body("token", Matchers.containsString("Bearer "));
 
         test.log(Status.PASS, "Validación del tipo de token (Bearer) al loguearse con un usuario registrado");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
+    @Test
+    @Tag("Regression")
+    public void signInUserRoleContainsPositive() {
+        test = extent.createTest("Login de usuario Positivo - Rol Usuario");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("email", "cfoster@mail.com");
+        request.put("password", "Cfoster_789&");
+
+        ValidatableResponse response =
+        given()
+                .header("Content-type","application/json")
+                .contentType(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post(usersURL)
+                .then().assertThat().statusCode(200)
+                .log().all();
+
+        String token = response.extract().path("token");
+        String[] chunks = token.split("\\.");
+
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+
+        System.out.println(payload);
+        assertTrue(payload.contains("role"));
+        assertTrue(payload.contains("ROLE_USER"));
+
+        test.log(Status.PASS, "Validación de la inclusión del rol del usuario en la firma del JWT al autenticarse");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
+    @Test
+    @Tag("Regression")
+    public void signInAdminRoleContainsPositive() {
+        test = extent.createTest("Login de usuario Positivo - Rol Administrador");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("email", "emilycooper@gmail.com");
+        request.put("password", "Emily@02");
+
+        ValidatableResponse response =
+                given()
+                        .header("Content-type","application/json")
+                        .contentType(ContentType.JSON)
+                        .body(request.toJSONString())
+                        .when()
+                        .post(usersURL)
+                        .then().assertThat().statusCode(200)
+                        .log().all();
+
+        String token = response.extract().path("token");
+        String[] chunks = token.split("\\.");
+
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+
+        System.out.println(payload);
+        assertTrue(payload.contains("role"));
+        assertTrue(payload.contains("ROLE_ADMIN"));
+
+        test.log(Status.PASS, "Validación de la inclusión del rol del usuario administrador en la firma del JWT al autenticarse");
         test.log(Status.INFO, "Finaliza el test");
     }
 
@@ -138,7 +213,7 @@ public class PostUser_SignIn {
 
         JSONObject request = new JSONObject();
         request.put("email", "carolinefoster@mail.com");
-        request.put("password", "cfoster_789");
+        request.put("password", "Cfoster_789&");
 
         System.out.println(request.toJSONString());
 
