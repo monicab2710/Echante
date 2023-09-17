@@ -15,4 +15,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     Boolean existsReservationByEmailUser(String email);
 
+    List<Reservation> findByDateBetween(String startDate, String endDate);
+
+
+
 }

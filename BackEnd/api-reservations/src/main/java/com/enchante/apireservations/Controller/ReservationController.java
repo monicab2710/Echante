@@ -2,8 +2,10 @@ package com.enchante.apireservations.Controller;
 
 import com.enchante.apireservations.Controller.Payload.ReservationRequest;
 import com.enchante.apireservations.Model.DTO.ReservationDTO;
+import com.enchante.apireservations.Model.Reservation;
 import com.enchante.apireservations.Security.AppUser;
 import com.enchante.apireservations.Service.ReservationService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +17,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -176,4 +179,17 @@ public class ReservationController {
         return true;
     }
 
+    @GetMapping("/history")
+    public ResponseEntity<List<ReservationDTO>> getReservationHistory(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate endDate) {
+
+        List<ReservationDTO> history = reservationService.getReservationHistory(startDate, endDate);
+
+        if (history.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(history);
+        }
+    }
 }

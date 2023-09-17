@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.BadRequestException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,5 +127,25 @@ public class ReservationServiceImpl implements ReservationService {
 
         return reservations.size() < MAX_TABLES;
     }
+
+    @Override
+    public List<ReservationDTO> getReservationHistory(LocalDate startDate, LocalDate endDate) {
+
+        List<Reservation> history = reservationRepository.findByDateBetween(
+                startDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        );
+
+        List<ReservationDTO> historyDTO = new ArrayList<>();
+
+        for (Reservation reservation : history) {
+            ReservationDTO reservationDTO = modelMapper.map(reservation, ReservationDTO.class);
+            historyDTO.add(reservationDTO);
+        }
+
+        return historyDTO;
+    }
+
+
 
 }
