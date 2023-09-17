@@ -28,7 +28,7 @@ public class GetRandomProducts {
 
     @Test
     @Tag("Smoke")
-    public void getRandomProducts() {
+    public void getRandomProductsPositive() {
         test = extent.createTest("Get random de productos Positivo");
         test.log(Status.INFO, "Inicia el test");
 

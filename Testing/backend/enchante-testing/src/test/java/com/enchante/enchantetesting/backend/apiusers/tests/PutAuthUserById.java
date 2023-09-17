@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PutAuthUserById {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiusers/reports/putUser.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiusers/reports/putAuthUserById.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -41,7 +41,7 @@ public class PutAuthUserById {
 
         System.out.println(request.toJSONString());
 
-        String userId = "8";
+        String userId = "3";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -57,8 +57,8 @@ public class PutAuthUserById {
 
     @Test
     @Tag("Smoke")
-    public void putUserContainsPositive() {
-        test = extent.createTest("Put de usuario Positivo");
+    public void putUserPositive_bodyIsEqualTo() {
+        test = extent.createTest("Put de usuario Positivo - Mensaje exitoso");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -69,7 +69,7 @@ public class PutAuthUserById {
 
         System.out.println(request.toJSONString());
 
-        String userId = "8";
+        String userId = "3";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -87,8 +87,8 @@ public class PutAuthUserById {
 
     @Test
     @Tag("Smoke")
-    public void putUserIdNegative() {
-        test = extent.createTest("Put de usuario Negativo");
+    public void putUserNegative_id() {
+        test = extent.createTest("Put de usuario Negativo - Invalid ID");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -117,19 +117,19 @@ public class PutAuthUserById {
 
     @Test
     @Tag("Smoke")
-    public void putUserEmailNegative() {
-        test = extent.createTest("Put de usuario Negativo");
+    public void putUserNegative_registeredEmail() {
+        test = extent.createTest("Put de usuario Negativo - Email is already in use");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
-        request.put("name", "Fernanda");
-        request.put("lastName", "Kelley");
-        request.put("userName", "ferkelley");
-        request.put("email", "fkelley@gmail.com");
+        request.put("name", "Cecilia");
+        request.put("lastName", "Foster");
+        request.put("userName", "ceciliafoster");
+        request.put("email", "cfoster@mail.com");
 
         System.out.println(request.toJSONString());
 
-        String userId = "8";
+        String userId = "3";
         given()
                 .header("Content-type","application/json")
                 .contentType(ContentType.JSON)
@@ -147,8 +147,8 @@ public class PutAuthUserById {
 
     @Test
     @Tag("Smoke")
-    public void putUserInvalidEmailNegative() {
-        test = extent.createTest("Put de usuario Negativo");
+    public void putUserNegative_invalidEmail() {
+        test = extent.createTest("Put de usuario Negativo - Invalid email");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -171,14 +171,14 @@ public class PutAuthUserById {
                 .body(equalTo("Invalid email"))
                 .log().all();
 
-        test.log(Status.PASS, "Validación del mensaje de error al intentar modificar un usuario con un mail que no cumple con el formato adecuado");
+        test.log(Status.PASS, "Validación del mensaje de error al intentar modificar un usuario con un email que no cumple con el formato adecuado");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
     @Tag("Smoke")
-    public void putUserInvalidNameNegative() {
-        test = extent.createTest("Put de usuario Negativo");
+    public void putUserNegative_invalidName() {
+        test = extent.createTest("Put de usuario Negativo - Invalid name and/or last name");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -202,6 +202,36 @@ public class PutAuthUserById {
                 .log().all();
 
         test.log(Status.PASS, "Validación del mensaje de error al intentar modificar un usuario con un nombre que no cumple con el formato adecuado");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
+    @Test
+    @Tag("Smoke")
+    public void putUserNegative_invalidLastname() {
+        test = extent.createTest("Put de usuario Negativo - Invalid name and/or last name");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("name", "Emma");
+        request.put("lastName", "2");
+        request.put("userName", "emmacolleman");
+        request.put("email", "emmacolleman@gmail.com");
+
+        System.out.println(request.toJSONString());
+
+        String userId = "8";
+        given()
+                .header("Content-type","application/json")
+                .contentType(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .put(usersURL+userId)
+                .then()
+                .assertThat()
+                .body(equalTo("Invalid name and/or last name"))
+                .log().all();
+
+        test.log(Status.PASS, "Validación del mensaje de error al intentar modificar un usuario con un apellido que no cumple con el formato adecuado");
         test.log(Status.INFO, "Finaliza el test");
     }
 

@@ -35,9 +35,9 @@ public class PostProduct {
         JSONObject request = new JSONObject();
         request.put("name", "Crème brûlée");
         request.put("description", "Especialidad de la repostería francesa.");
-        request.put("imageUrl", "www.image.com");
+        request.put("imageUrl", "https://www.sabornamesa.com.br/media/k2/items/cache/fe77b047cf65bbf66915926fa3c00c93_XL.jpg");
         request.put("price", 7.89);
-        request.put("categoryId", 2);
+        request.put("categoryId", 3);
 
         System.out.println(request.toJSONString());
 
@@ -63,7 +63,7 @@ public class PostProduct {
         JSONObject request = new JSONObject();
         request.put("name", "Fondue");
         request.put("description", "Especialidad de la gastronomía francesa.");
-        request.put("imageUrl", "www.image.com");
+        request.put("imageUrl", "https://i.blogs.es/3ce8f0/fondue3/1366_2000.jpg");
         request.put("price", 8.89);
         request.put("categoryId", 20);
 

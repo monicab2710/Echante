@@ -57,8 +57,8 @@ public class PostUser_SignUp {
 
     @Test
     @Tag("Regression")
-    public void signUpEqualToPositive() {
-        test = extent.createTest("Registro de usuario Positivo");
+    public void signUpPositive_bodyIsEqualTo() {
+        test = extent.createTest("Registro de usuario Positivo - Mensaje exitoso");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -115,8 +115,8 @@ public class PostUser_SignUp {
 
     @Test
     @Tag("Regression")
-    public void signUpEqualToNegative() {
-        test = extent.createTest("Registro de usuario Negativo - Email ya registrado");
+    public void signUpNegative_bodyIsEqualTo() {
+        test = extent.createTest("Registro de usuario Negativo - Email is already in use");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -139,14 +139,14 @@ public class PostUser_SignUp {
                 .body(equalTo("Error: Email is already in use!"))
                 .log().all();
 
-        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con mail ya existente");
+        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con email ya existente");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
     @Tag("Regression")
-    public void signUpPasswordNegative() {
-        test = extent.createTest("Registro de usuario Negativo - Contraseña inválida");
+    public void signUpNegative_password() {
+        test = extent.createTest("Registro de usuario Negativo - Invalid password");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();

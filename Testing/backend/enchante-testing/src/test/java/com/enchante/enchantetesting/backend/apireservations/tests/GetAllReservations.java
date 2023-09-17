@@ -29,7 +29,7 @@ public class GetAllReservations {
 
     @Test
     @Tag("Smoke")
-    public void getReservations() {
+    public void getReservationsPositive() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");

@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PutProductById {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/putProduct.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/putProductById.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -33,15 +33,15 @@ public class PutProductById {
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
-        request.put("name", "Croque monsieur");
+        request.put("name", "Fondue");
         request.put("description", "Especialidad de la gastronomía francesa.");
-        request.put("imageUrl", "www.image.com");
+        request.put("imageUrl", "https://i.blogs.es/3ce8f0/fondue3/1366_2000.jpg");
         request.put("price", 6.89);
         request.put("categoryId", 2);
 
         System.out.println(request.toJSONString());
 
-        String productId = "1";
+        String productId = "25";
 
         given()
                 .header("Content-type","application/json")
@@ -65,7 +65,7 @@ public class PutProductById {
         JSONObject request = new JSONObject();
         request.put("name", "Crepes");
         request.put("description", "Especialidad de la gastronomía francesa.");
-        request.put("imageUrl", "www.image.com");
+        request.put("imageUrl", "https://littlespoonfarm.com/wp-content/uploads/2020/07/sourdough-crepes-on-a-platter-with-nutella.jpg");
         request.put("price", 7.89);
         request.put("categoryId", 2);
 

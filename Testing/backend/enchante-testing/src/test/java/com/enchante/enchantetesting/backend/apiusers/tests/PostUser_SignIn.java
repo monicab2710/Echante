@@ -6,16 +6,12 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import java.util.Base64;
-
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,8 +58,8 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInContainsPositive() {
-        test = extent.createTest("Login de usuario Positivo");
+    public void signInPositive_messageContains() {
+        test = extent.createTest("Login de usuario Positivo - Mensaje exitoso");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -89,7 +85,7 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInContainsBearerPositive() {
+    public void signInPositive_containsBearerToken() {
         test = extent.createTest("Login de usuario Positivo - Bearer Token");
         test.log(Status.INFO, "Inicia el test");
 
@@ -114,7 +110,7 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInUserRoleContainsPositive() {
+    public void signInUserPositive_containsRole() {
         test = extent.createTest("Login de usuario Positivo - Rol Usuario");
         test.log(Status.INFO, "Inicia el test");
 
@@ -148,7 +144,7 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInAdminRoleContainsPositive() {
+    public void signInAdminPositive_containsRole() {
         test = extent.createTest("Login de usuario Positivo - Rol Administrador");
         test.log(Status.INFO, "Inicia el test");
 
@@ -182,7 +178,7 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInNegative_BadCredentials() {
+    public void signInNegative_badCredentials() {
         test = extent.createTest("Login de usuario Negativo - Credenciales inválidas");
         test.log(Status.INFO, "Inicia el test");
 
@@ -207,7 +203,7 @@ public class PostUser_SignIn {
 
     @Test
     @Tag("Regression")
-    public void signInEqualToNegative() {
+    public void signInNegative_bodyIsEqualTo() {
         test = extent.createTest("Login de usuario Negativo - Email no registrado");
         test.log(Status.INFO, "Inicia el test");
 

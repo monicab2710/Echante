@@ -28,10 +28,10 @@ public class PostUser_ForgotPassword {
     @Test
     @Tag("Regression")
     public void forgotPasswordPositive() {
-        test = extent.createTest("Olvido de contraseña - Email registrado");
+        test = extent.createTest("Olvido de contraseña Positivo - Email registrado");
         test.log(Status.INFO, "Inicia el test");
 
-        String email = "fkelley@mail.com";
+        String email = "cfoster@mail.com";
 
         given()
                 .header("Content-type","application/json")
@@ -49,11 +49,11 @@ public class PostUser_ForgotPassword {
 
     @Test
     @Tag("Regression")
-    public void forgotPasswordResponsePositive() {
-        test = extent.createTest("Olvido de contraseña - Contiene");
+    public void forgotPasswordPositive_response() {
+        test = extent.createTest("Olvido de contraseña Positivo - Mensaje de respuesta");
         test.log(Status.INFO, "Inicia el test");
 
-        String email = "fkelley@mail.com";
+        String email = "cfoster@mail.com";
 
         given()
                 .header("Content-type","application/json")
@@ -72,8 +72,8 @@ public class PostUser_ForgotPassword {
 
     @Test
     @Tag("Regression")
-    public void forgotPasswordResponseNegative() {
-        test = extent.createTest("Olvido de contraseña - Contiene");
+    public void forgotPasswordNegative() {
+        test = extent.createTest("Olvido de contraseña Negativo - Email is not registered");
         test.log(Status.INFO, "Inicia el test");
 
         String email = "anasinger@mail.com";

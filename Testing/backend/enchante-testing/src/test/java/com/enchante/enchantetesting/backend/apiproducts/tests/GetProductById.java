@@ -29,11 +29,11 @@ public class GetProductById {
 
     @Test
     @Tag("Smoke")
-    public void getProductStatusPositive() {
-        test = extent.createTest("Get de Producto por Id Positivo - Básico");
+    public void getProductByIdPositive() {
+        test = extent.createTest("Get de Producto por Id Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "1";
+        String productId = "2";
         Response response = get(productURL+productId);
 
         int statusCode = response.getStatusCode();
@@ -50,16 +50,16 @@ public class GetProductById {
 
     @Test
     @Tag("Regression")
-    public void getProductContainsPositive() {
-        test = extent.createTest("Get de Producto por Id Positivo - Contiene");
+    public void getProductByIdPositive_bodyContains() {
+        test = extent.createTest("Get de Producto por Id Positivo - Body contains");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "1";
+        String productId = "13";
         Response response = get(productURL+productId);
 
         String body = response.getBody().asString();
         System.out.println("Body: " + body);
-        assertTrue(body.contains("monsieur"));
+        assertTrue(body.contains("Crème Brûlée"));
 
         test.log(Status.PASS, "Validación del contenido del Body por Id de un producto");
         test.log(Status.INFO, "Finaliza el test");
@@ -67,17 +67,17 @@ public class GetProductById {
 
     @Test
     @Tag("Regression")
-    public void getProductEqualToPositive() {
-        test = extent.createTest("Get de Producto por Id Positivo - Equals");
+    public void getProductByIdPositive_descriptionIsEqualTo() {
+        test = extent.createTest("Get de Producto por Id Positivo - Description is equal to");
         test.log(Status.INFO, "Inicia el test");
 
-        String productId = "1";
+        String productId = "13";
         Response response = get(productURL+productId);
 
         response
                 .then()
                 .assertThat()
-                .body("description", equalTo("Especialidad de la gastronomía francesa."))
+                .body("description", equalTo("Crème brûlée con un toque de extracto de vainilla y caramelo dorado."))
                 .log().all();
 
         test.log(Status.PASS, "Validación del campo 'description' por Id de un producto");
@@ -86,7 +86,7 @@ public class GetProductById {
 
     @Test
     @Tag("Regression")
-    public void getProductStatusNegative() {
+    public void getProductByIdNegative() {
         test = extent.createTest("Get de Producto por Id Negativo");
         test.log(Status.INFO, "Inicia el test");
 

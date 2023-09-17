@@ -45,7 +45,7 @@ public class PostReservation {
                         .post(usersURL)
                         .then().extract().path("token").toString();
 
-        test = extent.createTest("Post de reserva Positivo - Día y horario correctos");
+        test = extent.createTest("Post de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request2 = new JSONObject();
@@ -72,7 +72,7 @@ public class PostReservation {
 
     @Test
     @Tag("Regression")
-    public void postReservationNegative_Hour() {
+    public void postReservationNegative_hour() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
@@ -114,7 +114,7 @@ public class PostReservation {
 
     @Test
     @Tag("Regression")
-    public void postReservationNegative_Day() {
+    public void postReservationNegative_day() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");

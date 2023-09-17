@@ -5,7 +5,11 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
+import io.restassured.http.ContentType;
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
+
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -22,18 +26,38 @@ public class DeleteReservationById {
     }
 
 
+    String usersURL = "http://localhost:8082/api/v1/users/auth/signin";
     String reservationURL = "http://localhost:8087/api/v1/reservations/";
 
     @Test
     @Tag("Smoke")
-    public void deleteReservationStatusPositive() {
+    public void deleteReservationByIdPositive() {
+
+        JSONObject request1 = new JSONObject();
+        request1.put("email", "cfoster@mail.com");
+        request1.put("password", "Cfoster_789&");
+
+        String token =
+                given()
+                        .header("Content-type", "application/json")
+                        .contentType(ContentType.JSON)
+                        .body(request1.toJSONString())
+                        .when()
+                        .post(usersURL)
+                        .then().extract().path("token").toString();
+
+
         test = extent.createTest("Delete de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationId = "8";
+        String reservationId = "6";
 
+        given()
+                .header("Content-type","application/json")
+                .header("Authorization",token)
+                .contentType(ContentType.JSON).
         when().
-                delete(reservationURL +reservationId).
+                delete(reservationURL+reservationId).
                 then().
                 statusCode(200).log().all();
 

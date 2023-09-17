@@ -26,7 +26,7 @@ public class DeleteProductById {
 
     @Test
     @Tag("Smoke")
-    public void deleteProductStatusPositive() {
+    public void deleteProductByIdPositive() {
         test = extent.createTest("Delete de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 

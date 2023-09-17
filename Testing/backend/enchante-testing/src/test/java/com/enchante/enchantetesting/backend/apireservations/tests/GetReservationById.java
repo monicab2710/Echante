@@ -30,7 +30,7 @@ public class GetReservationById {
 
     @Test
     @Tag("Smoke")
-    public void getReservationStatusPositive() {
+    public void getReservationByIdPositive() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
@@ -46,10 +46,10 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Básico");
+        test = extent.createTest("Get de Reserva por Id Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationId = "2";
+        String reservationId = "6";
 
         given()
                 .header("Content-type","application/json")
@@ -66,7 +66,7 @@ public class GetReservationById {
 
     @Test
     @Tag("Regression")
-    public void getReservationContainsPositive() {
+    public void getReservationByIdPositive_dateContains() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
@@ -82,10 +82,10 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Contiene");
+        test = extent.createTest("Get de Reserva por Id Positivo - Date contains");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationId = "2";
+        String reservationId = "6";
 
         given()
                 .header("Content-type","application/json")
@@ -94,7 +94,7 @@ public class GetReservationById {
                 .get(reservationURL+reservationId)
                 .then()
                 .assertThat()
-                .body("date", Matchers.containsString("30/08/2023"))
+                .body("date", Matchers.containsString("21/09/2023"))
                 .log().all();
 
         test.log(Status.PASS, "Validación del contenido del Body por Id de una reserva");
@@ -103,7 +103,7 @@ public class GetReservationById {
 
     @Test
     @Tag("Regression")
-    public void getReservationEqualToPositive() {
+    public void getReservationByIdPositive_timeIsEqualTo() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
@@ -119,7 +119,7 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Equals");
+        test = extent.createTest("Get de Reserva por Id Positivo - Time is equal to");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationId = "3";
@@ -140,7 +140,7 @@ public class GetReservationById {
 
     @Test
     @Tag("Regression")
-    public void getProductStatusNegative() {
+    public void getReservationByIdNegative() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
