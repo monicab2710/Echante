@@ -354,7 +354,7 @@ const SignupPage = () => {
                               <span>
                                 Al crear una cuenta significa que aceptas los
                                 <a
-                                  href="#0"
+                                  href="/terms-conditions"
                                   className="text-primary dark:text-white hover:underline"
                                 >
                                   {" "}
@@ -362,7 +362,7 @@ const SignupPage = () => {
                                 </a>
                                 {" "}y nuestra{" "}
                                 <a
-                                  href="#0"
+                                  href="/privacy-policies"
                                   className="text-primary dark:text-white hover:underline"
                                 >
                                   Política de Privacidad
