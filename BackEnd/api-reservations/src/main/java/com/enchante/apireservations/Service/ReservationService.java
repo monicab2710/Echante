@@ -3,7 +3,6 @@ package com.enchante.apireservations.Service;
 import com.enchante.apireservations.Controller.Payload.ReservationRequest;
 import com.enchante.apireservations.Model.DTO.ReservationDTO;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationService {
@@ -19,7 +18,5 @@ public interface ReservationService {
     void deleteReservation(Integer id);
 
     List<ReservationDTO> getReservationsByUserEmail(String emailUser);
-
-    List<ReservationDTO> getReservationHistory(LocalDate startDate, LocalDate endDate);
 
 }
