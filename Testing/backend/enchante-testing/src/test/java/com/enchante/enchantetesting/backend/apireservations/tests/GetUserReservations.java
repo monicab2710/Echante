@@ -29,11 +29,10 @@ public class GetUserReservations {
     @Test
     @Tag("Smoke")
     public void getUserReservationsPositive() {
-
         test = extent.createTest("Get de Reserva por Usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationEmail = "fkelley@mail.com";
+        String reservationEmail = "cfoster@mail.com";
         Response response = get(reservationURL+reservationEmail);
 
         int statusCode = response.getStatusCode();
@@ -50,9 +49,8 @@ public class GetUserReservations {
 
     @Test
     @Tag("Smoke")
-    public void getUserReservationsResponseNegative() {
-
-        test = extent.createTest("Get de Reserva por Usuario sin reservas - Contiene");
+    public void getUserReservationsNegative() {
+        test = extent.createTest("Get de Reserva Negativo - User has no reservations");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationEmail = "radams@mail.com";

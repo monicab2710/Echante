@@ -6,14 +6,10 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetReservationById {
@@ -34,11 +30,11 @@ public class GetReservationById {
 
     @Test
     @Tag("Smoke")
-    public void getReservationStatusPositive() {
+    public void getReservationByIdPositive() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -50,10 +46,10 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Básico");
+        test = extent.createTest("Get de Reserva por Id Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationId = "2";
+        String reservationId = "6";
 
         given()
                 .header("Content-type","application/json")
@@ -64,27 +60,17 @@ public class GetReservationById {
                 .assertThat().statusCode(200)
                 .and().log().all();
 
-        /*Response response = get(reservationURL+reservationId);
-
-        int statusCode = response.getStatusCode();
-        System.out.println("Response status is: " + statusCode);
-
-        response
-                .then()
-                .assertThat().statusCode(200)
-                .and().log().all();*/
-
         test.log(Status.PASS, "Validación del código de estado 200 al solicitar una reserva con Id existente");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
     @Tag("Regression")
-    public void getReservationContainsPositive() {
+    public void getReservationByIdPositive_dateContains() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -96,10 +82,10 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Contiene");
+        test = extent.createTest("Get de Reserva por Id Positivo - Date contains");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationId = "2";
+        String reservationId = "6";
 
         given()
                 .header("Content-type","application/json")
@@ -108,14 +94,8 @@ public class GetReservationById {
                 .get(reservationURL+reservationId)
                 .then()
                 .assertThat()
-                .body("date", Matchers.containsString("30/08/2023"))
+                .body("date", Matchers.containsString("21/09/2023"))
                 .log().all();
-
-       /* Response response = get(reservationURL+reservationId);
-
-        String body = response.getBody().asString();
-        System.out.println("Body: " + body);
-        assertTrue(body.contains("2023-08-10"));*/
 
         test.log(Status.PASS, "Validación del contenido del Body por Id de una reserva");
         test.log(Status.INFO, "Finaliza el test");
@@ -123,11 +103,11 @@ public class GetReservationById {
 
     @Test
     @Tag("Regression")
-    public void getReservationEqualToPositive() {
+    public void getReservationByIdPositive_timeIsEqualTo() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -139,7 +119,7 @@ public class GetReservationById {
                         .then().extract().path("token").toString();
 
 
-        test = extent.createTest("Get de Reserva por Id Positivo - Equals");
+        test = extent.createTest("Get de Reserva por Id Positivo - Time is equal to");
         test.log(Status.INFO, "Inicia el test");
 
         String reservationId = "3";
@@ -154,25 +134,17 @@ public class GetReservationById {
                 .body("time", Matchers.equalTo("22:00"))
                 .log().all();
 
-        /*Response response = get(reservationURL+reservationId);
-
-        response
-                .then()
-                .assertThat()
-                .body("time", equalTo("22:00"))
-                .log().all();*/
-
         test.log(Status.PASS, "Validación del campo 'time' por Id de reserva");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
     @Tag("Regression")
-    public void getProductStatusNegative() {
+    public void getReservationByIdNegative() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -197,17 +169,6 @@ public class GetReservationById {
                 .then()
                 .assertThat().statusCode(404)
                 .and().log().all();
-
-        /*Response response = get(reservationURL+reservationId);
-
-        int statusCode = response.getStatusCode();
-        System.out.println("Response status is: " + statusCode);
-
-        response
-                .then()
-                .statusCode(404)
-                .assertThat().statusLine("HTTP/1.1 404 ")
-                .and().log().all();*/
 
         test.log(Status.PASS, "Validación del código de estado 404 al solicitar una reserva con Id inexistente");
         test.log(Status.INFO, "Finaliza el test");

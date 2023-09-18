@@ -28,7 +28,7 @@ public class GetAllProducts {
 
     @Test
     @Tag("Smoke")
-    public void getProducts() {
+    public void getProductsPositive() {
         test = extent.createTest("Get de productos Positivo");
         test.log(Status.INFO, "Inicia el test");
 

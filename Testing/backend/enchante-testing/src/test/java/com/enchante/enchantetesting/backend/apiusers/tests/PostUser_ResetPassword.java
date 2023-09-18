@@ -30,12 +30,12 @@ public class PostUser_ResetPassword {
     @Test
     @Tag("Regression")
     public void resetPasswordPositive() {
-        test = extent.createTest("Reseteo de contraseña - Token válido");
+        test = extent.createTest("Reseteo de contraseña Positivo - Token válido");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
-        request.put("token", "f8100c67-8eb3-4db5-a377-bb833ffc66b9");
-        request.put("password", "carina_789");
+        request.put("token", "7d2279c5-d052-47ac-a2c7-346acaae45a4");
+        request.put("password", "Carina_789&");
 
         given()
                 .header("Content-type","application/json")
@@ -52,13 +52,13 @@ public class PostUser_ResetPassword {
 
     @Test
     @Tag("Regression")
-    public void resetPasswordResponsePositive() {
-        test = extent.createTest("Reseteo de contraseña - Contiene");
+    public void resetPasswordPositive_response() {
+        test = extent.createTest("Reseteo de contraseña Positivo - Mensaje exitoso");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
-        request.put("token", "9f02289c-7564-407b-9eea-2860a39e1cd8");
-        request.put("password", "carina_789");
+        request.put("token", "6fe9a95e-8aa4-48f7-bf44-3d5d04cf5fba");
+        request.put("password", "Carina@789");
 
         given()
                 .header("Content-type","application/json")
@@ -77,13 +77,13 @@ public class PostUser_ResetPassword {
 
     @Test
     @Tag("Regression")
-    public void resetPasswordResponseNegative() {
-        test = extent.createTest("Reseteo de contraseña - Contiene");
+    public void resetPasswordNegative() {
+        test = extent.createTest("Reseteo de contraseña Negativo - Invalid Token");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
-        request.put("token", "9f02289c-7564-407b-9eea-2860a39e1cd8");
-        request.put("password", "carina_789");
+        request.put("token", "6fe9a95e-8aa4-48f7-bf44-3d5d04cf5fba");
+        request.put("password", "Carina@789&");
 
         given()
                 .header("Content-type","application/json")
