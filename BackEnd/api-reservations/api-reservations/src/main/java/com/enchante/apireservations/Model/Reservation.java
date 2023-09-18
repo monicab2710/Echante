@@ -1,19 +1,23 @@
-package com.enchante.apireservations.Model.DTO;
+package com.enchante.apireservations.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
+@Entity
+@Table(name = "reservation")
+public class Reservation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String time;
-    private LocalDate date;
+    private String date;
     private Integer amountDiners;
     private String message;
     private String status;

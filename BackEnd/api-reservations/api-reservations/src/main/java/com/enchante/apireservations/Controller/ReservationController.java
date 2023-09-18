@@ -6,7 +6,6 @@ import com.enchante.apireservations.Security.AppUser;
 import com.enchante.apireservations.Service.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -121,26 +119,13 @@ public class ReservationController {
         List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
 
         if (userReservations == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User has no reservations");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Email");
         }
 
-        return ResponseEntity.ok().body(userReservations);
-    }
-
-    @GetMapping("/history")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<ReservationDTO>> getReservationHistory(@RequestParam(defaultValue = "01/01/2022") String startDate, @RequestParam(defaultValue = "31/12/2024") String endDate) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fromDate = LocalDate.parse(startDate, formatter);
-        LocalDate toDate = LocalDate.parse(endDate, formatter);
-
-        List<ReservationDTO> history = reservationService.getReservationHistory(fromDate, toDate);
-
-        if (history.isEmpty()) {
-            return ResponseEntity.noContent().build();
+        if (!userReservations.isEmpty()) {
+            return ResponseEntity.ok().body(userReservations);
         } else {
-            return ResponseEntity.ok(history);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User has no reservations");
         }
     }
 

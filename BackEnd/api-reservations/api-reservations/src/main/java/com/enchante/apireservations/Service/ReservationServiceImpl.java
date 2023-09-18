@@ -8,8 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.BadRequestException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (!reservationAvailable) {
             return null;
         }
+
         /*Integer amountDiners;
         try {
             amountDiners = reservation.getAmountDiners().intValue();
@@ -65,7 +64,6 @@ public class ReservationServiceImpl implements ReservationService {
         }*/
 
         Reservation r = modelMapper.map(reservation, Reservation.class);
-        r.setDate(dateFormat(reservation.getDate()));
         r.setStatus("CONFIRMED");
         r.setEmailUser(email);
         reservationRepository.save(r);
@@ -88,7 +86,6 @@ public class ReservationServiceImpl implements ReservationService {
 
             Reservation r = modelMapper.map(reservation, Reservation.class);
             r.setId(id);
-            r.setDate(dateFormat(reservation.getDate()));
             r.setStatus("CONFIRMED");
             r.setEmailUser(email);
             r = reservationRepository.save(r);
@@ -123,32 +120,11 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationDTO;
     }
 
-    @Override
-    public List<ReservationDTO> getReservationHistory(LocalDate startDate, LocalDate endDate) {
-
-        List<Reservation> history = reservationRepository.findByDateBetween(startDate, endDate);
-
-        List<ReservationDTO> historyDTO = new ArrayList<>();
-
-        for (Reservation reservation : history) {
-            ReservationDTO reservationDTO = modelMapper.map(reservation, ReservationDTO.class);
-            historyDTO.add(reservationDTO);
-        }
-
-        return historyDTO;
-    }
-
     public Boolean isReservationAvailable(String date, String time) {
 
-        List<Reservation> reservations = reservationRepository.findByDateAndTime(dateFormat(date), time);
+        List<Reservation> reservations = reservationRepository.findByDateAndTime(date, time);
 
         return reservations.size() < MAX_TABLES;
-    }
-
-    public LocalDate dateFormat(String date) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(date, formatter);
     }
 
 }
