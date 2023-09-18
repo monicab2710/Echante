@@ -6,7 +6,6 @@ import com.enchante.apireservations.Security.AppUser;
 import com.enchante.apireservations.Service.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -118,6 +116,7 @@ public class ReservationController {
     @GetMapping("/my-reservations")
     public ResponseEntity<?> getUserReservations(@RequestParam String email) {
 
+
         List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
 
         if (userReservations == null) {
@@ -125,23 +124,6 @@ public class ReservationController {
         }
 
         return ResponseEntity.ok().body(userReservations);
-    }
-
-    @GetMapping("/history")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<ReservationDTO>> getReservationHistory(@RequestParam(defaultValue = "01/01/2022") String startDate, @RequestParam(defaultValue = "31/12/2024") String endDate) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fromDate = LocalDate.parse(startDate, formatter);
-        LocalDate toDate = LocalDate.parse(endDate, formatter);
-
-        List<ReservationDTO> history = reservationService.getReservationHistory(fromDate, toDate);
-
-        if (history.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(history);
-        }
     }
 
     public Boolean stringArrayToIntegerValid(String[] array) {
