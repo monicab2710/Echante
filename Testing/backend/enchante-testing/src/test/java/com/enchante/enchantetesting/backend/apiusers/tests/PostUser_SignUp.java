@@ -8,7 +8,6 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -58,8 +57,8 @@ public class PostUser_SignUp {
 
     @Test
     @Tag("Regression")
-    public void signUpEqualToPositive() {
-        test = extent.createTest("Registro de usuario Positivo");
+    public void signUpPositive_bodyIsEqualTo() {
+        test = extent.createTest("Registro de usuario Positivo - Mensaje exitoso");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -116,8 +115,8 @@ public class PostUser_SignUp {
 
     @Test
     @Tag("Regression")
-    public void signUpEqualToNegative() {
-        test = extent.createTest("Registro de usuario Negativo - Email ya registrado");
+    public void signUpNegative_bodyIsEqualTo() {
+        test = extent.createTest("Registro de usuario Negativo - Email is already in use");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request = new JSONObject();
@@ -140,7 +139,37 @@ public class PostUser_SignUp {
                 .body(equalTo("Error: Email is already in use!"))
                 .log().all();
 
-        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con mail ya existente");
+        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con email ya existente");
+        test.log(Status.INFO, "Finaliza el test");
+    }
+
+    @Test
+    @Tag("Regression")
+    public void signUpNegative_password() {
+        test = extent.createTest("Registro de usuario Negativo - Invalid password");
+        test.log(Status.INFO, "Inicia el test");
+
+        JSONObject request = new JSONObject();
+        request.put("name", "Lilian");
+        request.put("lastName", "Collins");
+        request.put("userName", "lcollins");
+        request.put("email", "lcollins@mail.com");
+        request.put("password", "lcollins789");
+
+        System.out.println(request.toJSONString());
+
+        given()
+                .header("Content-type","application/json")
+                .contentType(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .post(usersURL)
+                .then()
+                .assertThat()
+                .body(equalTo("Invalid password"))
+                .log().all();
+
+        test.log(Status.PASS, "Validación del mensaje de error al intentar registrar un usuario con una contraseña que no cumple con las condiciones requeridas");
         test.log(Status.INFO, "Finaliza el test");
     }
 

@@ -6,7 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -27,7 +26,7 @@ public class DeleteProductById {
 
     @Test
     @Tag("Smoke")
-    public void deleteProductStatusPositive() {
+    public void deleteProductByIdPositive() {
         test = extent.createTest("Delete de producto Positivo");
         test.log(Status.INFO, "Inicia el test");
 

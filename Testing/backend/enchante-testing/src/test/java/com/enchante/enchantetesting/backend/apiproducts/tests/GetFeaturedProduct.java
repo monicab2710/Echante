@@ -28,8 +28,8 @@ public class GetFeaturedProduct {
 
     @Test
     @Tag("Smoke")
-    public void getFeaturedProduct() {
-        test = extent.createTest("Get de producto destacado");
+    public void getFeaturedProductPositive() {
+        test = extent.createTest("Get de producto destacado Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         int statusCode = response.getStatusCode();
