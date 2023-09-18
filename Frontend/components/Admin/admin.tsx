@@ -10,15 +10,17 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router"; // Cambio en la importación
 import Link from "next/link";
 import styles from "styles/Home.module.css";
+import axiosHe from '@/app/helper/axiosHe';
 
 const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [backendData, setBackendData] = useState({
-    titulo: "Título de prueba",
+    titulo: "Reserva #",
     descripcion: "Descripción de prueba",
     fecha: "2023-09-30",
     hora: "14:30",
+    personas: ""
   });
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -26,8 +28,9 @@ const AdminPage = () => {
 
     // Hacer una solicitud al backend para obtener los datos esperando end point
     try {
-      const response = await fetch('URL_DE_API');
-      const data = await response.json();
+      const response = await axiosHe.get('/api/v1/reservations');
+      console.log(response)
+      const data = await response.JSON();
       setBackendData(data);
     } catch (error) {
       console.error('Error al obtener datos del backend:', error);
@@ -43,7 +46,7 @@ const AdminPage = () => {
           <div className="w-full px-4">
             <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
               <h3 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
-                Bienvenido Administrador
+                 Administrador de reservas
               </h3>
               <p className="mb-11 text-center text-base font-medium text-body-color">
               </p>
@@ -92,8 +95,8 @@ const AdminPage = () => {
                         <button
                           disabled={isSubmitting}
                           type="submit"
-                          className="rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
-                        >
+                          className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
+                  
                           Buscar
                         </button>
                       </div>
@@ -107,14 +110,26 @@ const AdminPage = () => {
       </div>
 
       {backendData && (
+        <>
         <div className="w-full px-4 mt-8">
-          <div className="mx-auto max-w-[500px] rounded-md bg-white border border-gray-200 p-4">
+          <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
             <h4>{backendData.titulo}</h4>
             <p>{backendData.descripcion}</p>
-            <p>Fecha: {backendData.fecha}</p>
-            <p>Hora: {backendData.hora}</p>
+            <p> Fecha: {backendData.fecha}</p>
+            <p> Hora: {backendData.hora}</p>
+            <p> Personas: {backendData.personas}</p>
           </div>
         </div>
+        <div className="w-full px-4 mt-8">
+          <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
+            <h4>{backendData.titulo}</h4>
+            <p>{backendData.descripcion}</p>
+            <p> Fecha: {backendData.fecha}</p>
+            <p> Hora: {backendData.hora}</p>
+            <p> Personas: {backendData.personas}</p>
+          </div>
+        </div>
+        </>
       )}
     </section>
   );
