@@ -102,6 +102,66 @@ Finalmente, se suben las imágenes necesarias, y sus URL's se añaden a la base 
 
 ***
 
+## :rocket: Sprint 3
+
+En el tercer sprint de nuestro proyecto, nos centramos en el despliegue manual y la actualización de nuestros servicios en Amazon Web Services (**AWS**). Las tareas realizadas en este sprint fueron las siguientes:
+
+### **Issue #56: Crear EC2 en AWS para el servicio de FrontEnd**
+
+Para brindar a los usuarios un acceso eficiente a la aplicación Enchanté, hemos creado una instancia EC2 en AWS para alojar nuestro servicio de FrontEnd. Esta instancia está configurada con las especificaciones necesarias para garantizar un rendimiento óptimo. :computer:
+
+| Nombre       | Tipo     | AMI                     | Dirección IPv4 Pública |
+| :----:       | :----:   | :----:                  | :----:                 |
+| Enchante-APP | t2.micro | Ubuntu Server 22.04 LTS | 35.173.255.106         |
+
+Se instala **Docker Engine** y se agrega una nueva regla de entrada a nuestro grupo de seguridad previamente creado.
+
+***Regla de Entrada:*** :zap:
+
+| Tipo   | Puerto | Origen    |
+| :----: | :----: | :----:    |    
+| TCP    | 3000   | 0.0.0.0/0 |
+
+### **Issue #57: Deploy en AWS**
+
+Para llevar a cabo el despliegue de nuestra aplicación, hemos seguido un proceso minucioso que garantiza la correcta puesta en marcha de los servicios de BackEnd y FrontEnd en las instancias EC2 de AWS, haciendo uso de Docker.
+
+> **P.D.** Tanto las API's del BackEnd como la aplicación del FrontEnd, cuentan con sus respectivos `Dockerfile` :fire:
+
+Por otra parte, en el directorio donde se encuentran el *par de claves* para cada una de nuestras instancias EC2, se ejecuta `chmod 400 "{clave}.pem"` para limitar el acceso de dichos archivos a solo lectura.
+
+- [x] Deploy del código en los servidores web EC2 en AWS :sunglasses:
+
+***BackEnd:***
+
+1. Localmente, con *Maven* se hace `clean` y `package` en cada una de las API's para generar el archivo `.jar`.
+2. Se crean los repositorios correspondientes en **Docker Hub**.
+3. Desde la terminal, en el directorio donde se encuentra cada `Dockerfile`, se construye cada una de las imágenes con el comando `docker build -t {nombre-imagen} .`
+4. Se agrega la tag correspondiente haciendo uso del comando `docker tag {nombre-imagen} {usuario-docker-hub}/{nombre-imagen}`.
+5. Se sube cada imagen a su repositorio correspondiente de **Docker Hub**, con el comando `docker push {usuario-docker-hub}/{nombre-imagen}`
+6. Se establece conexión *SSH* con cada una de las instancias, a través del siguiente comando: `ssh -i {clave}.pem ubuntu@{IP}`.
+7. Estando ya en cada instancia, se ejecuta el contenedor de Docker correspondiente, haciendo uso del comando `sudo docker run -d --name {nombre-contenedor} -p {puerto}:{puerto} {usuario-docker-hub}/{nombre-imagen}`
+
+***FrontEnd:***
+
+1. Se agrega un [`.dockerignore`](/Frontend/.dockerignore) para excluir archivos y directorios durante el proceso de construcción de la imagen Docker, para optimizar el rendimiento y almacenamiento de la misma.
+2. Se crea el repositorio correspondiente en **Docker Hub**.
+3. Desde la terminal, en el directorio donde se encuentra el `Dockerfile`, se construye la imagen con el comando `docker build -t {nombre-imagen} .`
+4. Se agrega la tag correspondiente haciendo uso del comando `docker tag {nombre-imagen} {usuario-docker-hub}/{nombre-imagen}`.
+5. Se sube la imagen a su repositorio correspondiente de **Docker Hub**, con el comando `docker push {usuario-docker-hub}/{nombre-imagen}`
+6. Se establece conexión *SSH* con la instancia, a través del siguiente comando: `ssh -i {clave}.pem ubuntu@{IP}`.
+7. Estando ya en la instancia, se ejecuta el contenedor de Docker correspondiente, haciendo uso del comando `sudo docker run -d --name {nombre-contenedor} -p {puerto}:{puerto} {usuario-docker-hub}/{nombre-imagen}`
+
+> **P.D.** Este proceso es repetitivo a medida que se realicen cambios en el código de nuestro proyecto. Por lo que, cada que se realice un deploy manual, y al conectarse por *SSH* a cada instancia, con el fin de evitar conflictos, se debe detener el contenedor (`sudo docker stop {nombre-contenedor}`), eliminarlo (`sudo docker rm {nombre-contenedor}`), eliminar la imagen (`sudo docker rmi {nombre-imagen}`) y finalmente, correr nuevamente el contenedor -que contiene la última actualización de la imagen construida- (`sudo docker run -d --name {nombre-contenedor} -p {puerto}:{puerto} {usuario-docker-hub}/{nombre-imagen}`).
+
+- [x] Actualizar tablas en la base de datos en AWS :file_folder:
+
+Para mantener nuestros datos actualizados, hemos accedido a la instancia **RDS** de **AWS** a través MySQL Workbench y se ha ejecutado los diferentes scripts `.sql` para actualizar las tablas y relaciones correspondientes.
+
+Con la finalización de estas tareas, hemos logrado una infraestructura completa y funcional en AWS que respalda nuestra aplicación Enchanté. :stars:
+
+***
+
 <div style="text-align:center;">
   <img src="https://cdn-icons-png.flaticon.com/512/4682/4682602.png" height="100" width="100"/>
 </div>
