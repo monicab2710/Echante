@@ -350,6 +350,35 @@
 					"response": []
 				},
 				{
+					"name": "GetExportPDFReservations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/v1/reservations/my-reservations/export?email=tacosta98@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"reservations",
+								"my-reservations",
+								"export"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "tacosta98@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PostReservation",
 					"request": {
 						"auth": {
