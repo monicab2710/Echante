@@ -10,6 +10,7 @@ import axiosHe from '@/app/helper/axiosHe';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import moment from 'moment';
+import { Console } from 'console';
 
 const MySwal = withReactContent(Swal);
 
@@ -17,7 +18,7 @@ const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [reservations, setReservations] = useState(null);
+  const [reservations, setReservations] = useState([]);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -30,8 +31,8 @@ const AdminPage = () => {
   }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const formattedStartDate = moment(startDate).format('dd/MM/yyyy');
-    const formattedEndtDate = moment(endDate).format('dd/MM/yyyy');
+    const formattedStartDate = moment(startDate).format('DD/MM/YYYY');
+    const formattedEndDate = moment(endDate).format('DD/MM/YYYY');
 
     try {
       const response = await axiosHe.get('/api/v1/reservations/history', {
@@ -40,14 +41,14 @@ const AdminPage = () => {
         },
         params: {
           startDate: formattedStartDate,
-          endDate: formattedEndtDate
+          endDate: formattedEndDate
         }
       });
-      console.log(response)
-      if (response.status === 201) {
+
+      if (response.status === 200) {
         setIsRegistered(true);
         MySwal.fire({
-          html: <strong> Estas son las reservas </strong>,
+          html: <strong>Estas son las reservas</strong>,
           icon: 'success',
           background: "#008F95",
           color: "#EA7363",
@@ -55,15 +56,22 @@ const AdminPage = () => {
           timerProgressBar: true,
           timer: 3000,
         });
-
+      } else if (response.status === 204) {
+        MySwal.fire({
+          html: <strong>No hay reservas en este rango de fechas</strong>,
+          icon: 'info',
+          background: "#008F95",
+          color: "#EA7363",
+        });
       } else {
         console.log('Error:', response.data);
       }
+      setReservations(response.data);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         console.log('Error: ', error.response.data);
         MySwal.fire({
-          html: <strong> no hemos podido encontrar las reservas de estas fechas intentalo de nuevo </strong>,
+          html: <strong>No hemos podido encontrar las reservas de estas fechas, inténtalo de nuevo</strong>,
           icon: 'error',
         });
       } else {
@@ -71,13 +79,15 @@ const AdminPage = () => {
         MySwal.fire({
           html: (
             <strong>
-              Lamentablemente no ha podido registrarse. Por favor intente nuevamente más tarde.
+              Lamentablemente no ha podido registrarse. Por favor inténtalo nuevamente más tarde.
             </strong>
           ),
           icon: 'warning',
         });
+        
       }
     }
+  
     setSubmitting(false);
   };
 
@@ -112,7 +122,7 @@ const AdminPage = () => {
                           </label>
                           <DatePicker
                             selected={startDate}
-                            onChange={date => setStartDate(date)}
+                            onChange={startDate => setStartDate(startDate)}
                             dateFormat="dd/MM/yyyy"
                           />
                         </div>
@@ -127,7 +137,7 @@ const AdminPage = () => {
                           </label>
                           <DatePicker
                             selected={endDate}
-                            onChange={date => setEndDate(date)}
+                            onChange={endDate => setEndDate(endDate)}
                             dateFormat="dd/MM/yyyy"
                             style={{ backgroundColor: 'blue' }}
                           />
@@ -138,7 +148,6 @@ const AdminPage = () => {
                           disabled={isSubmitting}
                           type="submit"
                           className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
-
                           Buscar
                         </button>
                       </div>
@@ -156,12 +165,12 @@ const AdminPage = () => {
           {reservations.map(reservation => (
             <div className="w-full px-4 mt-8" key={reservation.id}>
               <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
-                <h4>{reservation.titulo}</h4>
-                <p>{reservation.descripcion}</p>
-                <p>Fecha de inicio: {startDate}</p>
-                <p>Fecha de fin: {endDate}</p>
-                <p> Hora: {reservation.hora}</p>
-                <p> Personas: {reservation.personas}</p>
+                <h4>Reserva número {reservation.id}</h4>
+                <p>{reservation.message}</p>
+                <p>Usuario: {reservation.emailUser}</p>
+                <p>Hora: {reservation.time}</p>
+                <p>Personas: {reservation.amountDiners}</p>
+                <p>Estatus de la reserva: {reservation.status}</p>
               </div>
             </div>
           ))}
@@ -169,6 +178,5 @@ const AdminPage = () => {
       )}
     </section>
   );
-};
-
+}
 export default AdminPage;
