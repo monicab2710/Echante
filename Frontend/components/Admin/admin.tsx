@@ -1,38 +1,93 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Select } from '@mui/material';
-import { updateUserData } from "@/services/users";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
-import { useRouter } from "next/router"; // Cambio en la importación
+import 'react-datepicker/dist/react-datepicker.css'
+
 import Link from "next/link";
 import styles from "styles/Home.module.css";
+import axiosHe from '@/app/helper/axiosHe';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import moment from 'moment';
+import { Console } from 'console';
+
+const MySwal = withReactContent(Swal);
 
 const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
- const [backendData, setBackendData] = useState({
-  titulo: "Título de prueba",
-  descripcion: "Descripción de prueba",
-  fecha: "2023-09-30",
-  hora: "14:30",
-});
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [reservations, setReservations] = useState([]);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    // Verificar si estamos en el lado del cliente
+    if (typeof window !== 'undefined') {
+      // Acceder a sessionStorage solo si estamos en el cliente
+      const userToken = sessionStorage.getItem('token');
+      setToken(userToken);
+    }
+  }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    // ...
+    const formattedStartDate = moment(startDate).format('DD/MM/YYYY');
+    const formattedEndDate = moment(endDate).format('DD/MM/YYYY');
 
-    // Hacer una solicitud al backend para obtener los datos esperando end point
     try {
-      const response = await fetch('URL_DE_API');
-      const data = await response.json();
-      setBackendData(data);
-    } catch (error) {
-      console.error('Error al obtener datos del backend:', error);
-    }
+      const response = await axiosHe.get('/api/v1/reservations/history', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          startDate: formattedStartDate,
+          endDate: formattedEndDate
+        }
+      });
 
+      if (response.status === 200) {
+        setIsRegistered(true);
+        MySwal.fire({
+          html: <strong>Estas son las reservas</strong>,
+          icon: 'success',
+          background: "#008F95",
+          color: "#EA7363",
+          showConfirmButton: false,
+          timerProgressBar: true,
+          timer: 3000,
+        });
+      } else if (response.status === 204) {
+        MySwal.fire({
+          html: <strong>No hay reservas en este rango de fechas</strong>,
+          icon: 'info',
+          background: "#008F95",
+          color: "#EA7363",
+        });
+      } else {
+        console.log('Error:', response.data);
+      }
+      setReservations(response.data);
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.log('Error: ', error.response.data);
+        MySwal.fire({
+          html: <strong>No hemos podido encontrar las reservas de estas fechas, inténtalo de nuevo</strong>,
+          icon: 'error',
+        });
+      } else {
+        console.error('Error:', error);
+        MySwal.fire({
+          html: (
+            <strong>
+              Lamentablemente no ha podido registrarse. Por favor inténtalo nuevamente más tarde.
+            </strong>
+          ),
+          icon: 'warning',
+        });
+        
+      }
+    }
+  
     setSubmitting(false);
   };
 
@@ -43,7 +98,7 @@ const AdminPage = () => {
           <div className="w-full px-4">
             <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
               <h3 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
-                Bienvenido Administrador
+                Administrador de reservas
               </h3>
               <p className="mb-11 text-center text-base font-medium text-body-color">
               </p>
@@ -67,9 +122,8 @@ const AdminPage = () => {
                           </label>
                           <DatePicker
                             selected={startDate}
-                            onChange={date => setStartDate(date)}
+                            onChange={startDate => setStartDate(startDate)}
                             dateFormat="dd/MM/yyyy"
-                          // ... Otras propiedades
                           />
                         </div>
                       </div>
@@ -83,10 +137,9 @@ const AdminPage = () => {
                           </label>
                           <DatePicker
                             selected={endDate}
-                            onChange={date => setEndDate(date)}
+                            onChange={endDate => setEndDate(endDate)}
                             dateFormat="dd/MM/yyyy"
                             style={{ backgroundColor: 'blue' }}
-                          // ... Otras propiedades
                           />
                         </div>
                       </div>
@@ -94,19 +147,9 @@ const AdminPage = () => {
                         <button
                           disabled={isSubmitting}
                           type="submit"
-                          className="rounded-md bg-white py-4 px-9 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
-                        >
+                          className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
                           Buscar
                         </button>
-                        {backendData && (
-                          <div className="card">
-                            <h4>{backendData.titulo}</h4>
-                            <p>{backendData.descripcion}</p>
-                            <p>Fecha: {backendData.fecha}</p>
-                            <p>Hora: {backendData.hora}</p>
-                            {/* Agrega más campos según tus necesidades */}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </Form>
@@ -116,8 +159,24 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
+
+      {reservations && (
+        <>
+          {reservations.map(reservation => (
+            <div className="w-full px-4 mt-8" key={reservation.id}>
+              <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
+                <h4>Reserva número {reservation.id}</h4>
+                <p>{reservation.message}</p>
+                <p>Usuario: {reservation.emailUser}</p>
+                <p>Hora: {reservation.time}</p>
+                <p>Personas: {reservation.amountDiners}</p>
+                <p>Estatus de la reserva: {reservation.status}</p>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </section>
   );
-};
-
+}
 export default AdminPage;
