@@ -19,14 +19,14 @@ export default function SignOut({currentUser}) {
     return (
         <>
 
-            <p
-                className=" py-3 px-7 text-base font-bold text-black dark:text-yellow dark:hover:text-body-color  md:block"
-            >
-               !Hola! {user.name} {user.lastName}
-              
-            </p>
-            <div className="mb-6">
-                <button onClick={removeUser} className="flex w-full items-center justify-center rounded-md bg-white px-9 py-4 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+<p className="py-3 mr-2 md:mr-0 md:p-4 p-4 text-base font-bold text-black dark:text-yellow dark:text-body-color lg:hidden">
+  ¡Hola {user.name}!
+</p>
+<p className="py-3 p-4 text-base font-bold text-black dark:text-yellow dark:text-body-color hidden lg:block">
+  ¡Hola {user.name} {user.lastName}!
+</p>
+            <div className="mx-9 lg:mx-4 md:mx-2">
+                <button onClick={removeUser} className="flex w-full items-center justify-center rounded-md bg-white mx-2 md:px-2 py-2 px-6 text-base font-semibold text-primary transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                     Cerrar sesión
                 </button>
             </div>

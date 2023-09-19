@@ -7,7 +7,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import axiosHe from "@/app/helper/axiosHe";
-import { MdFactCheck, MdDinnerDining, MdCalendarMonth } from "react-icons/md";
+import {
+  MdFactCheck,
+  MdDinnerDining,
+  MdCalendarMonth,
+  MdOutlineEvent,
+} from "react-icons/md";
 import axiosH from "@/app/helper/axiosH";
 import { UserContext } from "@/app/providers"; //DD
 
@@ -15,7 +20,7 @@ const DashboardPage = ({ userReservationsCount }) => {
   const { user } = useContext(UserContext); //DD
   const [recommendedProduct, setRecommendedProduct] = useState(null);
   const [reservationCount, setReservationCount] = useState(0);
-
+  const [hasReservations, setHasReservations] = useState(false);
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const router = useRouter();
   const handleMenuClick = (menu) => {
@@ -30,28 +35,26 @@ const DashboardPage = ({ userReservationsCount }) => {
   useEffect(() => {
     const countReservations = async () => {
       try {
-        const response = await axiosHe
-          .get(`/api/v1/reservations/my-reservations?email=${user.email}`);
-        //.then((response) => {
+        const response = await axiosHe.get(
+          `/api/v1/reservations/my-reservations?email=${user.email}`
+        );
+
         setReservationCount(response.data.length);
-        console.log(response.data.length)
-        //})
-      }
-      catch (error) {
+        console.log(response.data.length > 0);
+      } catch (error) {
         console.error("Error al obtener la cantidad de reservas:", error);
-      };
-    }
+      }
+    };
 
     countReservations();
-
   }, []);
   useEffect(() => {
     const fetchRecommendedProduct = async () => {
       try {
-        const response = await axiosH.get('/products/random');
+        const response = await axiosH.get("/products/random");
         setRecommendedProduct(response.data);
       } catch (error) {
-        console.error('Error fetching recommended product:', error);
+        console.error("Error fetching recommended product:", error);
       }
     };
 
@@ -59,88 +62,98 @@ const DashboardPage = ({ userReservationsCount }) => {
   }, []);
 
   return (
-    <section id="hero" className="pt-16 md:pt-20 lg:pt-28">
+    <section id="hero" className="pt-40 md:pt-28 sm:pt-24 xs:pt-20 lg:pt-28 2xl:pt-30">
       <div className="container">
-        <div className="color flex border border-primary bg-primary/5 h-[900px]">
-          <aside className="w-1/4 bg-primary py-4">
+        <div className="color flex h-[900px] border border-primary bg-primary/5">
+          <aside className="w-1/4 bg-primary py-10">
             <button
-              className={`mb-4 block w-full rounded p-2 text-left text-yellow${activeMenu === "profile" ? "" : " bg-yellow/5 text-left"
-                }`}
+              className={`mb-4 block w-full rounded p-2 text-left text-yellow${
+                activeMenu === "profile" ? "" : " bg-yellow/5 text-left"
+              }`}
               onClick={() => handleMenuClick("profile")}
             >
               Perfil
             </button>
             <Link
               href="/profile"
-              className={`mb-4 block w-full rounded p-2 ${activeMenu === "dashboard" ? "bg-yellow/20 text-yellow" : ""
-                }`}
+              className={`mb-4 block w-full rounded p-2 ${
+                activeMenu === "dashboard" ? "bg-yellow/20 text-yellow" : ""
+              }`}
             >
               Mis reservas
             </Link>
           </aside>
-          <main className="w-3/4 p-4">
+          <main className="w-3/4 p-10">
             <div
-              className="mb-5 flex items-center "
+              className="flex items-center "
               style={{ paddingBottom: "20px" }}
             >
               <MdFactCheck
-                size={32}
-                className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl"
+                size={24}
+                className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl"
               />
-              <h1 className="text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl ">
+              <h1 className="text-2xl font-bold text-primary dark:text-body-color sm:text-2xl md:text-2xl lg:text-2xl xl:text-2xl ">
                 Resumen
               </h1>
             </div>
+
             <section id="ReserveCount">
-
-
-              <div className="mb-5 flex items-center text-black">
-                <MdCalendarMonth
-                  size={20}
-                  className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
-                />
-                <p className="text-sm! font-light  dark:text-yellow sm:text-3xl lg:text-2xl xl:text-xl">
-                  Tus reservas
-                </p>
-              </div>
-
-              <div className="mb-6">
-                <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
-                  <div className="flex items-center justify-between">
-                    <div className="dark:text-black text-primary text-2xl font-semibold">
-                      {reservationCount}
-                    </div>
-                    <div className=" rounded-full p-2">
-                      <i className="fas fa-chart-line text-success"></i>
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <div className="text-primary dark:text-black">
-                      Cantidad de reservas
-                    </div>
-                  </div>
+              {hasReservations ? (
+                <div className="mb-5 flex items-center text-black">
+                  <MdCalendarMonth
+                    size={20}
+                    className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
+                  />
+                  <p className="text-sm! font-light  dark:text-yellow sm:text-3xl lg:text-2xl xl:text-xl">
+                    Tus reservas
+                  </p>
                 </div>
-              </div>
+              ) : (
+                <div className="items-left flex flex-col text-black">
+                  <div className="mt-10  flex items-center text-black">
+                    <MdOutlineEvent
+                      size={22}
+                      className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl"
+                    />
+                    <p className="text-sm font-medium text-primary dark:text-body-color sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
+                      Reserva ahora
+                    </p>
+                  </div>
 
+                  <p className="ml-8 font-light dark:text-yellow sm:text-3xl md:text-base lg:text-base xl:text-base">
+                    No tienes reservas registradas en este momento. ¡Haz tu
+                    primera reserva ahora y disfruta de nuestra deliciosa cocina
+                    francesa!
+                  </p>
+                  <Link href="/reservar">
+                    <a className="ml-8 mt-5 inline-block rounded-md bg-white px-4 py-2 text-primary hover:bg-opacity-80">
+                      Reservar
+                      
+                    </a>
+                  </Link>
+                </div>
+              )}
             </section>
 
             <section id="Recommedation">
-
-
-
               <div className="mt-10  flex items-center text-black">
                 <MdDinnerDining
                   size={20}
-                  className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
+                  className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-xl xl:text-3xl"
                 />
-                <p className="text-sm! font-light  dark:text-yellow sm:text-3xl lg:text-2xl xl:text-xl">
+                <p className="text-sm! font-medium text-primary dark:text-body-color md:text-xl sm:text-3xl lg:text-xl xl:text-xl">
                   Recomendación del día
                 </p>
               </div>
 
-              <ProductCard id={undefined} name={undefined} description={undefined} imageUrl={undefined} price={undefined} />
+              <ProductCard
+                id={undefined}
+                name={undefined}
+                description={undefined}
+                imageUrl={undefined}
+                price={undefined}
+              />
             </section>
-
           </main>
         </div>
       </div>

@@ -52,14 +52,14 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent  ${sticky
+        className={`header z-40 flex w-full items-center bg-transparent  ${sticky
           ? "!fixed !z-[9999] !bg-primary !bg-opacity-90 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-80 text-white"
           : "absolute"
           }`}
       >
         <div className="container">
-          <div className="relative -mx-4 flex items-center justify-between">
-            <div className="w-60 max-w-full px-4 xl:mr-12">
+          <div className="relative flex justify-between 2xl:px-30 xl:px-30 lg:px-30">
+            <div className="w-60 md:w-50">
               <Link
                 href="/"
                 className={`header-logo block w-full ${sticky ? "py-5 lg:py-2" : "py-8"
@@ -81,7 +81,7 @@ const Header = () => {
                 />
               </Link>
             </div>
-            <div className="flex w-full items-center justify-between px-4">
+            <div className="flex w-full items-center justify-between pl-8">
               <div>
                 <button
                   onClick={navbarToggleHandler}
@@ -104,7 +104,7 @@ const Header = () => {
                 </button>
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] text-yellow rounded border-[.5px] border-yellow bg-dark py-4 px-7 duration-300  dark:bg-primary/90 lg:visible lg:static lg:w-auto border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${navbarOpen
+                  className={`navbar absolute top-21 right-4 z-30 w-[250px] text-yellow rounded border-[.5px] border-yellow bg-dark py-4 px-7 duration-300  dark:bg-primary/90 lg:visible lg:static lg:w-auto border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${navbarOpen
                     ? "visibility top-full opacity-100"
                     : "invisible top-[120%] opacity-0"
                     }`}
@@ -156,19 +156,20 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
-              <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <div className="flex items-center justify-end pr-16 lg:pr-0">
+              <div className="flex items-center justify-between md:pr-16">
+                <div className="flex items-center justify-between  p-4 md:p-0">
                   {!user ? (
                     <SignIn />
                   ) : (
                     <>
-                      <SignOut currentUser={user} />
-                      <Link
+                    <Link
                         href="/profile"
-                        className="py-3 px-7 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color md:block"
+                        className="py-3 pl-7  md:p-2 p-4 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color md:block"
                       >
                         Mi Perfil
                       </Link>
+                      <SignOut currentUser={user} />
+                      
                     </>
                   )}
                 </div>
