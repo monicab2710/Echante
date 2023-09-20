@@ -27,6 +27,7 @@ const Reserve = () => {
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
 
+
   const handleUnauthenticatedUser = () => {
     MySwal.fire({
       icon: "error",
@@ -94,6 +95,7 @@ const Reserve = () => {
           timerProgressBar: true,
           timer: 3000,
         })
+       
       } else {
         console.log('Error:', response.data);
       }
