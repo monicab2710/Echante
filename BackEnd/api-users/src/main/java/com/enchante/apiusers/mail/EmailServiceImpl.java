@@ -62,7 +62,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Async
     @Override
-    public void forgotPasswordMail(String email, String link) {
+    public void forgotPasswordMail(String name, String email, String link) {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
@@ -75,12 +75,13 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo(email);
 
             Context ctx = new Context();
+            ctx.setVariable("name", name);
             ctx.setVariable("link", link);
 
             String htmlContent = templateEngine.process("password-email", ctx);
 
             mimeMessageHelper.setText(htmlContent, true);
-            mimeMessageHelper.setSubject("Here's the link to reset your password");
+            mimeMessageHelper.setSubject("Enchanté | Aquí tienes el enlace para restablecer tu contraseña");
 
             javaMailSender.send(mimeMessage);
 

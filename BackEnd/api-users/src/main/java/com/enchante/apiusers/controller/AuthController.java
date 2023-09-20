@@ -23,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*")
@@ -93,6 +94,9 @@ public class AuthController {
         if ((!isAlpha(signUpRequest.getName())) || (!isAlpha(signUpRequest.getLastName()))) {
             return ResponseEntity.badRequest().body("Invalid name and/or last name");
         }
+        if (!isNotEmpty(signUpRequest.getUserName())) {
+            return ResponseEntity.badRequest().body("Username cannot be empty");
+        }
         if (!validEmail(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body("Invalid email");
         }
@@ -136,6 +140,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Invalid email");
         }
 
+        Optional<User> user = userRepository.findByEmail(email);
+
         String token = userService.forgotPassword(email);
 
         if (token == null) {
@@ -148,13 +154,17 @@ public class AuthController {
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setRecipient(email);
 
-        emailService.forgotPasswordMail(email, resetPasswordLink);
+        emailService.forgotPasswordMail(user.get().getName(), email, resetPasswordLink);
         return ResponseEntity.ok().body("We have sent a reset password link to your email. Please check.");
 
     }
 
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
+
+        if (!validPassword(request.getPassword())) {
+            return ResponseEntity.badRequest().body("Invalid password");
+        }
 
         String message = userService.resetPassword(request);
 
@@ -171,6 +181,9 @@ public class AuthController {
 
         if ((!isAlpha(u.getName())) || (!isAlpha(u.getLastName()))) {
             return ResponseEntity.badRequest().body("Invalid name and/or last name");
+        }
+        if (!isNotEmpty(u.getUserName())) {
+            return ResponseEntity.badRequest().body("Username cannot be empty");
         }
         if (!validEmail(u.getEmail())) {
             return ResponseEntity.badRequest().body("Invalid email");
@@ -201,7 +214,7 @@ public class AuthController {
 
     public Boolean isAlpha(String s) {
 
-        String regexPattern = "^[a-zA-Z]*$";
+        String regexPattern = "^[a-zA-Z]+$";
         return Pattern.compile(regexPattern).matcher(s).matches();
     }
 
@@ -209,6 +222,12 @@ public class AuthController {
 
         String regexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,20}$";
         return Pattern.compile(regexPattern).matcher(password).matches();
+    }
+
+    public Boolean isNotEmpty(String s) {
+
+        String regexPattern = "^.+$";
+        return Pattern.compile(regexPattern).matcher(s).matches();
     }
 
 }
