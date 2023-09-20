@@ -40,7 +40,7 @@ const Reserve = () => {
       }
     });
   };
-  
+
   if (!token) {
     handleUnauthenticatedUser();
     return null;
@@ -188,8 +188,8 @@ const Reserve = () => {
                             value={amountDiners}
                             onChange={(e) => {
                               const inputValue = e.target.value;
-                              if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
-                                setAmountDiners(inputValue); // Actualiza el estado solo si es un número válido
+                              if (/^\d+$/.test(inputValue) && inputValue >= 1 && inputValue <= 25) {
+                                setAmountDiners(inputValue);
                               }
                             }}
                             placeholder=""
