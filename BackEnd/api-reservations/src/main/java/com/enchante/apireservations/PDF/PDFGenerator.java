@@ -48,7 +48,7 @@ public class PDFGenerator {
             Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN);
             font.setColor(CMYKColor.BLACK);
 
-            cell.setPhrase(new Phrase("DNI", font));
+            cell.setPhrase(new Phrase("ID", font));
             table.addCell(cell);
             cell.setPhrase(new Phrase("Hora", font));
             table.addCell(cell);
