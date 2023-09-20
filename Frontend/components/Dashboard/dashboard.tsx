@@ -18,11 +18,11 @@ import { UserContext } from "@/app/providers";
 const DashboardPage = ({ userReservationsCount }) => {
   const { user } = useContext(UserContext);
   const [recommendedProduct, setRecommendedProduct] = useState(null);
-  const [reservationCount, setReservationCount] = useState(0);
   const [hasReservations, setHasReservations] = useState(false);
+  const [reservationCount, setReservationCount] = useState(0);
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const router = useRouter();
-
+  const [reservations, setReservations] = useState([]);
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
 
@@ -36,22 +36,22 @@ const DashboardPage = ({ userReservationsCount }) => {
   useEffect(() => {
     const countReservations = async () => {
       try {
-        if (user && user.email){
+        if (user && user.email) {
           const response = await axiosHe.get(
             `/api/v1/reservations/my-reservations?email=${user.email}`
           );
 
-        setReservationCount(response.data.length);
-        setHasReservations(response.data.length > 0); // Actualiza el estado de hasReservations
-      } 
-    }catch (error) {
+          setReservations(response.data);
+          setHasReservations(response.data.length > 0);
+          setReservationCount(response.data.length);
+        }
+      } catch (error) {
         console.error("Error al obtener la cantidad de reservas:", error);
       }
     };
 
     countReservations();
   }, [user]);
-
 
   useEffect(() => {
     const fetchRecommendedProduct = async () => {
@@ -64,6 +64,46 @@ const DashboardPage = ({ userReservationsCount }) => {
     };
     fetchRecommendedProduct();
   }, []);
+
+  const handleDownloadReservations = async () => {
+    try {
+      if (user && user.email) {
+        const userEmail = user.email;
+        const downloadUrl = `/api/v1/reservations/my-reservations/export?email=${userEmail}`;
+
+        const response = await axiosHe.get(downloadUrl, {
+          responseType: "blob",
+        });
+        if (response.data instanceof Blob) {
+          const url = window.URL.createObjectURL(response.data);
+
+          const downloadLink = document.createElement("a");
+          downloadLink.href = url;
+          downloadLink.download = `reservations_${userEmail}.pdf`;
+
+          downloadLink.click();
+        } else {
+          MySwal.fire({
+            icon: "error",
+            title: "Error al descargar las reservas",
+            background: "#008F95",
+            color: "#EA7363",
+            text: "No se pudo descargar las reservas en este momento. Por favor, inténtalo de nuevo más tarde.",
+          });
+        }
+      } else {
+        MySwal.fire({
+          icon: "error",
+          title: "Usuario no logueado",
+          background: "#008F95",
+          color: "#EA7363",
+          text: "Debes iniciar sesión para descargar tus reservas.",
+        });
+      }
+    } catch (error) {
+      console.error("Error al descargar las reservas:", error);
+    }
+  };
 
   return (
     <section
@@ -115,22 +155,54 @@ const DashboardPage = ({ userReservationsCount }) => {
                     Tus reservas
                   </p>
                 </div>
-                <div className="mb-6">
-                  <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
-                    <div className="flex items-center justify-between">
-                      <div className="dark:text-black text-primary text-2xl font-semibold">
-                        {reservationCount}
-                      </div>
-                      <div className=" rounded-full p-2">
-                        <i className="fas fa-chart-line text-success"></i>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div className="text-primary dark:text-black">
-                        Cantidad de reservas
-                      </div>
-                    </div>
-                  </div>
+                <div className="mb-6" id="cuadroReservas">
+  <div className="overflow-x-auto">
+    <table className="min-w-full divide-y divide-primary">
+      <thead className="bg-white text-black dark:bg-primary dark:text-yellow">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+            Fecha
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+            Hora
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+            Personas
+          </th>
+          <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+            Mensaje
+          </th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-primary bg-yellow/30 text-black dark:bg-dark/30 dark:text-body-color">
+        {reservations.map((reservation) => (
+          <tr key={reservation.id}>
+            <td className="whitespace-nowrap px-6 py-4">
+              {reservation.date}
+            </td>
+            <td className="whitespace-nowrap px-6 py-4">
+              {reservation.time}
+            </td>
+            <td className="whitespace-nowrap px-6 py-4">
+              {reservation.amountDiners}
+            </td>
+            <td className="whitespace-nowrap px-6 py-4">
+              {reservation.message}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+                
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleDownloadReservations}
+                    className=" ease-in-up hidden rounded-md bg-white px-8 py-3 text-base font-bold text-primary transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
+                  >
+                    Descargar reservas
+                  </button>
                 </div>
               </div>
             ) : (
@@ -138,15 +210,17 @@ const DashboardPage = ({ userReservationsCount }) => {
                 <div className="mt-10  flex items-center text-black">
                   <MdOutlineEvent
                     size={22}
-                    className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl"
+                    className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
                   />
-                  <p className="text-sm font-medium text-primary dark:text-body-color sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
+                  <p className="text-sm font-medium text-black dark:text-yellow sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
                     Reserva ahora
                   </p>
                 </div>
 
                 <p className="my-2 ml-8 w-2/3 font-light dark:text-yellow sm:text-3xl md:text-base lg:text-base xl:text-base">
-                  No tienes reservas registradas en este momento. ¡Haz tu primera reserva ahora y disfruta de nuestra deliciosa cocina francesa!
+                  No tienes reservas registradas en este momento. ¡Haz tu
+                  primera reserva ahora y disfruta de nuestra deliciosa cocina
+                  francesa!
                 </p>
                 <ul>
                   <Link
@@ -163,9 +237,9 @@ const DashboardPage = ({ userReservationsCount }) => {
               <div className="mt-10  flex items-center text-black">
                 <MdDinnerDining
                   size={20}
-                  className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-xl xl:text-3xl"
+                  className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-xl xl:text-3xl"
                 />
-                <p className="text-sm! font-medium text-primary dark:text-body-color sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
+                <p className="text-sm! font-medium text-black dark:text-yellow sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
                   Recomendación del día
                 </p>
               </div>
