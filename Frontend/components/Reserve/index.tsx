@@ -6,13 +6,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import * as Yup from 'yup';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
-import { UserContext } from "@/app/providers"; //DD
+import { UserContext } from "@/app/providers";
 const MySwal = withReactContent(Swal)
 
 const Reserve = () => {
@@ -110,6 +109,8 @@ const Reserve = () => {
     }
     actions.setSubmitting(false);
   };
+
+
   return (
     <section id="reserve" className="overflow-hidden py-16 md:py-20 lg:py-28">
       <div className="container">
@@ -127,7 +128,7 @@ const Reserve = () => {
                   amountDiners: "",
                   message: ""
                 }}
-                //validationSchema={validationSchema}
+               
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (

@@ -78,10 +78,10 @@ const ProfilePage = () => {
   );
 
   return (
-    <section id="hero" className="pt-16 md:pt-20 lg:pt-28">
+    <section id="hero" className="mx-10 pt-40 md:pt-28 sm:pt-24 xs:pt-20 lg:pt-28 2xl:pt-30">
       <div className="container">
         <div className="color flex border border-primary bg-primary/5">
-          <aside className="w-1/4 bg-primary py-4 ">
+          <aside className="w-1/4 bg-primary py-10 ">
             <button
               className={`mb-4 block w-full rounded p-2 text-left ${activeMenu === "profile" ? " bg-yellow/20 text-yellow" : ""
                 }`}
@@ -100,11 +100,11 @@ const ProfilePage = () => {
             </Link>
           </aside>
           <main className="w-3/4 p-4">
-            <div className=" pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28">
+            <div className="pb-14 dark:border-white/[.15] md:pb-20 lg:pb-28">
               <div className="-mx-4 flex flex-wrap items-center">
                 <div className="mt-8 w-full  px-4 ">
                   <div className="mx-auto max-w-[500px] rounded-md bg-primary/[20%] bg-opacity-5 px-6 py-10 dark:bg-primary/[20%] sm:p-[60px]">
-                    <h1 className="mb-3 text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
+                    <h1 className="text-center text-2xl font-bold text-primary dark:text-yellow sm:text-3xl">
                       Bienvenido a Enchanté
                     </h1>
                     <br />
