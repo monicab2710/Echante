@@ -379,6 +379,48 @@
 					"response": []
 				},
 				{
+					"name": "GetHistoryReservationsByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8087/api/v1/reservations/history?startDate=15/09/2023&endDate=08/10/2023",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"api",
+								"v1",
+								"reservations",
+								"history"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "15/09/2023"
+								},
+								{
+									"key": "endDate",
+									"value": "08/10/2023"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PostReservation",
 					"request": {
 						"auth": {
@@ -610,6 +652,49 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"email\": \"fkelley@gmail.com\",\r\n    \"password\": \"Fkelley_989&\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/v1/users/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emilycooper@gmail.com\",\r\n    \"password\": \"Emily@02\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
