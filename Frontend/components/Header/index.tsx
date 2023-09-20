@@ -161,6 +161,7 @@ const Header = () => {
                     <SignIn />
                   ) : (
                     <>
+                     <SignOut currentUser={user} />
                     <Link
                         href="/profile"
                         className="py-3 pl-7  md:p-2 p-4 text-base font-bold text-black hover:text-body-color dark:text-yellow dark:hover:text-body-color md:block"
