@@ -31,9 +31,9 @@ const HeroSectionProducts = () => {
         <Image src={imageUrl} layout="fill" objectFit="cover" alt={name}style={{ borderRadius: '10px' }} />
       </div>
       <div className="w-1/2  mx-10">
-        <h2 className={`text-xl font-semibold ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>{name}</h2>
-        <p className={`text-sm ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>{description}</p>
-        <p className={`text-lg ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>${formatPrice(price)}</p>
+        <h2 className={`text-2xl font-semibold text-primary ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>{name}</h2>
+        <p className={`text-sm dark:text-yellow text-black ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>{description}</p>
+        <p className={`text-lg dark:text-white text-dark ${index % 2 === 0 ? 'text-left' : 'text-right'}`}>${formatPrice(price)}</p>
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ const HeroSectionProducts = () => {
   return (
     <section id="hero" className="pt-16 md:pt-20 lg:pt-28 bg-gray-100">
       <div className="container mx-auto px-4">
-        <h1 className="mb-3 text-2xl font-bold text-primary dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl text-center">
+        <h1 className="mb-7 text-2xl font-bold text-primary dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl text-center">
           Descubre Nuestros Productos
         </h1>
         {renderedProducts}
