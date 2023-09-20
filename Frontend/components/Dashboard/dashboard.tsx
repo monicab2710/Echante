@@ -18,11 +18,10 @@ import { UserContext } from "@/app/providers";
 const DashboardPage = ({ userReservationsCount }) => {
   const { user } = useContext(UserContext);
   const [recommendedProduct, setRecommendedProduct] = useState(null);
-  const [reservationCount, setReservationCount] = useState(0);
   const [hasReservations, setHasReservations] = useState(false);
   const [activeMenu, setActiveMenu] = useState("dashboard");
   const router = useRouter();
-
+  const [reservations, setReservations] = useState([]);
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
 
@@ -40,9 +39,8 @@ const DashboardPage = ({ userReservationsCount }) => {
           const response = await axiosHe.get(
             `/api/v1/reservations/my-reservations?email=${user.email}`
           );
-
-        setReservationCount(response.data.length);
-        setHasReservations(response.data.length > 0); // Actualiza el estado de hasReservations
+        setReservations(response.data);
+        setHasReservations(response.data.length > 0); 
       } 
     }catch (error) {
         console.error("Error al obtener la cantidad de reservas:", error);
@@ -64,6 +62,49 @@ const DashboardPage = ({ userReservationsCount }) => {
     };
     fetchRecommendedProduct();
   }, []);
+
+  const handleDownloadReservations = async () => {
+    try {
+      if (user && user.email) {
+        const userEmail = user.email;
+        const downloadUrl = `/api/v1/reservations/my-reservations/export?email=${userEmail}`;
+  
+        const response = await axiosHe.get(downloadUrl, {
+          responseType: 'blob', 
+        });
+        if (response.data instanceof Blob) {
+          const url = window.URL.createObjectURL(response.data);
+  
+          const downloadLink = document.createElement("a");
+          downloadLink.href = url;
+          downloadLink.download = `reservations_${userEmail}.pdf`;
+  
+          downloadLink.click();
+        
+  
+        } else {
+          MySwal.fire({
+            icon: "error",
+            title: "Error al descargar las reservas",
+            background: "#008F95",
+            color: "#EA7363",
+            text:
+              "No se pudo descargar las reservas en este momento. Por favor, inténtalo de nuevo más tarde.",
+          });
+        }
+      } else {
+        MySwal.fire({
+          icon: "error",
+          title: "Usuario no logueado",
+          background: "#008F95",
+          color: "#EA7363",
+          text: "Debes iniciar sesión para descargar tus reservas.",
+        });
+      }
+    } catch (error) {
+      console.error("Error al descargar las reservas:", error);
+    }
+  };
 
   return (
     <section
@@ -105,42 +146,72 @@ const DashboardPage = ({ userReservationsCount }) => {
             </div>
 
             {hasReservations ? (
-              <div>
-                <div className="mb-5 flex items-center text-black">
-                  <MdCalendarMonth
-                    size={20}
-                    className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
-                  />
-                  <p className="text-sm! font-light  dark:text-yellow sm:text-3xl lg:text-2xl xl:text-xl">
-                    Tus reservas
-                  </p>
-                </div>
-                <div className="mb-6">
-                  <div className="w-full rounded-lg bg-white/50 p-6 shadow-lg dark:bg-white/50">
-                    <div className="flex items-center justify-between">
-                      <div className="dark:text-black text-primary text-2xl font-semibold">
-                        {reservationCount}
-                      </div>
-                      <div className=" rounded-full p-2">
-                        <i className="fas fa-chart-line text-success"></i>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <div className="text-primary dark:text-black">
-                        Cantidad de reservas
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div>
+    <div className="mb-5 flex items-center text-black">
+      <MdCalendarMonth
+        size={20}
+        className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
+      />
+      <p className="text-sm! font-light  dark:text-yellow sm:text-3xl lg:text-2xl xl:text-xl">
+        Tus reservas
+      </p>
+    </div>
+    <div className="mb-6">
+      <table className="min-w-full divide-y divide-primary">
+        <thead className="dark:bg-primary bg-white text-black dark:text-yellow ">
+          <tr>
+            <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+              Fecha
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+              Hora
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+              Personas
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+              Mensaje
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-yellow/30 dark:bg-dark/30 divide-y divide-primary text-black dark:text-body-color">
+          {reservations.map((reservation) => (
+            <tr key={reservation.id}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {reservation.date}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {reservation.time}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {reservation.amountDiners}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {reservation.message}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div className="flex justify-end">
+    <button
+              onClick={handleDownloadReservations}
+              className=" ease-in-up hidden rounded-md bg-white py-3 px-8 text-base font-bold text-primary transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9"
+            >
+              Descargar reservas
+            </button>
+            </div>
+  </div>
+
             ) : (
               <div className="items-left flex flex-col text-black">
                 <div className="mt-10  flex items-center text-black">
                   <MdOutlineEvent
                     size={22}
-                    className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-2xl xl:text-3xl"
+                    className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-2xl xl:text-3xl"
                   />
-                  <p className="text-sm font-medium text-primary dark:text-body-color sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
+                  <p className="text-sm font-medium text-black dark:text-yellow sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
                     Reserva ahora
                   </p>
                 </div>
@@ -163,9 +234,9 @@ const DashboardPage = ({ userReservationsCount }) => {
               <div className="mt-10  flex items-center text-black">
                 <MdDinnerDining
                   size={20}
-                  className="mr-3 text-2xl font-bold text-primary dark:text-body-color sm:text-3xl lg:text-xl xl:text-3xl"
+                  className="mr-3 text-2xl font-bold text-black dark:text-yellow sm:text-3xl lg:text-xl xl:text-3xl"
                 />
-                <p className="text-sm! font-medium text-primary dark:text-body-color sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
+                <p className="text-sm! font-medium text-black dark:text-yellow sm:text-3xl md:text-xl lg:text-xl xl:text-xl">
                   Recomendación del día
                 </p>
               </div>
