@@ -6,14 +6,14 @@ import { useContext } from 'react';
 
 
 
-export default function SignOut({currentUser}) {
-  const router = useRouter();
+export default function SignOut({ currentUser }) {
+    const router = useRouter();
 
-  let { user, setUser } = useContext(UserContext)
-      const removeUser = () => {
+    let { user, setUser } = useContext(UserContext)
+    const removeUser = () => {
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("token");
-        router.push('/')    
+        router.push('/')
         setUser(null);
     }
     return (

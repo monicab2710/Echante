@@ -7,7 +7,6 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,8 +29,8 @@ public class GetCategoryById {
 
     @Test
     @Tag("Smoke")
-    public void getCategoryStatusPositive() {
-        test = extent.createTest("Get de Categoría por Id Positivo - Básico");
+    public void getCategoryPositive() {
+        test = extent.createTest("Get de Categoría por Id Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         String categoryId = "1";
@@ -51,8 +50,8 @@ public class GetCategoryById {
 
     @Test
     @Tag("Regression")
-    public void getCategoryContainsPositive() {
-        test = extent.createTest("Get de Categoría por Id Positivo - Contiene");
+    public void getCategoryPositive_bodyContains() {
+        test = extent.createTest("Get de Categoría por Id Positivo - Body contains");
         test.log(Status.INFO, "Inicia el test");
 
         String categoryId = "2";
@@ -68,8 +67,8 @@ public class GetCategoryById {
 
     @Test
     @Tag("Regression")
-    public void getCategoryEqualToPositive() {
-        test = extent.createTest("Get de Categoría por Id Positivo - Equals");
+    public void getCategoryPositive_descriptionIsEqualTo() {
+        test = extent.createTest("Get de Categoría por Id Positivo - Description is equal to");
         test.log(Status.INFO, "Inicia el test");
 
         String categoryId = "2";
@@ -87,7 +86,7 @@ public class GetCategoryById {
 
     @Test
     @Tag("Regression")
-    public void getCategoryStatusNegative() {
+    public void getCategoryNegative() {
         test = extent.createTest("Get de Categoría por Id Negativo");
         test.log(Status.INFO, "Inicia el test");
 

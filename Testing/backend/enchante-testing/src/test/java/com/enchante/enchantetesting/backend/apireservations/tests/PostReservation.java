@@ -8,7 +8,6 @@ import com.enchante.enchantetesting.extentReports.ExtentFactory;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -35,7 +34,7 @@ public class PostReservation {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -45,11 +44,8 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
 
-
-        test = extent.createTest("Post de reserva Positivo - Día y horario correctos");
+        test = extent.createTest("Post de reserva Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         JSONObject request2 = new JSONObject();
@@ -76,11 +72,11 @@ public class PostReservation {
 
     @Test
     @Tag("Regression")
-    public void postReservationNegative_Hour() {
+    public void postReservationNegative_hour() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -90,9 +86,6 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
-
 
         test = extent.createTest("Post de reserva Negativo - Horario incorrecto");
         test.log(Status.INFO, "Inicia el test");
@@ -121,11 +114,11 @@ public class PostReservation {
 
     @Test
     @Tag("Regression")
-    public void postReservationNegative_Day() {
+    public void postReservationNegative_day() {
 
         JSONObject request1 = new JSONObject();
         request1.put("email", "cfoster@mail.com");
-        request1.put("password", "cfoster_789");
+        request1.put("password", "Cfoster_789&");
 
         String token =
                 given()
@@ -135,9 +128,6 @@ public class PostReservation {
                         .when()
                         .post(usersURL)
                         .then().extract().path("token").toString();
-                        //.then().extract()
-                        //.header("Authorization");
-
 
         test = extent.createTest("Post de reserva Negativo - Día incorrecto");
         test.log(Status.INFO, "Inicia el test");

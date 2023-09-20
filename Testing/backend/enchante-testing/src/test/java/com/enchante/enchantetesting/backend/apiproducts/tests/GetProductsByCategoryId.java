@@ -10,9 +10,9 @@ import org.junit.jupiter.api.*;
 import static io.restassured.RestAssured.get;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class GetProductByCategoryId {
+public class GetProductsByCategoryId {
 
-    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getProductByCategory.html");
+    static ExtentSparkReporter spark = new ExtentSparkReporter("src/test/java/com/enchante/enchantetesting/backend/apiproducts/reports/getProductsByCategoryId.html");
     static ExtentReports extent;
     ExtentTest test;
 
@@ -27,8 +27,8 @@ public class GetProductByCategoryId {
 
     @Test
     @Tag("Regression")
-    public void getProductbyCategoryPositive() {
-        test = extent.createTest("Get de Producto por Categoría Positivo");
+    public void getProductsByCategoryPositive() {
+        test = extent.createTest("Get de Productos por Categoría Positivo");
         test.log(Status.INFO, "Inicia el test");
 
         String category = "2";
@@ -42,14 +42,14 @@ public class GetProductByCategoryId {
                 .assertThat().statusCode(200)
                 .and().log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 200 al buscar un producto por categoría existente");
+        test.log(Status.PASS, "Validación del código de estado 200 al buscar productos por categoría existente");
         test.log(Status.INFO, "Finaliza el test");
     }
 
     @Test
     @Tag("Regression")
-    public void getProductbyCategoryNegative() {
-        test = extent.createTest("Get de Producto por Categoría Negativo");
+    public void getProductsByCategoryNegative() {
+        test = extent.createTest("Get de Productos por Categoría Negativo");
         test.log(Status.INFO, "Inicia el test");
 
         String category = "8";
@@ -63,7 +63,7 @@ public class GetProductByCategoryId {
                 .assertThat().statusCode(404)
                 .and().log().all();
 
-        test.log(Status.PASS, "Validación del código de estado 404 al buscar un producto por categoría inexistente");
+        test.log(Status.PASS, "Validación del código de estado 404 al buscar productos por categoría inexistente");
         test.log(Status.INFO, "Finaliza el test");
     }
 

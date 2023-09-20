@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   const fireSuccess = () => {
     MySwal.fire({
-      html: <strong>El registro se ha realizado de manera exitosa.</strong>,
+      html: <strong>Tus cambios han sido cambiados de manera exitosa.</strong>,
       icon: "success",
       background: "#008F95",
       color: "#EA7363",
@@ -44,13 +44,13 @@ const ProfilePage = () => {
 
   const fireError = () => {
     MySwal.fire({
-      html: <strong>El registro se ha realizado de manera exitosa.</strong>,
-      icon: "success",
+      html: <strong> Ups vuelve a intentarlo,tus cambios no se guardaron.</strong>,
+      icon: "error",
       background: "#008F95",
       color: "#EA7363",
       showConfirmButton: false,
       timerProgressBar: true,
-      timer: 3000,
+      timer:3000,
     });
   };
 
@@ -83,20 +83,18 @@ const ProfilePage = () => {
         <div className="color flex border border-primary bg-primary/5">
           <aside className="w-1/4 bg-primary py-10 ">
             <button
-              className={`mb-4 block w-full rounded p-2 text-left ${
-                activeMenu === "profile" ? " bg-yellow/20 text-yellow" : ""
-              }`}
+              className={`mb-4 block w-full rounded p-2 text-left ${activeMenu === "profile" ? " bg-yellow/20 text-yellow" : ""
+                }`}
               onClick={() => handleMenuClick("profile")}
             >
               Perfil
             </button>
             <Link
               href="/dashboard"
-              className={`mb-4 block w-full rounded p-2 ${
-                activeMenu === "dashboard"
+              className={`mb-4 block w-full rounded p-2 ${activeMenu === "dashboard"
                   ? "bg-yellow/20 text-black"
                   : "bg-dark/10 text-left text-yellow"
-              }`}
+                }`}
             >
               Mis reservas
             </Link>
@@ -130,7 +128,7 @@ const ProfilePage = () => {
                         htmlFor="nombre"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Nombre y Apellido
+                        Nombre 
                       </label>
                       <input
                         type="text"
@@ -140,7 +138,21 @@ const ProfilePage = () => {
                         value={(newUser && newUser.name) || ""}
                       />
                     </div>
-
+                    <div className="mb-4">
+                      <label
+                        htmlFor="Apellido"
+                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                      >
+                        Apellido
+                      </label>
+                      <input
+                        type="text"
+                        id="lastName"
+                        className="w-full rounded-md border border-transparent px-6 py-3 text-base text-black placeholder-black/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:text-yellow dark:placeholder-yellow/[70%] dark:shadow-signUp"
+                        onChange={handleChange}
+                        value={(newUser && newUser.lastName) || ""}
+                      />
+                    </div>
                     <div className="mb-4">
                       <label
                         htmlFor="usuario"
@@ -172,8 +184,8 @@ const ProfilePage = () => {
                       />
                     </div>
 
-                    <div className="mb-8">
-                      <label
+ {/*                 <div className="mb-8">
+                     <label
                         htmlFor="contrasena"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
@@ -186,7 +198,7 @@ const ProfilePage = () => {
                         value={(newUser && newUser.password) || "*******"}
                         readOnly
                       />
-                    </div>
+                 </div>*/}   
 
                     <button
                       onClick={updateUser}

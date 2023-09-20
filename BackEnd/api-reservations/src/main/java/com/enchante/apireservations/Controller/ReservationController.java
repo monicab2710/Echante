@@ -2,19 +2,24 @@ package com.enchante.apireservations.Controller;
 
 import com.enchante.apireservations.Controller.Payload.ReservationRequest;
 import com.enchante.apireservations.Model.DTO.ReservationDTO;
+import com.enchante.apireservations.PDF.PDFGenerator;
 import com.enchante.apireservations.Security.AppUser;
 import com.enchante.apireservations.Service.ReservationService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -116,6 +121,9 @@ public class ReservationController {
     @GetMapping("/my-reservations")
     public ResponseEntity<?> getUserReservations(@RequestParam String email) {
 
+        if (!validEmail(email)) {
+            return ResponseEntity.badRequest().body("Invalid email");
+        }
 
         List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
 
@@ -124,6 +132,62 @@ public class ReservationController {
         }
 
         return ResponseEntity.ok().body(userReservations);
+    }
+
+    @GetMapping("/my-reservations/export")
+    public ResponseEntity<?> exportPDF(HttpServletResponse response, @RequestParam String email) {
+
+        if (!validEmail(email)) {
+            return ResponseEntity.badRequest().body("Invalid email");
+        }
+
+        List<ReservationDTO> userReservations = reservationService.getReservationsByUserEmail(email);
+
+        if (userReservations == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User has no reservations");
+        }
+
+        try {
+
+            response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=reservations_" + email + ".pdf";
+            //String headerValue = "inline; filename=reservations_" + email + ".pdf";
+            response.setHeader(headerKey, headerValue);
+
+            PDFGenerator generator = new PDFGenerator();
+            generator.setUserReservations(userReservations);
+            generator.generate(response);
+
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @GetMapping("/history")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<ReservationDTO>> getReservationHistory(@RequestParam(defaultValue = "01/01/2022") String startDate, @RequestParam(defaultValue = "31/12/2024") String endDate) {
+
+        Boolean startDateValid = isDateValid(startDate);
+        Boolean endDateValid = isDateValid(endDate);
+        if (!startDateValid || !endDateValid) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fromDate = LocalDate.parse(startDate, formatter);
+        LocalDate toDate = LocalDate.parse(endDate, formatter);
+
+        List<ReservationDTO> history = reservationService.getReservationHistory(fromDate, toDate);
+
+        if (history.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(history);
+        }
     }
 
     public Boolean stringArrayToIntegerValid(String[] array) {
@@ -174,6 +238,37 @@ public class ReservationController {
             return false;
         }
         return true;
+    }
+
+    public Boolean validEmail(String email) {
+
+        String regexPatter = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+
+        return Pattern.compile(regexPatter).matcher(email).matches();
+    }
+
+    public Boolean isDateValid(String date) {
+
+        String[] dateArray = date.split("/");
+
+        if (dateArray.length != 3) {
+            return false;
+        }
+
+        Boolean validDateNumbers = stringArrayToIntegerValid(dateArray);
+
+        if (!validDateNumbers) {
+            return false;
+        }
+
+        String validDateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+        try {
+            LocalDate.parse(validDateFormat);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
     }
 
 }

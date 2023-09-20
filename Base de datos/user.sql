@@ -62,7 +62,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `fk_user_rol_idx` (`role_id`),
   CONSTRAINT `fk_user_rol` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +71,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Emily','Cooper','emilyinparis','emilycooper@gmail.com','80cff2a63bb4a5e1a38b354af0199580ce5394b499e00f88c83f24c5747c107207f7e3be518f3847',NULL,1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-01 19:37:28
+-- Dump completed on 2023-09-18 14:08:19

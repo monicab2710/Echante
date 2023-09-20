@@ -28,7 +28,7 @@ public class GetAllCategories {
 
     @Test
     @Tag("Smoke")
-    public void getCategories() {
+    public void getCategoriesPositive() {
         test = extent.createTest("Get de categorías Positivo");
         test.log(Status.INFO, "Inicia el test");
 

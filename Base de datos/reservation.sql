@@ -28,13 +28,13 @@ DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `time` varchar(50) NOT NULL,
-  `date` varchar(100) NOT NULL,
+  `date` date NOT NULL,
   `amount_diners` int NOT NULL,
   `message` varchar(255) DEFAULT NULL,
   `status` varchar(20) NOT NULL,
   `email_user` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (1,'20:00','2023-10-05',3,'Un comensal es vegetariano','CONFIRMED','tacosta98@gmail.com'),(2,'21:00','2023-10-11',5,'Por favor una mesa cerca de la ventana','CONFIRMED','feliciano.alonso@gmail.com'),(3,'22:00','2023-10-08',2,'Precisamos una mesa lejos de la puerta por favor','CONFIRMED','damian.pacheco@yahoo.com'),(4,'22:00','2023-09-22',10,'Reserva por un cumpleaños','CONFIRMED','sami.95@yahoo.com'),(5,'21:00','2023-09-28',6,'','CONFIRMED','javiermontes10@gmail.com');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-18 21:38:04
+-- Dump completed on 2023-09-18 14:06:54
