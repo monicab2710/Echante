@@ -39,11 +39,18 @@ const Reserve = () => {
       }
     });
   };
-  
-  if (!token) {
+
+  /* if (!token) {
     handleUnauthenticatedUser();
     return null;
-  }
+  } */
+
+  useEffect(() => {
+    // Verifica si el usuario no está autenticado y muestra la alerta
+    if (!token) {
+      handleUnauthenticatedUser();
+    }
+  });
 
   const today = new Date();
   const isMondayOrTuesday = (date) => {
@@ -128,7 +135,7 @@ const Reserve = () => {
                   amountDiners: "",
                   message: ""
                 }}
-               
+
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
