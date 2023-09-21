@@ -26,6 +26,7 @@ const Reserve = () => {
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
 
+
   const handleUnauthenticatedUser = () => {
     MySwal.fire({
       icon: "error",
@@ -100,6 +101,7 @@ const Reserve = () => {
           timerProgressBar: true,
           timer: 3000,
         })
+       
       } else {
         console.log('Error:', response.data);
       }
@@ -179,6 +181,7 @@ const Reserve = () => {
                             format="HH:mm"
                             minTime="19:00"
                             disableClock={true}
+                            name='"hora"'
                           />
                         </div>
                       </div>
@@ -196,8 +199,8 @@ const Reserve = () => {
                             value={amountDiners}
                             onChange={(e) => {
                               const inputValue = e.target.value;
-                              if (/^\d*$/.test(inputValue)) { // Verifica que solo sean dígitos
-                                setAmountDiners(inputValue); // Actualiza el estado solo si es un número válido
+                              if (/^\d+$/.test(inputValue) && inputValue >= 1 && inputValue <= 25) {
+                                setAmountDiners(inputValue);
                               }
                             }}
                             placeholder=""
