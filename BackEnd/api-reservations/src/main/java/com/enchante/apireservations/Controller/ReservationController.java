@@ -66,6 +66,14 @@ public class ReservationController {
                     "The restaurant opens from Wednesday to Sunday, with reservations from 7:00 p.m. to 11:30 p.m.");
         }
 
+        if (r.getAmountDiners() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The number of people must be greater than 0");
+        }
+
+        if (!isMessageValid(r.getMessage())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The message cannot contain more than 255 characters");
+        }
+
         AppUser userDetails = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         ReservationDTO reservation = reservationService.createReservation(r, userDetails.getEmail());
@@ -90,6 +98,14 @@ public class ReservationController {
         if (!openRestaurant) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid schedule\n" +
                     "The restaurant opens from Wednesday to Sunday, with reservations from 7:00 p.m. to 11:30 p.m.");
+        }
+
+        if (r.getAmountDiners() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The number of people must be greater than 0");
+        }
+
+        if (!isMessageValid(r.getMessage())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The message cannot contain more than 255 characters");
         }
 
         AppUser userDetails = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -269,6 +285,11 @@ public class ReservationController {
             return false;
         }
 
+    }
+
+    public Boolean isMessageValid(String message) {
+
+        return message.length() <= 255;
     }
 
 }
