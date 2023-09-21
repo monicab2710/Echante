@@ -122,7 +122,77 @@ El perfil del usuario se implementa con los datos personales y la fotografia gen
 
 ![Alt text](image-6.png) <br>
 
+### **Issue #38: **Agregar página "Nosotros"**
 
+En el footer se agrega el enlace para la página nosotros
+
+![Alt text](image-7.png) <br>
+
+### **Issue #39: **Agregar botón "Menú" en el Footer**
+
+En el footer se agrega el enlace para una siguiente página con el menú en pdf para visualaizar o descargar si asi lo desea el usuario <br>
+
+![Alt text](image-8.png) <br>
 
 ## Sprint 3
+
+### **Issue #41: **Crear template HTML tipo email para la recuperación de contraseña**
+
+Con el fin de proporcionar a los usuarios una experiencia coherente y profesional durante el proceso de recuperación de contraseña, es necesario crear un template HTML para los correos electrónicos de recuperación de contraseña. Este template debe ser diseñado tanto para ser visualmente atractivo como para brindar las instrucciones necesarias para que los usuarios puedan restablecer su contraseña de manera segura.<br>
+
+### **Issue #42: **Crear modal para la función "¿Olvidaste tu contraseña?" en la página de inicio de sesión**
+
+El modal será la ventana emergente que se mostrará cuando los usuarios hagan clic en la opción "¿Olvidaste tu contraseña?".<br>
+
+![Alt text](image-9.png)<br>
+
+### **Issue #43: **Conectar modal "¿Olvidaste tu contraseña?" con la API de Usuarios**
+
+Implementar la lógica necesaria para que al ingresar una dirección de correo electrónico y hacer clic en el botón de envío, se inicie el proceso de recuperación de contraseña en la API de Usuarios.<br>
+
+### **Issue #44: **Crear formulario de restablecimiento de contraseña**
+
+Este formulario permitirá a los usuarios ingresar y confirmar su nueva contraseña después de haber iniciado el proceso de recuperación. <br>
+
+![Alt text](image-10.png)
+
+### **Issue #45: **Conectar formulario de restablecimiento de contraseña con la API de Usuarios**
+
+Implementar la lógica necesaria para enviar los datos del formulario a la API, incluyendo la nueva contraseña y cualquier token de seguridad asociado. <br>
+
+### **Issue #47: **Cargar datos del usuario en la página de "Mi Perfil"**
+
+Se deben cargar los datos del usuario de manera dinámica. Esto se puede lograr a través de la obtención de datos desde la API de Usuarios o mediante el uso de un objeto almacenado en la Session Storage una vez que el usuario ha iniciado sesión.<br>
+
+### **Issue #54: **Agregar sección tipo Dashboard a la página de "Mi Perfil"**
+
+Crear un diseño visual atractivo y organizado que presente la información de manera clara.<br>
+
+## Sprint 4
+
+### **Issue #64: **Agregar funcionalidad al botón "Editar mis datos"**
+
+Para permitir a los usuarios editar sus propios datos en la página de "Mi Perfil", es necesario agregar funcionalidad al botón "Editar mis datos". Al hacer clic en este botón, se debe abrir un formulario o modal que permita al usuario realizar cambios en sus datos personales. Estos cambios deben ser gestionados y enviados a la API de Usuarios para su actualización.<br>
+
+### **Issue #65: **Agregar sección de "Reporte" para usuario Administrador**
+
+Desarrollar una sección de "Reporte", exclusivamente disponible para usuarios con el rol "ADMIN", que les permita generar informes personalizados sobre el historial de reservas de todos los usuarios.<br>
+
+### **Issue #66: **Agregar funcionalidad al botón "Exportar"**
+
+Desarrollar la funcionalidad para que el botón de “Exportar”, permita a los usuarios generar y descargar un archivo (PDF/CSV) que contiene su lista de reservas.<br>
+
+### **Issue #74: **Implementar página de "Términos y condiciones"**
+
+Desarrollar la página de "Términos y Condiciones". Esta página proporcionará a los usuarios información detallada sobre los términos legales y las condiciones de uso de la plataforma.<br>
+
+![Alt text](image-11.png)<br>
+
+### **Issue #75: **Implementar página de "Política de Privacidad"**
+
+Desarrollar la página de "Política de Privacidad". Esta página proporcionará a los usuarios información detallada sobre cómo se manejan y protegen sus datos personales en la plataforma.<br>
+
+![Alt text](image-12.png)
+
+
 

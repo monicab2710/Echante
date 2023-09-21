@@ -87,7 +87,7 @@ const { setUser } = useContext(UserContext)
     }
     catch (error) {
       MySwal.fire({
-        html: <strong>Tu usuario no existe. Ingresa los campos correctos.</strong>,
+        html: <strong>El correo electrónico ingresado no se encuentra registrado.</strong>,
         icon: 'warning',
       });
       console.error("Correo Incorrecto: ", error);

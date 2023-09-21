@@ -11,7 +11,20 @@ import Link from "next/link";
 const ProfilePage = () => {
   const [activeMenu, setActiveMenu] = useState("profile");
   const [selectedOption, setSelectedOption] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(1);
   const router = useRouter();
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      setSelectedOption(storedImage.includes('man') ? 1 : 2);
+    }
+  }, []);
+  
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
 
   useEffect(() => {
     const storedImage = localStorage.getItem('profileImage');
@@ -78,6 +91,7 @@ const ProfilePage = () => {
   const updateUser = () => {
     updateUserData(newUser, fireSuccess, fireError);
     localStorage.setItem('profileImage', selectedOption === 1 ? '/usuario/3d-illustration-cartoon-man-historical-baroque-costume.jpg' : '/usuarioC/3d-illustration-cute-cartoon-girl-with-french-flag.jpg');
+    localStorage.setItem('profileImage', selectedOption === 1 ? '/usuario/3d-illustration-cartoon-man-historical-baroque-costume.jpg' : '/usuarioC/3d-illustration-cute-cartoon-girl-with-french-flag.jpg');
   };
 
   useEffect(() => {
@@ -106,6 +120,8 @@ const ProfilePage = () => {
             <Link
               href="/dashboard"
               className={`mb-4 block w-full rounded p-2 ${activeMenu === "dashboard"
+                ? "bg-yellow/20 text-black"
+                : "bg-dark/10 text-left text-yellow"
                 ? "bg-yellow/20 text-black"
                 : "bg-dark/10 text-left text-yellow"
                 }`}
@@ -161,6 +177,7 @@ const ProfilePage = () => {
                         htmlFor="nombre"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
+                        Nombre
                         Nombre
                       </label>
                       <input
@@ -218,6 +235,7 @@ const ProfilePage = () => {
                     </div>
 
                     {/*                 <div className="mb-8">
+                    {/*                 <div className="mb-8">
                      <label
                         htmlFor="contrasena"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
@@ -231,6 +249,7 @@ const ProfilePage = () => {
                         value={(newUser && newUser.password) || "*******"}
                         readOnly
                       />
+                 </div>*/}
                  </div>*/}
 
                     <button

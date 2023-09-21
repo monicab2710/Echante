@@ -192,6 +192,7 @@ const Reserve = () => {
                             minTime="19:00"
                             disableClock={true}
                             name='"hora"'
+                            name='"hora"'
                           />
                         </div>
                       </div>
@@ -209,6 +210,8 @@ const Reserve = () => {
                             value={amountDiners}
                             onChange={(e) => {
                               const inputValue = e.target.value;
+                              if (/^\d+$/.test(inputValue) && inputValue >= 1 && inputValue <= 25) {
+                                setAmountDiners(inputValue);
                               if (/^\d+$/.test(inputValue) && inputValue >= 1 && inputValue <= 25) {
                                 setAmountDiners(inputValue);
                               }
