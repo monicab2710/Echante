@@ -181,6 +181,7 @@ const Reserve = () => {
                             format="HH:mm"
                             minTime="19:00"
                             disableClock={true}
+                            name='"hora"'
                           />
                         </div>
                       </div>
