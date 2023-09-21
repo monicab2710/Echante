@@ -10,7 +10,20 @@ import Link from "next/link";
 
 const ProfilePage = () => {
   const [activeMenu, setActiveMenu] = useState("profile");
+  const [selectedOption, setSelectedOption] = useState(1);
   const router = useRouter();
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      setSelectedOption(storedImage.includes('man') ? 1 : 2);
+    }
+  }, []);
+  
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
 
@@ -50,7 +63,7 @@ const ProfilePage = () => {
       color: "#EA7363",
       showConfirmButton: false,
       timerProgressBar: true,
-      timer:3000,
+      timer: 3000,
     });
   };
 
@@ -64,6 +77,7 @@ const ProfilePage = () => {
 
   const updateUser = () => {
     updateUserData(newUser, fireSuccess, fireError);
+    localStorage.setItem('profileImage', selectedOption === 1 ? '/usuario/3d-illustration-cartoon-man-historical-baroque-costume.jpg' : '/usuarioC/3d-illustration-cute-cartoon-girl-with-french-flag.jpg');
   };
 
   useEffect(() => {
@@ -92,8 +106,8 @@ const ProfilePage = () => {
             <Link
               href="/dashboard"
               className={`mb-4 block w-full rounded p-2 ${activeMenu === "dashboard"
-                  ? "bg-yellow/20 text-black"
-                  : "bg-dark/10 text-left text-yellow"
+                ? "bg-yellow/20 text-black"
+                : "bg-dark/10 text-left text-yellow"
                 }`}
             >
               Mis reservas
@@ -108,18 +122,37 @@ const ProfilePage = () => {
                       Bienvenido a Enchanté
                     </h1>
                     <br />
-                    <div
-                      className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
-                      data-wow-delay=".2s"
-                    >
-                      <Image
-                        src="/usuario/PerfilFinal.png"
-                        alt="Usuario"
-                        fill
-                        className="xl:h-20 xl:w-20 max-w-full rounded-full object-cover shadow-md md:h-40 md:w-40 lg:mr-0"
-                      />
+                    <div className="text-center">
+                      <div className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0" data-wow-delay=".2s">
+                        {selectedOption === 1 ? (
+                          <Image
+                            src="/usuario/3d-illustration-cartoon-man-historical-baroque-costume.jpg"
+                            alt="Usuario"
+                            fill
+                            className="xl:h-20 xl:w-20 max-w-full rounded-full object-cover shadow-md md:h-40 md:w-40 lg:mr-0"
+                          />
+                        ) : (
+                          <Image
+                            src="/usuario/3d-illustration-cute-cartoon-girl-with-french-flag.jpg"
+                            alt="Usuario"
+                            fill
+                            className="xl:h-20 xl:w-20 max-w-full rounded-full object-cover shadow-md md:h-40 md:w-40 lg:mr-0"
+                          />
+                        )}
+                      </div>
+                      <button
+                        onClick={() => handleOptionChange(1)}
+                        className={`mr-2 p-2 border ${selectedOption === 1 ? 'bg-yellow/20' : 'bg-white'}`}
+                      >
+                        Opción 1
+                      </button>
+                      <button
+                        onClick={() => handleOptionChange(2)}
+                        className={`p-2 border ${selectedOption === 2 ? 'bg-yellow/20' : 'bg-white'}`}
+                      >
+                        Opción 2
+                      </button>
                     </div>
-
                     <h2 className="mb-5 pt-7 text-center text-lg font-regular text-primary dark:text-yellow sm:text-3xl">
                       Perfil de Usuario
                     </h2>
@@ -128,7 +161,7 @@ const ProfilePage = () => {
                         htmlFor="nombre"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
-                        Nombre 
+                        Nombre
                       </label>
                       <input
                         type="text"
@@ -184,7 +217,7 @@ const ProfilePage = () => {
                       />
                     </div>
 
- {/*                 <div className="mb-8">
+                    {/*                 <div className="mb-8">
                      <label
                         htmlFor="contrasena"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
@@ -198,7 +231,7 @@ const ProfilePage = () => {
                         value={(newUser && newUser.password) || "*******"}
                         readOnly
                       />
-                 </div>*/}   
+                 </div>*/}
 
                     <button
                       onClick={updateUser}
