@@ -91,7 +91,7 @@ const SignupPage = () => {
           timerProgressBar: true,
           timer: 3000,
         });
-        
+        actions.resetForm();
       } else {
         console.log('Error:', response.data);
       }

@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
-
-import Link from "next/link";
-import styles from "styles/Home.module.css";
 import axiosHe from '@/app/helper/axiosHe';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import moment from 'moment';
-import { Console } from 'console';
+
+
 
 const MySwal = withReactContent(Swal);
+
+
 
 const AdminPage = () => {
   const [startDate, setStartDate] = useState(null);
@@ -84,10 +84,10 @@ const AdminPage = () => {
           ),
           icon: 'warning',
         });
-        
+
       }
     }
-  
+
     setSubmitting(false);
   };
 
@@ -102,10 +102,11 @@ const AdminPage = () => {
               </h3>
               <p className="mb-11 text-center text-base font-medium text-body-color">
               </p>
-              <Formik
+              <Formik                
                 initialValues={{
                   startDate: "",
-                  endDate: ""
+                  endDate: "",
+                  message:""
                 }}
                 onSubmit={handleSubmit}
               >

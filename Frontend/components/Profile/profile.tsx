@@ -126,7 +126,7 @@ const ProfilePage = () => {
                       <div className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0" data-wow-delay=".2s">
                         {selectedOption === 1 ? (
                           <Image
-                            src="/usuario/3d-illustration-cartoon-man-historical-baroque-costume.jpg"
+                            src="/usuario/cartoon-man-historical-baroque-costume.jpg"
                             alt="Usuario"
                             fill
                             className="xl:h-20 xl:w-20 max-w-full rounded-full object-cover shadow-md md:h-40 md:w-40 lg:mr-0"

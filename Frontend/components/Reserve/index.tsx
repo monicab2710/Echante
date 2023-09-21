@@ -12,7 +12,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import moment from "moment";
 import { UserContext } from "@/app/providers";
+
 const MySwal = withReactContent(Swal)
+
 
 const Reserve = () => {
 
@@ -25,6 +27,14 @@ const Reserve = () => {
   const [time, setTime] = useState("");
   const [amountDiners, setAmountDiners] = useState("");
   const [message, setMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 10) {
+      setMessage(inputValue);
+    }
+  };
+
 
 
   const handleUnauthenticatedUser = () => {
@@ -99,9 +109,9 @@ const Reserve = () => {
           color: "#EA7363",
           showConfirmButton: false,
           timerProgressBar: true,
-          timer: 3000,
+          timer: 2000,
         })
-       
+        actions.resetForm();
       } else {
         console.log('Error:', response.data);
       }
@@ -133,11 +143,11 @@ const Reserve = () => {
                 Reserva en Enchanté
               </h2>
               <Formik
+
                 initialValues={{
                   amountDiners: "",
                   message: ""
                 }}
-
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
@@ -218,11 +228,14 @@ const Reserve = () => {
                           </label>
                           <textarea
                             name="message"
-                            onChange={(e) => setMessage(e.target.value)}
+                            onChange={handleInputChange}
                             rows={5}
                             placeholder="Envíanos un mensaje"
                             className="w-full resize-none rounded-md border border-transparent py-3 px-6 text-base text-black dark:text-yellow placeholder-black/[70%] dark:placeholder-yellow/[70%] shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0D263B] dark:shadow-signUp"
                           ></textarea>
+                          <ErrorMessage name="message" component="div" className="text-white-500" />
+
+
                         </div>
                       </div>
                       <div className="w-full px-4">
