@@ -14,13 +14,17 @@ import { useRouter } from "next/navigation";
 const validationSchema = Yup.object({
 
     password: Yup.string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .required("Campo requerido"),
-    confirmpassword: Yup.string()
-        .min(6, "La contraseña debe tener los mismos caracteres")
-        .required("Campo requerido")
-        .oneOf([Yup.ref("password"), null], "la contraseña no coincide"),
-
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .max(12, "La contraseña no puede tener más de 12 caracteres")
+    .matches(/\d/, "La contraseña debe tener al menos un número")
+    .matches(/[A-Z]/, "La contraseña debe tener al menos una letra mayúscula")
+    .matches(/[@#$%^&*()_+!¡¿?~-]/, "La contraseña debe tener al menos un caracter especial")
+    .required("Campo requerido"),
+  confirmpassword: Yup.string()
+    .min(6, "Las contraseñas deben tener los mismos caracteres")
+    .required("Campo requerido")
+    .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
+    
 })
 
 const alertPassword = Swal.mixin({
@@ -88,7 +92,7 @@ const PasswordReset = () => {
             alertPassword.fire(
                 {
                     icon: "warning",
-                    title: "No se pudo cambiar la contraseña"
+                    title: "El enlace de restablecimiento de contraseña ha caducado"
                 }
             )
 
