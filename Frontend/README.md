@@ -162,18 +162,37 @@ Implementar la lógica necesaria para enviar los datos del formulario a la API, 
 
 ### **Issue #47: **Cargar datos del usuario en la página de "Mi Perfil"**
 
-
+Se deben cargar los datos del usuario de manera dinámica. Esto se puede lograr a través de la obtención de datos desde la API de Usuarios o mediante el uso de un objeto almacenado en la Session Storage una vez que el usuario ha iniciado sesión.<br>
 
 ### **Issue #54: **Agregar sección tipo Dashboard a la página de "Mi Perfil"**
+
+Crear un diseño visual atractivo y organizado que presente la información de manera clara.<br>
 
 ## Sprint 4
 
 ### **Issue #64: **Agregar funcionalidad al botón "Editar mis datos"**
+
+Para permitir a los usuarios editar sus propios datos en la página de "Mi Perfil", es necesario agregar funcionalidad al botón "Editar mis datos". Al hacer clic en este botón, se debe abrir un formulario o modal que permita al usuario realizar cambios en sus datos personales. Estos cambios deben ser gestionados y enviados a la API de Usuarios para su actualización.<br>
+
 ### **Issue #65: **Agregar sección de "Reporte" para usuario Administrador**
+
+Desarrollar una sección de "Reporte", exclusivamente disponible para usuarios con el rol "ADMIN", que les permita generar informes personalizados sobre el historial de reservas de todos los usuarios.<br>
+
 ### **Issue #66: **Agregar funcionalidad al botón "Exportar"**
+
+Desarrollar la funcionalidad para que el botón de “Exportar”, permita a los usuarios generar y descargar un archivo (PDF/CSV) que contiene su lista de reservas.<br>
+
 ### **Issue #74: **Implementar página de "Términos y condiciones"**
+
+Desarrollar la página de "Términos y Condiciones". Esta página proporcionará a los usuarios información detallada sobre los términos legales y las condiciones de uso de la plataforma.<br>
+
+![Alt text](image-11.png)<br>
+
 ### **Issue #75: **Implementar página de "Política de Privacidad"**
 
+Desarrollar la página de "Política de Privacidad". Esta página proporcionará a los usuarios información detallada sobre cómo se manejan y protegen sus datos personales en la plataforma.<br>
 
-### **Issue #: ****
+![Alt text](image-12.png)
+
+
 
