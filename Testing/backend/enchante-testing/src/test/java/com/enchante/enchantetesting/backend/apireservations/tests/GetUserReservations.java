@@ -24,7 +24,7 @@ public class GetUserReservations {
     }
 
 
-    String reservationURL = "http://localhost:8087/api/v1/reservations/my-reservations?email=";
+    String reservationsURL = "http://localhost:8087/api/v1/reservations/my-reservations?email=";
 
     @Test
     @Tag("Smoke")
@@ -32,8 +32,8 @@ public class GetUserReservations {
         test = extent.createTest("Get de Reserva por Usuario Positivo");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationEmail = "cfoster@mail.com";
-        Response response = get(reservationURL+reservationEmail);
+        String reservationsEmail = "cfoster@mail.com";
+        Response response = get(reservationsURL+reservationsEmail);
 
         int statusCode = response.getStatusCode();
         System.out.println("Response status is: " + statusCode);
@@ -53,8 +53,8 @@ public class GetUserReservations {
         test = extent.createTest("Get de Reserva Negativo - User has no reservations");
         test.log(Status.INFO, "Inicia el test");
 
-        String reservationEmail = "radams@mail.com";
-        Response response = get(reservationURL+reservationEmail);
+        String reservationsEmail = "radams@mail.com";
+        Response response = get(reservationsURL+reservationsEmail);
 
         int statusCode = response.getStatusCode();
         System.out.println("Response status is: " + statusCode);
