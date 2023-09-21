@@ -138,7 +138,7 @@ public class PostUser_SignIn {
         assertTrue(payload.contains("role"));
         assertTrue(payload.contains("ROLE_USER"));
 
-        test.log(Status.PASS, "Validación de la inclusión del rol del usuario en la firma del JWT al autenticarse");
+        test.log(Status.PASS, "Validación de la inclusión del rol del usuario (ROLE_USER) en la firma del JWT al autenticarse");
         test.log(Status.INFO, "Finaliza el test");
     }
 
@@ -172,7 +172,7 @@ public class PostUser_SignIn {
         assertTrue(payload.contains("role"));
         assertTrue(payload.contains("ROLE_ADMIN"));
 
-        test.log(Status.PASS, "Validación de la inclusión del rol del usuario administrador en la firma del JWT al autenticarse");
+        test.log(Status.PASS, "Validación de la inclusión del rol del usuario administrador (ROLE_ADMIN) en la firma del JWT al autenticarse");
         test.log(Status.INFO, "Finaliza el test");
     }
 
